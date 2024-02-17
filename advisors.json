@@ -1,0 +1,28 @@
+[
+  {
+    "id": "",
+    "type": "Advisor",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jdoe@email.sc.edu",
+    "password": "hbuwerfkj",
+    "studentList": [
+        {"studentId": ""},
+        {"studentId": ""},
+        {"studentId": ""}
+    ]
+  },
+  {
+    "id": "",
+    "type": "Advisor",
+    "firstName": "Jenny",
+    "lastName": "Day",
+    "email": "jenny@email.sc.edu",
+    "password": "hdjfkj",
+    "studentList": [
+        {"studentId": ""},
+        {"studentId": ""},
+        {"studentId": ""}
+    ]
+  }
+]
