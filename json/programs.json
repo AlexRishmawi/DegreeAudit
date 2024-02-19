@@ -4,15 +4,9 @@
     "type": "Major",
     "subject": "Computer Science",
     "courses" : [
-      {
-        "id": "022a6993-b557-4233-b0aa-2ac744d4527e"
-      },
-      {
-        "id": "7785a230-c390-423c-bcf8-258d9c783bc1"
-      },
-      {
-        "id": "3235925e-aac1-4a23-8b9b-71222a4df5c1"
-      }
+        "022a6993-b557-4233-b0aa-2ac744d4527e",
+        "7785a230-c390-423c-bcf8-258d9c783bc1",
+        "3235925e-aac1-4a23-8b9b-71222a4df5c1",
     ],
     "creditsRequired": 120
   },
@@ -21,15 +15,9 @@
     "type": "Minor",
     "subject": "Mathematics",
     "courses" : [
-      {
-        "id": "7ac0089c-a0e9-4c92-aca6-b555801a1976"
-      },
-      {
-        "id": "83a8b749-d86a-4cf8-b2ba-f5605559321d"
-      },
-      {
-        "id": "144aab10-4342-4b36-a501-471c5f86da30"
-      }
+        "7ac0089c-a0e9-4c92-aca6-b555801a1976",
+        "83a8b749-d86a-4cf8-b2ba-f5605559321d",
+        "144aab10-4342-4b36-a501-471c5f86da30",
     ],
     "creditsRequired": 18
   }
