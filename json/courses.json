@@ -1,0 +1,69 @@
+[
+    {
+        "id": 1,
+        "courseName": "Intro to Computer Science",
+        "department": "Computer Science",
+        "code": "CSCE101",
+        "creditHours": 3,
+        "semesterOffer": ["Spring", "Fall", "Summer"],
+        "prerequisite": "None",
+        "description": "History, application, and social impact of computers; problem-solving, algorithm development, applications software, and programming in a procedural language. Open to all majors.",
+        "gradeToPass": "C",
+        "courseGrade:": "A"
+    }, {
+        "id": 2,
+        "courseName": "Data Structures and Algorithms",
+        "department": "Computer Science",
+        "code": "CSCE350",
+        "creditHours": 3,
+        "semesterOffer": ["Spring", "Fall", "Summer"],
+        "prerequisite": ["CSCE240", "MATH174 or MATH374 or MATH574"],
+        "description": "Techniques for representing and processing information, including the use of lists, trees, and graphs; analysis of algorithms; sorting, searching, and hashing techniques.",
+        "gradeToPass": "C",
+        "courseGrade:": "B"
+    }, {
+        "id": 3,
+        "courseName": "Algorithmic Design I",
+        "department": "Computer Science",
+        "code": "CSCE145",
+        "creditHours": 4,
+        "semesterOffer": ["Spring", "Fall", "Summer"],
+        "prerequisite": "MATH111 or MATH115",
+        "description": "Problem-solving, algorithmic design, and programming. Two lecture hours and four laboratory hours per week. Open to all majors.",
+        "gradeToPass": "C",
+        "courseGrade:": "B+"
+    }, {
+        "id": 4,
+        "courseName": "Calculus I",
+        "department": "Mathematics",
+        "code": "MATH141",
+        "creditHours": 4,
+        "semesterOffer": ["Spring", "Fall", "Summer"],
+        "prerequisite": ["MATH111 or MATH112 or MATH115 or Placement Test"],
+        "description": "Functions, limits, derivatives, introduction to integrals, the Fundamental Theorem of Calculus, applications of derivatives and integrals. Four classroom hours and one laboratory hour per week.",
+        "gradeToPass": "C",
+        "courseGrade:": "B"
+    }, {
+        "id": 5,
+        "courseName": "Calculus II",
+        "department": "Mathematics",
+        "code": "MATH142",
+        "creditHours": 4,
+        "semesterOffer": ["Spring", "Fall", "Summer"],
+        "prerequisite": "MATH141",
+        "description": "Methods of integration, sequences and series, approximations. Four classroom hours and one laboratory hour per week.",
+        "gradeToPass": "C",
+        "courseGrade:": "A"
+    }, {
+        "id": 6,
+        "courseName": "Vector Calculus",
+        "department": "Mathematics",
+        "code": "MATH241",
+        "creditHours": 3,
+        "semesterOffer": ["Spring", "Fall", "Summer"],
+        "prerequisite": "MATH241",
+        "description": "Vector algebra, geometry of three-dimensional space; lines, planes, and curves in space; polar, cylindrical, and spherical coordinate systems; partial differentiation, max-min theory; multiple and iterated integration, line integrals, and Green’s theorem in the plane.",
+        "gradeToPass": "C",
+        "courseGrade:": "A"
+    }
+]

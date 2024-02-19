@@ -1,36 +1,36 @@
 [
   {
-    "id": "",
+    "id": 12,
     "type": "Student",
     "firstName": "Bob",
     "lastName": "Smith",
     "email": "bobsmith@email.sc.edu",
     "password": "password",
     "classification": "FRESHMAN",
-    "advisor-id": "",
+    "advisor-id": 7,
     "notes": [
       "Bob is a great student",
       "Bob is a hard worker",
       "Bob should consider taking more classes next semester"
     ],
-    "degree-id": "",
+    "degree-id": 9,
     "instituteGPA": 3.5,
     "programGPA": 3.0
   }, {
-    "id": "",
+    "id": 11,
     "type": "Student",
     "firstName": "Jane",
     "lastName": "Doe",
     "email": "janedoe@email.sc.edu",
     "password": "hello",
     "classification": "SOPHOMORE",
-    "advisor-id": "",
+    "advisor-id": 8,
     "notes": [
       "Jane is a great student",
       "Jane is a hard worker",
       "Jane should consider taking more classes next semester"
     ],
-    "degree-id": "",
+    "degree-id": 10,
     "instituteGPA": 4.0,
     "programGPA": 3.5
   }
