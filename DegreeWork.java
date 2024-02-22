@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class System {
+public class DegreeWork {
     private UserList userList;
     private CourseList courseList;
     private ProgramList programList;
