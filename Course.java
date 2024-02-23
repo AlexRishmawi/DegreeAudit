@@ -18,8 +18,8 @@ public class Course {
      * @return 
      */
     public Course(UUID id, String courseName, int creditHours, Season semesterOffer, String
-    department, int courseCode, ArrayList<Course> prerequisites, String description, String gradetoPass = "N") {
-
+    department, int courseCode, ArrayList<Course> prerequisites, String description, String gradetoPass) {
+=
     }
 
     /**
@@ -27,15 +27,15 @@ public class Course {
      * @return int
      */
     public int getID() {
-
+        return 0;
     }
 
     /**
      * Gets the name of the course
      * @return int
      */
-    public int getName() {
-
+    public String getName() {
+        return null;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Course {
      * @return String
      */
     public String getAbbr() { //Depart + code
-
+        return null;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Course {
      * @return int
      */
     public int getCredit() {
-
+        return 0;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Course {
      * @return ArrayList<Season>
      */
     public ArrayList<Season> getSemesterOffer() {
-
+        return null;
     }
 
     /**
@@ -83,7 +83,7 @@ public class Course {
      * @return ArrayList<ArrayList<Object>>
      */
     public ArrayList<ArrayList<Object>> getPrerequisites() {
-
+        return null;
     }
 
     /**
@@ -91,7 +91,7 @@ public class Course {
      * @return boolean
      */
     public boolean checkPrerequisites() {
-
+        return false;
     }
 
     /**
@@ -106,7 +106,7 @@ public class Course {
      * @return String
      */
     public String getDescription() {
-
+        return null;
     }
 
     /**
@@ -114,7 +114,7 @@ public class Course {
      * @return String
      */
     public String toString() {
-        
+        return null;
     }
 
 }
