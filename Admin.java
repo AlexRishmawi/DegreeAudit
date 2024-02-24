@@ -1,13 +1,19 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
-public class Admin {
-    private ArrayList<String> userList;
-    private ArrayList<String> courseList;
+public class Admin extends User implements editableUser {
+    private ArrayList<Advisor> advisorList;
+    private ArrayList<Course> courseList;
 
-    public Admin(String firstName, String lastName, String password){
+    public Admin(String firstName, String lastName, String email, String password){
+        super(firstName, lastName, email, password);
+    }
 
+    public Admin(UUID id, String firstName, String lastName, String email, String password, ArrayList<Advisor> advisorList) {
+        super(id, firstName, lastName, email, password);
+        this.advisorList = advisorList;
     }
 
     public boolean addCourse(String courseName, String department, int code, int creditHours, ArrayList<Season> semesterOffer, ArrayList<HashMap<Course, String>> prerequisites, String description, char gradeToPass, String courseGrade){

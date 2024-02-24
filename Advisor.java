@@ -1,14 +1,21 @@
 
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class Advisor {
+public class Advisor extends User {
     private ArrayList<Student> studentList;
     private Student currentStudent;
 
     public Advisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList){
-
+        super(firstName, lastName, email, password);
+        this.studentList = studentList;
     }
 
+    public Advisor(UUID id, String firstName, String lastName, String email, String password, ArrayList<Student> studentList) {
+        super(id, firstName, lastName, email, password);
+        this.studentList = studentList;
+    }
+    
     public void setCurrentStudent(String id){
 
     }

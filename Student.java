@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Student {
+public class Student extends User {
     private ClassLevel classification;
     private Advisor advisor;
     private ArrayList<String> notes;

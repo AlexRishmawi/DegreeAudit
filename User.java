@@ -11,7 +11,6 @@ public class User {
      * Constructor for User to be created by an admin
      * @return
      */
-
     public User(String firstName, String lastName, String email, String password) {
         this.id = UUID.randomUUID();
         this.firstName = firstName;
@@ -118,7 +117,7 @@ public class User {
      * @return
      */
     public String toString() {
-        return " Name: " + firstName + " " + lastName + " Email: " + email;
+        return "Name: " + firstName + " " + lastName + "\n- Email: " + email + "\n- Password: " + password;
     }
 
     /**
