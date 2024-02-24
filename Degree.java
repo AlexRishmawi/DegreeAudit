@@ -1,5 +1,3 @@
-package DegreeClass;
-
 import java.util.ArrayList;
 /**
  * 

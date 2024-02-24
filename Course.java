@@ -19,7 +19,7 @@ public class Course {
      */
     public Course(UUID id, String courseName, int creditHours, Season semesterOffer, String
     department, int courseCode, ArrayList<Course> prerequisites, String description, String gradetoPass) {
-=
+
     }
 
     /**
