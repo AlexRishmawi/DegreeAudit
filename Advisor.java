@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Advisor extends User {
+public class Advisor extends User implements editableUser {
     private ArrayList<Student> studentList;
     private Student currentStudent;
 
