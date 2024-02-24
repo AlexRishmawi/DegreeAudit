@@ -11,8 +11,12 @@ public class User {
      * Constructor for User
      * @return
      */
-    public User(UUID, id, String firstName, String lastName, String email, String password) {
-
+    public User(UUID id, String firstName, String lastName, String email, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
     /**
@@ -20,7 +24,7 @@ public class User {
      * @return
      */
     public UUID getID() {
-
+        return id;
     }
 
     /**
@@ -28,7 +32,7 @@ public class User {
      * @return
      */
     public UserType getUserType() {
-
+        return type;
     }
 
     /**
@@ -36,7 +40,7 @@ public class User {
      * @return
      */
     public String getFirstName() {
-
+        return firstName;
     }
 
     /**
@@ -44,7 +48,7 @@ public class User {
      * @param firstName
      */
     public void setFirstName(String firstName) {
-
+        this.firstName = firstName;
     }
 
     /**
@@ -52,15 +56,15 @@ public class User {
      * @return
      */
     public String getLastName() {
-
+        return lastName;
     }
 
     /**
      * Sets the last name of the user
      * @param lastName
      */
-    public void setLastName() {
-
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -68,7 +72,7 @@ public class User {
      * @return
      */
     public String getEmail() {
-
+        return email;
     }
 
     /**
@@ -76,7 +80,7 @@ public class User {
      * @param email
      */
     public void setEmail(String email) {
-
+        this.email = email;
     }
 
     /**
@@ -84,7 +88,7 @@ public class User {
      * @return
      */
     public String getPassword() {
-
+        return password;
     }
 
     /**
@@ -92,7 +96,7 @@ public class User {
      * @param password
      */
     public void setPassword(String password) {
-
+        this.password = password;
     }
 
     /**
@@ -100,7 +104,7 @@ public class User {
      * @return
      */
     public String toString() {
-
+        return " Name: " + firstName + " " + lastName + " Email: " + email;
     }
 
     /**
@@ -108,7 +112,10 @@ public class User {
      * @return
      */
     public boolean isStudent() {
-        
+        if(this.type == UserType.STUDENT) {
+            return true;
+        }
+        return false;
     }
 }
 
