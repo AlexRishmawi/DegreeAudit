@@ -132,4 +132,3 @@ public class User {
         return false;
     }
 }
-
