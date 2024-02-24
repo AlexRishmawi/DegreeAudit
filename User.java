@@ -8,7 +8,21 @@ public class User {
     private String password;
 
     /**
-     * Constructor for User
+     * Constructor for User to be created by an admin
+     * @return
+     */
+
+    public User(String firstName, String lastName, String email, String password) {
+        this.id = UUID.randomUUID();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.type = UserType.STUDENT;
+    }
+
+    /**
+     * Constructor for User importing data from the database
      * @return
      */
     public User(UUID id, String firstName, String lastName, String email, String password) {
