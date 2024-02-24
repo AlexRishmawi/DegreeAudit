@@ -1,0 +1,14 @@
+[
+    {
+      "id": "f3d56535-d4b1-4f9a-aa03-91a1c8816216",
+      "type": "Admin",
+      "firstName": "Bruh",
+      "lastName": "lol",
+      "email": "blol@email.sc.edu",
+      "password": "heheheheh",
+      "advisorList": [
+          "a6e0a427-72fd-490d-85df-5933c0ddb081",
+          "4046d211-632f-4428-96c2-71f41afd05f8"
+      ]
+    }
+]
