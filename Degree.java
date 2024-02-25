@@ -17,11 +17,12 @@ public class Degree {
 
     // Course Generator
     private Semester currentSemester;
+    private int currentYear;
     private ArrayList<Semester> allSemesters;
 
     public Degree(String degreeType, String subjectName, ArrayList<Program> programs, 
     int totalCreditRequired, ArrayList<Course> totalCoursesRequired, ArrayList<Course> completeCourses, 
-    int completeCredit, Semester currentSemester, ArrayList<Course> recomendedSemCourses, 
+    int completeCredit, Semester currentSemester, int currentYear,
     ArrayList<Semester> allSemesters) {
         
     }

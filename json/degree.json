@@ -1,0 +1,71 @@
+[
+    {
+        "programs": [
+            {
+                "programName": "Program 1",
+                "programID": 1
+            },
+            {
+                "programName": "Program 2",
+                "programID": 2
+            }
+        ],
+        "totalCreditRequired": 120,
+        "totalCoursesRequired": [
+            {
+                "courseName": "Course 1",
+                "courseID": 1
+            },
+            {
+                "courseName": "Course 2",
+                "courseID": 2
+            }
+        ],
+        "subjectName": "Computer Science",
+        "degreeType": "Bachelor",
+        "completeCourse" : [
+            {
+                "courseName": "Course 1",
+                "courseID": 1
+            },
+            {
+                "courseName": "Course 2",
+                "courseID": 2
+            }
+        ],
+        "completeCredit": 50,
+        "currentSemester": "Spring",
+        "currentYear": 2021,
+        "all Semesters": [
+            {
+                "semesterName": "Spring",
+                "semesterYear": 2021,
+                "courses": [
+                    {
+                        "courseName": "Course 1",
+                        "courseID": 1
+                    },
+                    {
+                        "courseName": "Course 2",
+                        "courseID": 2
+                    }
+                ]
+            },
+            {
+                "semesterName": "Fall",
+                "semesterYear": 2021,
+                "courses": [
+                    {
+                        "courseName": "Course 1",
+                        "courseID": 1
+                    },
+                    {
+                        "courseName": "Course 2",
+                        "courseID": 2
+                    }
+                ]
+            }
+        ],
+
+    }
+]

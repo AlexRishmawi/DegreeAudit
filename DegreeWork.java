@@ -7,7 +7,7 @@ public class DegreeWork {
     private ProgramList programList;
     private User currentUser;
 
-    public System() {}
+    public DegreeWork() {}
 
     // -------- User Method -------- 
     public boolean login(String uscID, String password) {
