@@ -33,11 +33,11 @@ public class Student extends User {
         if(level.equalsIgnoreCase("freshman")) {
             this.classification = ClassLevel.FRESHMAN;
         } else if(level.equalsIgnoreCase("sophomore")) {
-            this.classification = ClassLevel.FRESHMAN;
+            this.classification = ClassLevel.SOPHOMORE;
         } else if(level.equalsIgnoreCase("junior")) {
-            this.classification = ClassLevel.FRESHMAN;
+            this.classification = ClassLevel.JUNIOR;
         } else if(level.equalsIgnoreCase("senior")) {
-            this.classification = ClassLevel.FRESHMAN;
+            this.classification = ClassLevel.SENIOR;
         } else {
             System.err.println("ERROR --- Couldn't define student classification");
         }
