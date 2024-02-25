@@ -13,7 +13,9 @@ import org.json.simple.parser.JSONParser;
 
 public class testing {
     public static void main(String[] args) {
-        UUID newType = UUID.randomUUID();
-        System.out.println(newType);
+        ArrayList<User> user = DataReader.loadUser();
+        for(User ok: user) {
+            System.out.println(ok);
+        }
     }
 }
