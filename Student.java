@@ -75,9 +75,9 @@ public class Student extends User {
 
     public String printNotes() {
         StringBuilder result = new StringBuilder();
-        result.append("[\n")
+        result.append("[\n");
         for(String note: notes) {
-            result.append("      " + note + "\n")
+            result.append("      " + note + "\n");
         }
         result.append("\n]");
         return result.toString();
