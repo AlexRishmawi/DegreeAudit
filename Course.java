@@ -1,120 +1,64 @@
 import java.util.UUID;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 public class Course {
     private UUID id;
     private String courseName;
     private String department;
-    private int code;
+    private String code;
     private int creditHours;
     private ArrayList<Season> semesterOffer;
-    private ArrayList<HashMap<Course,String>> prerequisites;
+    private ArrayList<Course> prerequisites;
     private String description;
-    private char gradeToPass;
-    private String courseGrade;
+    private String gradeToPass;
 
-    /**
-     * Constructor for Course
-     * @return 
-     */
-    public Course(UUID id, String courseName, int creditHours, Season semesterOffer, String
-    department, int courseCode, ArrayList<Course> prerequisites, String description, String gradetoPass) {
-
+    public Course(String courseName, int creditHours, ArrayList<Season> semesterOffer, 
+                    String department, String courseCode, ArrayList<Course> prerequisites, 
+                    String description, String gradetoPass)
+    {
+        setCourseName(courseName);
+        setDepartment(department);
+        setCode(courseCode);
+        setCreditHours(creditHours);
+        setSemesterOffer(semesterOffer);
+        setPrerequisites(prerequisites);
+        setDescription(description);
+        setGradeToPass(gradetoPass);
     }
 
-    /**
-     * Gets the ID of the course
-     * @return int
-     */
-    public int getID() {
-        return 0;
+    public Course(UUID id, String courseName, int creditHours, ArrayList<Season> semesterOffer, 
+                    String department, String courseCode, ArrayList<Course> prerequisites, 
+                    String description, String gradetoPass) 
+    {
+        setID(id);
+        setCourseName(courseName);
+        setDepartment(department);
+        setCode(courseCode);
+        setCreditHours(creditHours);
+        setSemesterOffer(semesterOffer);
+        setPrerequisites(prerequisites);
+        setDescription(description);
+        setGradeToPass(gradetoPass);
     }
 
-    /**
-     * Gets the name of the course
-     * @return int
-     */
-    public String getName() {
-        return null;
-    }
+    public void setID(UUID id) { this.id = id; }
+    public void setCourseName(String name) { this.courseName = name; }
+    public void setDepartment(String department) { this.department = department; }
+    public void setCode(String code) { this.code = code; }
+    public void setCreditHours(int credit) { this.creditHours = credit; }
+    public void setSemesterOffer(ArrayList<Season> season) { this.semesterOffer = season;}
+    public void setPrerequisites(ArrayList<Course> courses) { this.prerequisites = courses;}
+    public void setDescription(String description) { this.description = description;}
+    public void setGradeToPass(String grade) { this.gradeToPass = grade;}
 
-    /**
-     * Sets the name of the course
-     * @param name
-     */
-    public void setName(String name) {
-
-    }
-
-    /**
-     * Gets the Abbreviation of the course
-     * @return String
-     */
-    public String getAbbr() { //Depart + code
-        return null;
-    }
-
-    /**
-     * Sets the course code
-     * @param code
-     */
-    public void setCode(int code) {
-
-    }
-
-    /**
-     * Gets the course credit hours
-     * @return int
-     */
-    public int getCredit() {
-        return 0;
-    }
-
-    /**
-     * gets the semester the course is offered
-     * @return ArrayList<Season>
-     */
-    public ArrayList<Season> getSemesterOffer() {
-        return null;
-    }
-
-    /**
-     * Gets the prerequisites of the course
-     * @return ArrayList<ArrayList<Object>>
-     */
-    public ArrayList<ArrayList<Object>> getPrerequisites() {
-        return null;
-    }
-
-    /**
-     * Checks the prerequisites of the course
-     * @return boolean
-     */
-    public boolean checkPrerequisites() {
-        return false;
-    }
-
-    /**
-     * Prints the prerequisites of the course
-     */
-    public void printPrerequisites() {
-
-    }
-
-    /**
-     * Gets the description of the course
-     * @return String
-     */
-    public String getDescription() {
-        return null;
-    }
-
-    /**
-     * String representation of the course
-     * @return String
-     */
-    public String toString() {
-        return null;
-    }
+    public UUID getID() { return this.id; }
+    public String getCourseName() { return this.courseName; }
+    public String getDepartment() { return this.department; }
+    public String getCode() { return this.code; }
+    public int getCreditHours() { return this.creditHours; }
+    public ArrayList<Season> getSemesterOffer() { return this.semesterOffer; }
+    public ArrayList<Course> getPrerequisites() { return this.prerequisites; }
+    public String getDescription() { return this.description; }
+    public String getGradeToPass() { return this.gradeToPass; }
 
 }
