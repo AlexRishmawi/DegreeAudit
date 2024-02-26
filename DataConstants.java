@@ -16,10 +16,10 @@ public class DataConstants {
     protected static final String STUDENT_PASSWORD = "password";
     protected static final String STUDENT_CLASSIFICATION = "classification";
     protected static final String STUDENT_ADVISOR_ID = "advisor-id";
-    protected static final ArrayList<String> STUDENT_NOTES = new ArrayList<String>();
+    protected static final String STUDENT_NOTES = "notes";
     protected static final String STUDENT_DEGREE_ID = "degree-id";
-    protected static final double STUDENT_INSTITUTE_GPA = 0.0;
-    protected static final double STUDENT_PROGRAM_GPA = 0.0;
+    protected static final String STUDENT_INSTITUTE_GPA = "0.0";
+    protected static final String STUDENT_PROGRAM_GPA = "0.0";
 
     // Course Constants
     protected static final String COURSE_FILE_NAME = "./json/courses.json";
