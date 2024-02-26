@@ -6,6 +6,10 @@ public class Advisor extends User implements editableUser {
     private ArrayList<Student> studentList;
     private Student currentStudent;
 
+    public Advisor(String firstName, String lastName, String email, String password) {
+        super(firstName, lastName, email, password);
+    }
+
     public Advisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList){
         super(firstName, lastName, email, password);
         this.studentList = studentList;
@@ -16,19 +20,105 @@ public class Advisor extends User implements editableUser {
         this.studentList = studentList;
     }
     
-    public void setCurrentStudent(String id){
+    public void addStudent(Student student) { this.studentList.add(student); }
 
+    public boolean removeStudent(Student student) {
+        for(int i = 0; i < this.studentList.size(); i++) {
+            if(student.equals(this.studentList.get(i))) {
+                studentList.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void addProgram(Program program){
-        
+    public void setCurrentStudent(UUID id) {
+        this.currentStudent = findUser(id);
     }
 
-    public void removeProgram(Program program){
-
+    public void addStudentProgram(UUID id, Program program) {
+        Student student = this.findUser(id);
+        if(student == null) {
+            return;
+        }
+        Degree temp = student.getDegree();
+        temp.addProgram(program);
+        student.setDegree(temp);
     }
 
-    public void addNotes(String note){
-        
+    public void removeStudentProgram(UUID id, Program program) {
+        Student student = this.findUser(id);
+        if(student == null) {
+            return;
+        }
+        Degree temp = student.getDegree();
+        temp.removeProgram(program.getID());
+        student.setDegree(temp);
+    }
+
+    public Student findUser(UUID id) {
+        if(this.studentList.size() == 0) {
+            System.out.println("WARN --- Advisor have empty student list");
+            return null;
+        }
+
+        for(int i = 0; i < this.studentList.size(); i++) {
+            if(this.studentList.get(i).getID().equals(id)) {
+                return this.studentList.get(i);
+            }
+        }
+        System.out.println("WARN --- not found student in Advisor's student list");
+        return null;
+    }
+
+    public boolean editUserFirstName(UUID id, String name) {
+        Student student = findUser(id);
+        if(student == null)
+            return false;
+        student.setFirstName(name);
+        return true;
+    }
+
+    public boolean editUserLastName(UUID id, String name) {
+        Student student = findUser(id);
+        if(student == null)
+            return false;
+        student.setLastName(name);
+        return true;
+    }
+    public boolean editUserEmail(UUID id, String email) {
+        Student student = findUser(id);
+        if(student == null)
+            return false;
+        student.setEmail(email);
+        return true;
+    }
+    public boolean editUserUSCID(UUID id, UUID newID) {
+        Student student = findUser(id);
+        if(student == null)
+            return false;
+        student.setID(newID);
+        return true;
+    }
+
+    public boolean editUserPassword(UUID id, String newPassword) {
+        Student student = findUser(id);
+        if(student == null)
+            return false;
+        student.setPassword(newPassword);
+        return true;
+    }
+
+    public boolean deleteUser(UUID id) {
+        Student student = findUser(id);
+        if(student == null)
+            return false;
+        for(int i = 0; i < this.studentList.size(); i++) {
+            if(this.studentList.get(i).getID().equals(id)) {
+                this.studentList.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 }

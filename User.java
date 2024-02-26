@@ -41,6 +41,14 @@ public class User {
     }
 
     /**
+     * Sets the ID of the user
+     * @return
+     */
+    public void setID(UUID id) {
+        this.id = id;
+    }
+
+    /**
      * Returns the type of user
      * @return
      */
@@ -129,5 +137,14 @@ public class User {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Compare 2 User object
+     * @param User
+     * @return boolean
+     */
+    public boolean equals(User user) {
+        return user.getID().equals(this.id);
     }
 }

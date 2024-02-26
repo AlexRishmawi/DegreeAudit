@@ -41,21 +41,11 @@ public class Program {
         this.creditRequire = totalCredits;
     }
 
-    public ProgramType getType() {
-        return this.type;
-    }
-
-    public String getSubject() {
-        return this.subject;
-    }
-
-    public ArrayList<Course> getCourse() {
-        return this.courses;
-    }
-
-    public int getCredit() {
-        return this.creditRequire;
-    }
+    public UUID getID() { return this.id; }
+    public ProgramType getType() { return this.type; }
+    public String getSubject() { return this.subject; }
+    public ArrayList<Course> getCourse() { return this.courses; }
+    public int getCredit() { return this.creditRequire; }
 
     public String toString() {
         return "";
