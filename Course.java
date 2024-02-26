@@ -61,4 +61,5 @@ public class Course {
     public String getDescription() { return this.description; }
     public String getGradeToPass() { return this.gradeToPass; }
 
+    public boolean equals(Course course) { return this.id.equals(course.getID()); }
 }
