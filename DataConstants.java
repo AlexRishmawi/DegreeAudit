@@ -6,6 +6,20 @@
 
 public abstract class DataConstants {
 
+    //Degree Constants
+    protected static final String DEGREE_FILE_NAME = "./json/degree.json";
+    protected static final String DEGREE_PROGRAM_LIST = "programList";
+    protected static final String DEGREE_ID = "id";
+    protected static final String DEGREE_TOTAL_CREDIT_REQUIRED = "totalCreditRequired";
+    protected static final String DEGREE_TOTAL_COURSES_REQUIRED = "totalCoursesRequired";
+    protected static final String DEGREE_SUBJECT_NAME = "subjectName";
+    protected static final String DEGREE_TYPE = "degreeType";
+    protected static final String DEGREE_COMPLETED_COURSES = "completeCourse";
+    protected static final String DEGREE_COMPLETED_CREDITS = "completeCredit";
+    protected static final String DEGREE_CURRENT_SEMESTER = "currentSemester";
+    protected static final String DEGREE_CURRENT_YEAR = "currentYear";
+    protected static final String DEGREE_ALL_SEMESTERS = "allSemesters";
+
     // Course Constants
     protected static final String COURSE_FILE_NAME = "./json/course.json";
     protected static final String COURSE_ID = "id";
