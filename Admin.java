@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class Admin extends User implements editableUser {
@@ -16,50 +15,102 @@ public class Admin extends User implements editableUser {
         this.advisorList = advisorList;
     }
 
-    public boolean addCourse(String courseName, String department, int code, int creditHours, ArrayList<Season> semesterOffer, ArrayList<HashMap<Course, String>> prerequisites, String description, char gradeToPass, String courseGrade){
-        //TODO: ....
+    public ArrayList<Course> getCourseList() { return this.courseList; }
+    public ArrayList<Advisor> getAdvisorList() { return this.advisorList; }
+
+    public void setCourseList(ArrayList<Course> courses) { this.courseList = courses; }
+    public void setAdvisorList(ArrayList<Advisor> advisors) { this.advisorList = advisors; }
+
+    public boolean addCourse(String courseName, int creditHours, ArrayList<Season> semesterOffer, 
+                                String department, String courseCode, 
+                                ArrayList<Course> prerequisites, String description, 
+                                String gradetoPass)
+    {
+        Course course = new Course(courseName, creditHours, semesterOffer, department, courseCode, prerequisites, description, gradetoPass);
+        this.courseList.add(course);
         return false;
     }
 
     public boolean editCourseName(UUID id, String name){
-        return false;
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        course.setCourseName(name);
+        return true;
     }
 
     public boolean editCourseDepartment(UUID id, String department){
-        return false;
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        course.setCourseName(department);
+        return true;
     }
 
-    public boolean editCourseCode(UUID id, int code){
-        return false;
+    public boolean editCourseCode(UUID id, String code){
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        course.setCode(code);
+        return true;
     }
 
     public boolean editCourseCredit(UUID id, int credit){
-        return false;
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        course.setCreditHours(credit);
+        return true;
     }
 
     public boolean editCourseSemesterOffer(UUID id, ArrayList<Season> season){
-        return false;
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        course.setSemesterOffer(season);
+        return true;
     }
 
-    public boolean editCoursePrerequisites(UUID id, ArrayList<Course> course){
-        return false;
+    public boolean editCoursePrerequisites(UUID id, ArrayList<Course> prerequisites){
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        course.setPrerequisites(prerequisites);
+        return true;
     }
 
-    public boolean editCourseDescription(UUID id, String name){
-        return false;
+    public boolean editCourseDescription(UUID id, String description){
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        course.setDescription(description);
+        return true;
     }
 
     public boolean removeCourse(UUID id){
-        return false;
+        Course course = findCourse(id);
+        if (course == null)
+            return false;
+        this.courseList.remove(course);
+        return true;
     }
 
-    public Course findCourse(){
+    public Course findCourse(UUID id){
+        if(this.courseList.size() == 0) {
+            System.out.println("WARN --- Course List is empty => can't use findCourse method");
+            return null;
+        }
+        for(int i = 0; i < this.courseList.size(); i++) {
+            if(courseList.get(i).getID().equals(id)) {
+                return this.courseList.get(i);
+            }
+        }
         return null;
     }
 
     public Advisor findUser(UUID id) {
         if(this.advisorList.size() == 0) {
-            System.out.println("WARN --- Advisor have empty advisor list");
+            System.out.println("WARN --- Advisor List is empty => can't use findUser method");
             return null;
         }
 
@@ -114,12 +165,7 @@ public class Admin extends User implements editableUser {
         Advisor advisor = findUser(id);
         if(advisor == null)
             return false;
-        for(int i = 0; i < this.advisorList.size(); i++) {
-            if(this.advisorList.get(i).getID().equals(id)) {
-                this.advisorList.remove(i);
-                return true;
-            }
-        }
-        return false;
+        this.advisorList.remove(advisor);
+        return true;
     }
 }
