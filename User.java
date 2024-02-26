@@ -11,7 +11,6 @@ public class User {
      * Constructor for User to be created by an admin
      * @return
      */
-
     public User(String firstName, String lastName, String email, String password) {
         this.id = UUID.randomUUID();
         this.firstName = firstName;
@@ -39,6 +38,14 @@ public class User {
      */
     public UUID getID() {
         return id;
+    }
+
+    /**
+     * Sets the ID of the user
+     * @return
+     */
+    public void setID(UUID id) {
+        this.id = id;
     }
 
     /**
@@ -118,7 +125,7 @@ public class User {
      * @return
      */
     public String toString() {
-        return " Name: " + firstName + " " + lastName + " Email: " + email;
+        return "Name: " + firstName + " " + lastName + "\n- Email: " + email + "\n- Password: " + password;
     }
 
     /**
@@ -131,5 +138,13 @@ public class User {
         }
         return false;
     }
-}
 
+    /**
+     * Compare 2 User object
+     * @param User
+     * @return boolean
+     */
+    public boolean equals(User user) {
+        return user.getID().equals(this.id);
+    }
+}

@@ -3,6 +3,7 @@ import java.util.HashMap;
 
 public class Semester {
     private String season;
+    private int year;
     private int creditLimit;
     private HashMap<Course, String> courses;
 
