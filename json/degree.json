@@ -1,37 +1,18 @@
 [
     {
         "programs": [
-            {
-                "programName": "Program 1",
-                "programID": 1
-            },
-            {
-                "programName": "Program 2",
-                "programID": 2
-            }
+            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+            "0a2e03d7-033b-429c-843d-69cd5f33f748"
         ],
         "totalCreditRequired": 120,
         "totalCoursesRequired": [
-            {
-                "courseName": "Course 1",
-                "courseID": 1
-            },
-            {
-                "courseName": "Course 2",
-                "courseID": 2
-            }
+            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+            "0a2e03d7-033b-429c-843d-69cd5f33f748"
         ],
         "subjectName": "Computer Science",
         "degreeType": "Bachelor",
         "completeCourse" : [
-            {
-                "courseName": "Course 1",
-                "courseID": 1
-            },
-            {
-                "courseName": "Course 2",
-                "courseID": 2
-            }
+            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41"
         ],
         "completeCredit": 50,
         "currentSemester": "Spring",
@@ -41,31 +22,18 @@
                 "semesterName": "Spring",
                 "semesterYear": 2021,
                 "courses": [
-                    {
-                        "courseName": "Course 1",
-                        "courseID": 1
-                    },
-                    {
-                        "courseName": "Course 2",
-                        "courseID": 2
-                    }
+                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
                 ]
             },
             {
                 "semesterName": "Fall",
                 "semesterYear": 2021,
                 "courses": [
-                    {
-                        "courseName": "Course 1",
-                        "courseID": 1
-                    },
-                    {
-                        "courseName": "Course 2",
-                        "courseID": 2
-                    }
+                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
                 ]
             }
-        ],
-
+        ]
     }
 ]
