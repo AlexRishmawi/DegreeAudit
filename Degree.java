@@ -56,4 +56,8 @@ public class Degree {
     public String majorMapToString() {
         return "";
     }
+
+    public UUID getID() {
+        return this.id;
+    }
 }
