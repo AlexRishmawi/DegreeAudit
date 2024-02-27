@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class UI {
     private Scanner scanner;
     private System application;
