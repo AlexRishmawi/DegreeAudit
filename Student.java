@@ -39,7 +39,7 @@ public class Student extends User {
         } else if(level.equalsIgnoreCase("senior")) {
             this.classification = ClassLevel.SENIOR;
         } else {
-            System.err.println("ERROR --- Couldn't define student classification");
+            System.err.println("ERROR --- Couldn't define student classification" + level);
         }
     }
 
@@ -59,14 +59,17 @@ public class Student extends User {
     public Double getProgramGPA() { return this.programGPA; }
 
     public String toString() {
-        return super.toString() 
-            + "\n- Advisor: " + this.advisor
-            + "- Level:" + this.classification
-            + "\n- Institute GPA: " + this.instituteGPA
-            + "\n- Program GPA: " + this.programGPA
-            + "\n- Status: " + this.status
-            + "\n- Notes: " + this.printNotes()
-            + "\n- Degree: " + this.toStringDegree();
+        StringBuilder result = new StringBuilder();
+        result.append("Student Information:\n");
+        result.append(super.toString());
+        result.append("\n-- level: " + this.classification.toString());
+        result.append("\n--Institute GPA: " + this.instituteGPA);
+        result.append("\n--Program GPA: " + this.instituteGPA);
+        result.append("\n-- Status: " + this.status);
+        result.append("\n-- Advisor: " + advisor.toString());
+        result.append("\n" + printNotes());
+        result.append("\n" + this.toStringDegree());
+        return result.toString();
     }
 
     public String toStringAccount() {
@@ -75,11 +78,11 @@ public class Student extends User {
 
     public String printNotes() {
         StringBuilder result = new StringBuilder();
-        result.append("[\n");
+        result.append("-- Notes: \n");
         for(String note: notes) {
-            result.append("      " + note + "\n");
+            result.append("    [" + note + "]\n");
         }
-        result.append("\n]");
+
         return result.toString();
     }
 

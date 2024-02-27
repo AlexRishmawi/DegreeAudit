@@ -48,6 +48,15 @@ public class Program {
     public int getCredit() { return this.creditRequire; }
 
     public String toString() {
-        return "";
+        StringBuilder string = new StringBuilder();
+        string.append("Program information:\n");
+        string.append("Type: " + this.type);
+        string.append("Subject: " + this.subject);
+        string.append("Credit: " + this.creditRequire);
+        for(Course course: this.courses) {
+            string.append(course.toString());
+        }
+        string.append("\n");
+        return string.toString();
     }
 }

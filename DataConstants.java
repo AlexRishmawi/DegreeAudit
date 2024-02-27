@@ -20,6 +20,11 @@ public abstract class DataConstants {
     protected static final String DEGREE_CURRENT_YEAR = "currentYear";
     protected static final String DEGREE_ALL_SEMESTERS = "allSemesters";
 
+    // Semester constants
+    protected static final String SEMESTER_SEASON = "semesterSeason";
+    protected static final String SEMESTER_YEAR = "semesterYear";
+    protected static final String SEMESTER_COURSES = "courses";
+
     // Course Constants
     protected static final String COURSE_FILE_NAME = "./json/course.json";
     protected static final String COURSE_ID = "id";

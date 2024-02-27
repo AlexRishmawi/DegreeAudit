@@ -16,6 +16,7 @@ public class Course {
                     String department, String courseCode, ArrayList<Course> prerequisites, 
                     String description, String gradetoPass)
     {
+        this.id = UUID.randomUUID();
         setCourseName(courseName);
         setDepartment(department);
         setCode(courseCode);
@@ -62,4 +63,20 @@ public class Course {
     public String getGradeToPass() { return this.gradeToPass; }
 
     public boolean equals(Course course) { return this.id.equals(course.getID()); }
+
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("Course Information: ");
+        string.append("\n-- ID: " + this.id);
+        string.append("\n-- Name: " + this.courseName);
+        string.append("\n-- Department: " + this.department);
+        string.append("\n-- Code: " + this.code);
+        string.append("\n-- Credit hours: " + this.creditHours);
+        string.append("\n--Semester hours: " + this.semesterOffer.toString());
+        string.append("\n--Course prerequisites: " + this.prerequisites.toString());
+        string.append("\n--Description: " + this.description);
+        string.append("\n--Grade need to pass: " + this.gradeToPass);
+        string.append("\n");
+        return string.toString();
+    }
 }

@@ -12,9 +12,10 @@
         ],
         "subjectName": "Computer Science",
         "degreeType": "Bachelor",
-        "completeCourse" : [
-            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41"
-        ],
+        "completeCourse" : {[
+            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41": "B",
+            "0a2e03d7-033b-429c-843d-69cd5f33f748": "A"
+        ]},
         "completeCredit": 50,
         "currentSemester": "Spring",
         "currentYear": 2021,
