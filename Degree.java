@@ -1,50 +1,39 @@
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
 /**
  * 
  * @author Aarsh Patel
  */
 public class Degree {
-    // Program variables
-    private ArrayList<Program> programs;
-    private int totalCreditRequired;
-    private ArrayList<Course> totalCoursesRequired;
+    private UUID id;
     private String subjectName;
-    private String degreeType;
+    private int totalCreditRequired;
+    private ArrayList<Course> majorCourses;
+    private HashMap<String, ElectiveCategory> electiveList;
 
-    // Course Variables
-    private ArrayList<Course> completeCourses;
-    private int completeCredit;
 
-    // Course Generator
-    private Semester currentSemester;
-    private int currentYear;
-    private ArrayList<Semester> allSemesters;
-
-    public Degree(String degreeType, String subjectName, ArrayList<Program> programs, 
-    int totalCreditRequired, ArrayList<Course> totalCoursesRequired, ArrayList<Course> completeCourses, 
-    int completeCredit, Semester currentSemester, int currentYear,
-    ArrayList<Semester> allSemesters) {
-        
+    public Degree(String subjectName, int totalCreditRequired, 
+    ArrayList<Course> majorCourses, 
+    HashMap<String, ElectiveCategory> electiveList) {
+        this.id = UUID.randomUUID();
+        this.subjectName = subjectName;
+        this.totalCreditRequired = totalCreditRequired;
+        this.majorCourses = majorCourses;
+        this.electiveList = electiveList; 
     }
     
-    public ArrayList<Program> getPrograms() {
-        return new ArrayList<Program>();
+    public ArrayList<Course> getMajorCourses() {
+        return this.majorCourses;
     }
 
     public int getTotalCreditRequired() {
         return 0;
     }
 
-    public ArrayList<Course> getTotalCoursesRequired() {
-        return new ArrayList<Course>();
-    }
-
-    public boolean addProgram(Program program) {
+    public boolean addMajorCourse(Course course) {
         return false;
     }
 
-    public boolean removeProgram(UUID programID) {
+    public boolean removeMajorCourse(Course course) {
         return false;
     }
 

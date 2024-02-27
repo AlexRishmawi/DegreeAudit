@@ -1,41 +1,15 @@
 [
     {
         "id": "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-        "programs": [
-            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-            "0a2e03d7-033b-429c-843d-69cd5f33f748"
-        ],
-        "totalCreditRequired": 120,
-        "totalCoursesRequired": [
+        "totalCreditRequired": 20,
+        "majorCourses": [
             "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
             "0a2e03d7-033b-429c-843d-69cd5f33f748"
         ],
         "subjectName": "Computer Science",
-        "degreeType": "Bachelor",
-        "completeCourse" : {[
-            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41": "B",
-            "0a2e03d7-033b-429c-843d-69cd5f33f748": "A"
-        ]},
-        "completeCredit": 50,
-        "currentSemester": "Spring",
-        "currentYear": 2021,
-        "allSemesters": [
-            {
-                "semesterName": "Spring",
-                "semesterYear": 2021,
-                "courses": [
-                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
-                ]
-            },
-            {
-                "semesterName": "Fall",
-                "semesterYear": 2021,
-                "courses": [
-                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
-                ]
-            }
+        "completeCourse" : [
+            ["0be4a554-eedd-496e-a3d4-ead9ecd0ba41", "A"],
+            ["0a2e03d7-033b-429c-843d-69cd5f33f748", "B"]
         ]
     }
 ]
