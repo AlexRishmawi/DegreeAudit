@@ -12,8 +12,9 @@ public class Degree {
 
 
     public Degree(String subjectName, int totalCreditRequired, 
-    ArrayList<Course> majorCourses, 
-    HashMap<String, ElectiveCategory> electiveList) {
+        ArrayList<Course> majorCourses, 
+        HashMap<String, ElectiveCategory> electiveList) 
+    {
         this.id = UUID.randomUUID();
         this.subjectName = subjectName;
         this.totalCreditRequired = totalCreditRequired;

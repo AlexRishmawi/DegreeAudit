@@ -1,27 +1,35 @@
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.DelayQueue;
 
 public class DegreeWork {
     private UserList userList;
     private CourseList courseList;
-    private ProgramList programList;
+    private DegreeList degreeList;
     private User currentUser;
 
-    public DegreeWork() {}
+    public DegreeWork() {
+        this.userList = UserList.getInstance();
+        this.courseList = CourseList.getInstance();
+        this.degreeList = DegreeList.getInstance();
+    }
 
-    // -------- User Method -------- 
-    public boolean login(String uscID, String password) {
-        return true;
+    // -------- User Method --------
+    public boolean login(String email, String password) {
+        return (this.currentUser = this.userList.getUser(email, password)) != null;
+    }
+
+    public boolean login(String firstName, String lastName, String password) {
+        return (this.currentUser = this.userList.getUser(firstName, lastName, password)) != null;
     }
 
     public boolean logout() {
-        // this.currentUser = null;
-        // return this.currentUser == null;
-        return true;
+        return (this.currentUser = null) == null;
     }
-    
+
     public boolean createUser(String type, String firstName, String lastName, String password) {
-        return true;
+        return (this.userList.createUser(type, firstName, lastName, password));
+        
     }
 
     public boolean removeUser(String UUID) {
@@ -105,8 +113,8 @@ public class DegreeWork {
 
     // -------- Admin --------
     public boolean addCourse(String courseName, int creditHours, ArrayList<Season> semesterOffer,
-                    String department, int courseCode, ArrayList<Course> prerequisites,
-                    String description, String gradeToPass) {
+            String department, int courseCode, ArrayList<Course> prerequisites,
+            String description, String gradeToPass) {
         return true;
     }
 
@@ -142,5 +150,4 @@ public class DegreeWork {
         return new Course();
     }
 
-    
 }

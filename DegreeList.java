@@ -4,21 +4,19 @@ import java.util.UUID;
  * @author Alex Rishmawi
  */
 public class DegreeList {
-    private DegreeList degreeList;
+    private static DegreeList degreeList;
     private ArrayList<Degree> degree;
     private DegreeList() {
-        degree = new ArrayList<Degree>;
+        degree = new ArrayList<Degree>();
+        // Read a database
     }
 
     /**
      * Gets instance of DegreeList
      * @return degreeList
      */
-    public DegreeList getInstance() {
-        if (degreeList == null) {
-            degreeList = new DegreeList();
-        }
-        return degreeList;
+    public static DegreeList getInstance() {
+        return degreeList != null ? degreeList : new DegreeList();
     }
 
     /**

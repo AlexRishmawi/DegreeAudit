@@ -49,6 +49,14 @@ public class User {
     }
 
     /**
+     * Sets the type of user
+     * @return
+     */
+    public void setUserType(UserType type) {
+        this.type = type;
+    }
+    
+    /**
      * Returns the type of user
      * @return
      */

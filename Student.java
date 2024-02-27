@@ -13,6 +13,14 @@ public class Student extends User {
 
     public Student(String firstName, String lastName, String email, String password){
         super(firstName, lastName, email, password);
+        classification = null;
+        advisor = null;
+        this.notes = new ArrayList<>();
+        this.degree = null;
+        this.instituteGPA = 0;
+        this.programGPA = 0;
+        this.status = null;
+
     }
 
     public Student(UUID id, String firstName, String lastName, String email, String password,
