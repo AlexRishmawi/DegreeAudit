@@ -15,23 +15,45 @@
     ],
     "degree-id": "dfa84645-4278-44a3-8b3b-c6b4fc6257c5",
     "instituteGPA": 3.5,
-    "programGPA": 3.0
-  }, {
-    "id": "4785470c-0127-4944-b7f2-96bb6d2ffab9",
-    "type": "Student",
-    "firstName": "Jane",
-    "lastName": "Doe",
-    "email": "janedoe@email.sc.edu",
-    "password": "hello",
-    "classification": "SOPHOMORE",
-    "advisor-id": "4046d211-632f-4428-96c2-71f41afd05f8",
-    "notes": [
-      "Jane is a great student",
-      "Jane is a hard worker",
-      "Jane should consider taking more classes next semester"
+    "programGPA": 3.0,
+    "status": "active",
+    "completeCourses": [
+      ["022a6993-b557-4233-b0aa-2ac744d4527e", 98],
+      ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100],
+      ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100]
     ],
-    "degree-id": "dfa84645-4278-44a3-8b3b-c6b4fc6257c5",
-    "instituteGPA": 4.0,
-    "programGPA": 3.5
+    "allSemesters": [
+      {
+        "season": "FALL",
+        "year": 2019,
+        "creditLimit": 18,
+        "courses": [
+          ["022a6993-b557-4233-b0aa-2ac744d4527e", 98],
+          ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100],
+          ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100]
+        ]
+      },
+      {
+        "season": "SPRING",
+        "year": 2020,
+        "creditLimit": 18,
+        "courses": [
+          ["022a6993-b557-4233-b0aa-2ac744d4527e", 98],
+          ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100],
+          ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100]
+        ]
+      }
+    ],
+    "currentSemester": {
+      "season": "FALL",
+      "year": 2020,
+      "creditLimit": 18,
+      "courses": [
+        ["022a6993-b557-4233-b0aa-2ac744d4527e", 98],
+        ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100],
+        ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100]
+      ]
+    }
+
   }
 ]
