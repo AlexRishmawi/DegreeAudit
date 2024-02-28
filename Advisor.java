@@ -2,25 +2,59 @@
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Advisor extends User implements editableUser {
+public class Advisor extends User{
     private ArrayList<Student> studentList;
     private Student currentStudent;
+    private Boolean isAdmin;
 
-    public Advisor(String firstName, String lastName, String email, String password) {
+    public Advisor(String firstName, String lastName, String email, String password, Boolean isAdmin) {
         super(firstName, lastName, email, password);
+        setAdmin(isAdmin);
     }
 
-    public Advisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList){
+    public Advisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin){
         super(firstName, lastName, email, password);
-        this.studentList = studentList;
+        setStudentList(studentList);
+        setAdmin(isAdmin);
     }
 
-    public Advisor(UUID id, String firstName, String lastName, String email, String password, ArrayList<Student> studentList) {
+    public Advisor(UUID id, String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
         super(id, firstName, lastName, email, password);
-        this.studentList = studentList;
+        setStudentList(studentList);
+        setAdmin(isAdmin);
     }
     
-    public void addStudent(Student student) { this.studentList.add(student); }
+    // ----- Accessor -----
+    public ArrayList<Student> getStudentList() {
+        return this.studentList;
+    }
+
+    public Student getCurrentStudent() {
+        return this.currentStudent;
+    }
+
+    public Boolean getIsAdmin() {
+        return this.isAdmin;
+    }
+
+    // ----- Mutator -----
+    public void setCurrentStudent(UUID id) {
+        this.currentStudent = findUser(id);
+    }
+
+    public void setStudentList(ArrayList<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public void setAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+
+    // ----- Advisor method -----
+    public void addStudent(Student student) { 
+        this.studentList.add(student); 
+    }
 
     public boolean removeStudent(Student student) {
         for(int i = 0; i < this.studentList.size(); i++) {
@@ -31,11 +65,7 @@ public class Advisor extends User implements editableUser {
         }
         return false;
     }
-
-    public void setCurrentStudent(UUID id) {
-        this.currentStudent = findUser(id);
-    }
-
+    
     public void addStudentProgram(UUID id, Program program) {
         Student student = this.findUser(id);
         if(student == null) {
@@ -109,16 +139,6 @@ public class Advisor extends User implements editableUser {
         return true;
     }
 
-    public boolean deleteUser(UUID id) {
-        Student student = findUser(id);
-        if(student == null)
-            return false;
-        for(int i = 0; i < this.studentList.size(); i++) {
-            if(this.studentList.get(i).getID().equals(id)) {
-                this.studentList.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
+    // ----- Admin method -----
+
 }

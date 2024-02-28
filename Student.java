@@ -10,8 +10,10 @@ public class Student extends User {
     private double instituteGPA;
     private double programGPA;
     private String status;
+    private Semester currentSemester;
+    private ArrayList<Semester> allSemester;
 
-    public Student(String firstName, String lastName, String email, String password){
+    public Student(String firstName, String lastName, String email, String password) {
         super(firstName, lastName, email, password);
         classification = null;
         advisor = null;
@@ -20,13 +22,11 @@ public class Student extends User {
         this.instituteGPA = 0;
         this.programGPA = 0;
         this.status = null;
-
     }
 
-    public Student(UUID id, String firstName, String lastName, String email, String password,
-                    String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-                    double instituteGPA, double programGPA, String status) 
-    {
+    public Student(String firstName, String lastName, String email, String password,
+            String level, Advisor advisor, ArrayList<String> notes, Degree degree,
+            double instituteGPA, double programGPA, String status) {
         super(firstName, lastName, email, password);
         setLevel(level);
         setAdvisor(advisor);
@@ -37,34 +37,103 @@ public class Student extends User {
         setStatus(status);
     }
 
+    public Student(UUID id, String firstName, String lastName, String email, String password,
+            String level, Advisor advisor, ArrayList<String> notes, Degree degree,
+            double instituteGPA, double programGPA, String status) {
+        super(id, firstName, lastName, email, password);
+        setLevel(level);
+        setAdvisor(advisor);
+        setNotes(notes);
+        setDegree(degree);
+        setInstituteGPA(programGPA);
+        setProgramGPA(programGPA);
+        setStatus(status);
+    }
+
+    // ----- Mutator -----
     public void setLevel(String level) {
-        if(level.equalsIgnoreCase("freshman")) {
+        if (level.equalsIgnoreCase("freshman")) {
             this.classification = ClassLevel.FRESHMAN;
-        } else if(level.equalsIgnoreCase("sophomore")) {
+        } else if (level.equalsIgnoreCase("sophomore")) {
             this.classification = ClassLevel.SOPHOMORE;
-        } else if(level.equalsIgnoreCase("junior")) {
+        } else if (level.equalsIgnoreCase("junior")) {
             this.classification = ClassLevel.JUNIOR;
-        } else if(level.equalsIgnoreCase("senior")) {
+        } else if (level.equalsIgnoreCase("senior")) {
             this.classification = ClassLevel.SENIOR;
         } else {
             System.err.println("ERROR --- Couldn't define student classification" + level);
         }
     }
 
-    public void setAdvisor(Advisor advisor) { this.advisor = advisor; }
-    public void setNotes(ArrayList<String> notes) { this.notes = notes; }
-    public void setDegree(Degree degree) { this.degree = degree; }
-    public void setInstituteGPA(double gpa) { this.instituteGPA = gpa; }
-    public void setProgramGPA(double gpa) {this.programGPA = gpa; }
-    public void setStatus(String status) {this.status = status; }
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
+    }
 
+    public void setNotes(ArrayList<String> notes) {
+        this.notes = notes;
+    }
 
-    public ClassLevel getLevel() { return this.classification; }
-    public Advisor getAdvisor() { return this.advisor; }
-    public ArrayList<String> getNotes() {return this.notes; }
-    public Degree getDegree() { return this.degree; }
-    public Double getInstituteGPA() { return this.instituteGPA; }
-    public Double getProgramGPA() { return this.programGPA; }
+    public void setDegree(Degree degree) {
+        this.degree = degree;
+    }
+
+    public void setInstituteGPA(double gpa) {
+        this.instituteGPA = gpa;
+    }
+
+    public void setProgramGPA(double gpa) {
+        this.programGPA = gpa;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setCurrentSemester(ArrayList<Course> courses) {
+        this.currentSemester = courses;
+    }
+
+    public void setAllSemester(ArrayList<Semester> allSemester) {
+        this.allSemester = allSemester;
+    }
+
+    // ----- Accessor -----
+    public ClassLevel getLevel() {
+        return this.classification;
+    }
+
+    public Advisor getAdvisor() {
+        return this.advisor;
+    }
+
+    public ArrayList<String> getNotes() {
+        return this.notes;
+    }
+
+    public Degree getDegree() {
+        return this.degree;
+    }
+
+    public Double getInstituteGPA() {
+        return this.instituteGPA;
+    }
+
+    public Double getProgramGPA() {
+        return this.programGPA;
+    }
+
+    public void getCurrentSemester() {
+        return this.currentSemester;
+    }
+
+    public void getAllSemester() {
+        return this.allSemester;
+    }
+
+    // ----- Others method -----
+    public void addNotes(String note) {
+        this.notes.add(note);
+    }
 
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -76,7 +145,7 @@ public class Student extends User {
         result.append("\n-- Status: " + this.status);
         result.append("\n-- Advisor: " + advisor.toString());
         result.append("\n" + printNotes());
-        result.append("\n" + this.toStringDegree());
+        result.append("\n" + toStringDegree());
         return result.toString();
     }
 
@@ -87,7 +156,7 @@ public class Student extends User {
     public String printNotes() {
         StringBuilder result = new StringBuilder();
         result.append("-- Notes: \n");
-        for(String note: notes) {
+        for (String note : notes) {
             result.append("    [" + note + "]\n");
         }
 

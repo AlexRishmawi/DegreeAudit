@@ -18,6 +18,7 @@ public class UserList {
         return userList != null ? userList : new UserList();
     }
 
+    // ----- Accessor -----
     public User getUser(String email, String password) {
         for (User user : this.users) {
             if (user.getEmail().equalsIgnoreCase(email) &&
@@ -40,7 +41,17 @@ public class UserList {
         return null;
     }
 
-    public boolean createUser(String type, String firstName, String lastName, String password) {
+    public User getUser(UUID id) {
+        for(User user: this.users) {
+            if(user.getID().equals(id)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    // ----- Other user mthod -----
+    public Boolean createUser(String type, String firstName, String lastName, String password) {
         User user;
         if(type.equalsIgnoreCase("student")) {
             user = new Student(firstName, lastName, lastName, password);
@@ -51,6 +62,16 @@ public class UserList {
         }
         this.users.add(user);
         return true;
+    }
+
+    public Boolean removeUser(UUID id) {
+        for (User user : users) {
+            if (user.getID().equals(id)) {
+                this.users.remove(user);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean findUser(UUID id) {

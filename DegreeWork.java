@@ -28,33 +28,66 @@ public class DegreeWork {
     }
 
     public boolean createUser(String type, String firstName, String lastName, String password) {
-        return (this.userList.createUser(type, firstName, lastName, password));
-        
+        return this.userList.createUser(type, firstName, lastName, password);
     }
 
-    public boolean removeUser(String UUID) {
-        return true;
+    public boolean createStudent(String firstName, String lastName, String email, String password,
+            String level, Advisor advisor, ArrayList<String> notes, Degree degree,
+            double instituteGPA, double programGPA, String status) {
+        // Created basic account
+        this.userList.createUser("student", firstName, lastName, password);
+
+        // set up a new user as student
+        User newUser = this.userList.getUser(firstName, lastName, password);
+
+        // Double check if created user
+        if (this.userList.findUser(newUser.getID())) {
+            return false;
+        }
+
+        // TODO: set up student information
     }
 
-    public boolean removeUser(String firstName, String lastName) {
-        return true;
+    public boolean removeUser(String id) {
+        return this.userList.removeUser(UUID.fromString(id));
     }
 
     // -------- Student and Advisor --------
     public boolean addNotes(String note) {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            ((Student) this.currentUser).addNotes(note);
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            ((Advisor) this.currentUser).getCurrentStudent().addNotes(note);
+        } else {
+            return false;
+        }
         return true;
     }
 
     public ArrayList<Course> getCurrentCourse() {
-        return new ArrayList<>();
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getCurrentSemester().getCourse();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentSemester().getCourse();
+        }
+        return null;
     }
 
     public boolean displayDegreeProgress() {
-        return true;
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getDegree().toString();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getDegree().toString();
+        }
+        return false;
     }
 
     public boolean displayMajorMap() {
-        return true;
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getDegree().majorMapToString();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentCourse().majorMapToString();
+        }
     }
 
     public String compareDegree(String degreeType, String subjectName) {
@@ -66,28 +99,51 @@ public class DegreeWork {
     }
 
     // -------- Advisor and Admin method --------
-    public boolean editUserFirstName(UUID id, String name) {
-        return true;
+    public boolean editUserFirstName(String name) {
+        if (this.currentUser.getUserType() == UserType.ADVISOR && this.currentUser.isAdmin()) {
+            User tempUser = this.userList.getUser(id);
+            tempUser.setFirstName(name);
+            return true;
+        }
+        return false;
     }
 
     public boolean editUserLastName(UUID id, String name) {
-        return true;
+        if (this.currentUser.getUserType() == UserType.ADVISOR && this.currentUser.isAdmin()) {
+            User tempUser = this.userList.getUser(id);
+            tempUser.setLastName(name);
+            return true;
+        }
+        return false;
     }
 
     public boolean editUserEmail(UUID id, String name) {
-        return true;
-    }
-
-    public boolean editUserID(UUID id, String name) {
-        return true;
+        if (this.currentUser.getUserType() == UserType.ADVISOR && this.currentUser.isAdmin()) {
+            User tempUser = this.userList.getUser(id);
+            tempUser.setEmail(name);
+            return true;
+        }
+        return false;
     }
 
     public boolean editUserPassword(UUID id, String name) {
-        return true;
+        if (this.currentUser.getUserType() == UserType.ADVISOR && this.currentUser.isAdmin()) {
+            User tempUser = this.userList.getUser(id);
+            tempUser.setPassword(name);
+            return true;
+        }
+        return false;
     }
 
     public boolean deleteUser(UUID id) {
-        return true;
+        if (this.currentUser.getUserType() == UserType.ADVISOR && this.currentUser.isAdmin()) {
+            User tempUser = this.userList.getUser(id);
+            String[] name_split = name.split(" ");
+            tempUser.setFirstName(name_split[0]);
+            tempUser.setLastName(name_split[1]);
+            return true;
+        }
+        return false;
     }
 
     // -------- Advisor --------
@@ -111,7 +167,6 @@ public class DegreeWork {
         return true;
     }
 
-    // -------- Admin --------
     public boolean addCourse(String courseName, int creditHours, ArrayList<Season> semesterOffer,
             String department, int courseCode, ArrayList<Course> prerequisites,
             String description, String gradeToPass) {
