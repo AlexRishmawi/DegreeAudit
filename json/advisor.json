@@ -7,18 +7,19 @@
     "email": "jdoe@email.sc.edu",
     "password": "hbuwerfkj",
     "studentList": [
-        "4785470c-0127-4944-b7f2-96bb6d2ffab9"
-    ]
+        "4785470c-0127-4944-b7f2-96bb6d2ffab9",
+        "6e30c187-5592-4d8a-91e4-e874f34a41cd"
+    ],
+    "isAdmin": "false"
   },
   {
-    "id": "4046d211-632f-4428-96c2-71f41afd05f8",
-    "type": "Advisor",
-    "firstName": "Jenny",
-    "lastName": "Day",
-    "email": "jenny@email.sc.edu",
-    "password": "hdjfkj",
-    "studentList": [
-        "6e30c187-5592-4d8a-91e4-e874f34a41cd"
-    ]
-  } 
+    "id": "4785470c-0127-4944-b7f2-96bb6d2ffab9",
+    "type": "Student",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane@email.sc.edu",
+    "password": "hbuwerfkj",
+    "studentList": [],
+    "isAdmin": "true"
+  }
 ]
