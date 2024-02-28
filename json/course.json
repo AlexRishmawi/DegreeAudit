@@ -4,7 +4,7 @@
         "courseName": "Intro to Computer Science",
         "department": "Computer Science",
         "code": "CSCE101",
-        "creditHours": "3",
+        "creditHours": 3,
         "semesterOffer": ["Spring", "Fall", "Summer"],
         "prerequisite": [
             [

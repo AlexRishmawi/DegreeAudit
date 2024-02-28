@@ -7,13 +7,13 @@
     "email": "bobsmith@email.sc.edu",
     "password": "password",
     "classification": "FRESHMAN",
-    "advisor-id": "a6e0a427-72fd-490d-85df-5933c0ddb081",
+    "advisorID": "a6e0a427-72fd-490d-85df-5933c0ddb081",
     "notes": [
       "Bob is a great student",
       "Bob is a hard worker",
       "Bob should consider taking more classes next semester"
     ],
-    "degree-id": "dfa84645-4278-44a3-8b3b-c6b4fc6257c5",
+    "degreeID": "dfa84645-4278-44a3-8b3b-c6b4fc6257c5",
     "instituteGPA": 3.5,
     "programGPA": 3.0,
     "status": "active",

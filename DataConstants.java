@@ -8,22 +8,11 @@ public abstract class DataConstants {
 
     //Degree Constants
     protected static final String DEGREE_FILE_NAME = "./json/degree.json";
-    protected static final String DEGREE_PROGRAM_LIST = "programList";
     protected static final String DEGREE_ID = "id";
     protected static final String DEGREE_TOTAL_CREDIT_REQUIRED = "totalCreditRequired";
-    protected static final String DEGREE_TOTAL_COURSES_REQUIRED = "totalCoursesRequired";
+    protected static final String DEGREE_MAJOR_COURSES = "majorCourses";
     protected static final String DEGREE_SUBJECT_NAME = "subjectName";
-    protected static final String DEGREE_TYPE = "degreeType";
-    protected static final String DEGREE_COMPLETED_COURSES = "completeCourse";
-    protected static final String DEGREE_COMPLETED_CREDITS = "completeCredit";
-    protected static final String DEGREE_CURRENT_SEMESTER = "currentSemester";
-    protected static final String DEGREE_CURRENT_YEAR = "currentYear";
-    protected static final String DEGREE_ALL_SEMESTERS = "allSemesters";
-
-    // Semester constants
-    protected static final String SEMESTER_SEASON = "semesterSeason";
-    protected static final String SEMESTER_YEAR = "semesterYear";
-    protected static final String SEMESTER_COURSES = "courses";
+    protected static final String DEGREE_ELECTIVE_LIST = "electiveList";
 
     // Course Constants
     protected static final String COURSE_FILE_NAME = "./json/course.json";
@@ -36,15 +25,6 @@ public abstract class DataConstants {
     protected static final String COURSE_PREREQUISITE = "prerequisite";
     protected static final String COURSE_DESCRIPTION = "description";
     protected static final String COURSE_GRADE_TO_PASS = "gradeToPass";
-    protected static final String COURSE_GRADE = "courseGrade";
-
-    // Program Constants
-    protected static final String PROGRAM_FILE_NAME = "./json/program.json";
-    protected static final String PROGRAM_ID = "id";
-    protected static final String PROGRAM_TYPE = "type";
-    protected static final String PROGRAM_SUBJECT = "subject";
-    protected static final String PROGRAM_COURSE_LIST = "courses";
-    protected static final String PROGRAM_CREDITS_REQUIRED = "creditsRequired";
 
     // User Constants share among the user
     protected static final String USER_ID = "id";
@@ -57,17 +37,17 @@ public abstract class DataConstants {
     // Student Constants
     protected static final String STUDENT_FILE_NAME = "./json/student.json";
     protected static final String STUDENT_CLASSIFICATION = "classification";
-    protected static final String STUDENT_ADVISOR_ID = "advisor-id";
+    protected static final String STUDENT_ADVISOR_ID = "advisorID";
     protected static final String STUDENT_NOTES = "notes";
-    protected static final String STUDENT_DEGREE_ID = "degree-id";
+    protected static final String STUDENT_DEGREE_ID = "degreeID";
     protected static final String STUDENT_INSTITUTE_GPA = "instituteGPA";
     protected static final String STUDENT_PROGRAM_GPA = "programGPA";
+    protected static final String STUDENT_COMPLETED_COURSES = "completeCourses";
+    protected static final String STUDENT_ALL_SEMESTERS = "allSemesters";
+    protected static final String STUDENT_CURRENT_SEMESTER = "currentSemester";
 
     // Advisor Constants
     protected static final String ADVISOR_FILE_NAME = "./json/advisor.json";
     protected static final String ADVISOR_STUDENT_LIST = "studentList";
-
-    // Admin Constants
-    protected static final String ADMIN_FILE_NAME = "./json/admin.json";
-    protected static final String ADMIN_ADVISOR_LIST = "advisorList";
+    protected static final String ADVISOR_IS_ADMIN = "isAdmin";
 }
