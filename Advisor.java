@@ -66,25 +66,6 @@ public class Advisor extends User{
         return false;
     }
     
-    public void addStudentProgram(UUID id, Program program) {
-        Student student = this.findUser(id);
-        if(student == null) {
-            return;
-        }
-        Degree temp = student.getDegree();
-        temp.addProgram(program);
-        student.setDegree(temp);
-    }
-
-    public void removeStudentProgram(UUID id, Program program) {
-        Student student = this.findUser(id);
-        if(student == null) {
-            return;
-        }
-        Degree temp = student.getDegree();
-        temp.removeProgram(program.getID());
-        student.setDegree(temp);
-    }
 
     public Student findUser(UUID id) {
         if(this.studentList.size() == 0) {
