@@ -11,13 +11,13 @@ public class User {
      * Constructor for User to be created by an admin
      * @return
      */
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, UserType type) {
         this.id = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        //this.type = UserType.STUDENT;
+        this.type = type;
     }
 
     /**
@@ -30,6 +30,11 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    //added
+    public User(String firstName, String lastName, String email, String password) {
+        this(UUID.randomUUID(), firstName, lastName, email, password);
     }
 
     /**
