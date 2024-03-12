@@ -27,15 +27,15 @@ public class DegreeWork {
         return (this.currentUser = null) == null;
     }
 
-    public boolean createUser(String type, String firstName, String lastName, String password) {
-        return this.userList.createUser(type, firstName, lastName, password);
+    public boolean createUser(String type, String firstName, String lastName, String password, String email) {
+        return this.userList.createUser(type, firstName, lastName, password, email);
     }
 
     public boolean createStudent(String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) {
         // Created basic account
-        this.userList.createUser("student", firstName, lastName, password);
+        this.userList.createUser("student", firstName, lastName, password, email);
 
         // set up a new user as student
         User newUser = this.userList.getUser(firstName, lastName, password);
@@ -46,6 +46,7 @@ public class DegreeWork {
         }
 
         // TODO: set up student information
+        return true;
     }
 
     public boolean removeUser(String id) {
