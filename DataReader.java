@@ -14,12 +14,13 @@ import org.json.simple.parser.JSONParser;
 public class DataReader extends DataConstants{
 
     public static ArrayList<User> loadUser() {
-        HashMap<UUID, Admin> adminMap = new HashMap<>();
         HashMap<UUID, Advisor> advisorMap = new HashMap<>();
         HashMap<UUID, Student> studentMap = new HashMap<>();
+        HashMap<UUID, Degree> degreeMap = new HashMap<>();
+        HashMap<UUID, Course> courseMap = new HashMap<>();
     
         // Read advisor, admin, student in order to get the most performance
-        String[] FILES = {ADVISOR_FILE_NAME, ADMIN_FILE_NAME, STUDENT_FILE_NAME};
+        String[] FILES = {ADVISOR_FILE_NAME, STUDENT_FILE_NAME, DEGREE_FILE_NAME, COURSE_FILE_NAME};
 
         for(String file: FILES) {
             try {
@@ -36,7 +37,7 @@ public class DataReader extends DataConstants{
                     String password = (String) userJSON.get(USER_PASSWORD);
                     UserType type = UserType.valueOf((String)userJSON.get(USER_TYPE));
 
-                    User user = new User(id, type, firstName, lastName, email, password);
+                    User user = new User(firstName, lastName, email, password);
 
                     if(type.equals(UserType.STUDENT)) {
                         ClassLevel level = ClassLevel.valueOf((String) userJSON.get(STUDENT_CLASSIFICATION))
@@ -62,9 +63,9 @@ public class DataReader extends DataConstants{
 
                         // Todo: initalize advisor and add to advisorMap
 
-                    } else if(type.equals(UserType. ADMIN)) {
+                    } else if(type.equals(UserType.ADVISOR)) {
                         ArrayList<Advisor> advisorList = new ArrayList<>();
-                        JSONArray advisorJSON = (JSONArray) userJSON.get(ADMIN_ADVISOR_LIST);
+                        JSONArray advisorJSON = (JSONArray) userJSON.get(ADVISOR_LIST);
                         for(int j = 0; j < advisorJSON.size(); j++) {
                             UUID studentID = UUID.fromString((String) advisorJSON.get(j));
                             advisorList.add(advisorMap.get(studentID));
