@@ -27,9 +27,9 @@ public class DataWriter {
             Student student = (Student) user;
             // Student specific serialization
             jsonObject.put("classification", student.getLevel().toString());
-            jsonObject.put("advisorID", student.getAdvisor().getID().toString()); // Adapt as needed
-            //jsonObject.put("degreeID", "Hello"); // Adapt as needed
-            jsonObject.put("degreeID", student.getDegree().getID().toString()); // Adapt as needed
+            jsonObject.put("advisorID", student.getAdvisor().getID().toString()); 
+            //jsonObject.put("degreeID", "Hello"); 
+            jsonObject.put("degreeID", student.getDegree().getID().toString()); 
             jsonObject.put("instituteGPA", student.getInstituteGPA());
             jsonObject.put("programGPA", student.getProgramGPA());
             jsonObject.put("status", student.getStatus());
@@ -49,7 +49,7 @@ public class DataWriter {
                 JSONArray coursesJson = new JSONArray();
                 semester.getCourses().entrySet().forEach(entry -> {
                     JSONObject courseGradeJson = new JSONObject();
-                    courseGradeJson.put("courseID", entry.getKey().getID().toString()); // Assuming Course has getID()
+                    courseGradeJson.put("courseID", entry.getKey().getID().toString());
                     courseGradeJson.put("grade", entry.getValue());
                     coursesJson.add(courseGradeJson);
                 });
@@ -75,19 +75,17 @@ public class DataWriter {
         JSONObject userJson = userToJson(user);
         String fileName;
     
-        // Determine the file path based on the user's class type
         if (user instanceof Student) {
             fileName = "student.json";
         } else if (user instanceof Advisor) {
             fileName = "advisor.json";
         } else {
-            // Handle the case where user is neither a Student nor an Advisor
             System.err.println("Incorrect User type entered.");
             return; // Exit the method early as we cannot determine the correct file
         }
     
-        String filePath = "./json/" + fileName; // Build the file path
-        writeToFile(filePath, userJson, mode); // Write the JSON object to the determined file
+        String filePath = "./json/" + fileName; 
+        writeToFile(filePath, userJson, mode); 
     }
     
 
@@ -141,7 +139,7 @@ public class DataWriter {
             // This part needs to be adapted based on how you manage prerequisite relations and grades
             JSONArray prereqPair = new JSONArray();
             prereqPair.add(prereqCourse.getID().toString());
-            prereqPair.add("C"); // Example grade, adjust according to your logic
+            prereqPair.add(prereqCourse.getGradeToPass().toString()); 
             JSONArray prereqGroup = new JSONArray();
             prereqGroup.add(prereqPair);
             prerequisitesJson.add(prereqGroup);
