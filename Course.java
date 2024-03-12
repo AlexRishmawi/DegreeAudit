@@ -12,9 +12,8 @@ public class Course {
     private String description;
     private String gradeToPass;
 
-    public Course(String courseName, int creditHours, ArrayList<Season> semesterOffer, 
-                    String department, String courseCode, ArrayList<Course> prerequisites, 
-                    String description, String gradetoPass)
+    public Course(String courseName, String department, String courseCode,  int creditHours, ArrayList<Season> semesterOffer, 
+                    ArrayList<Course> prerequisites, String description, String gradetoPass)
     {
         this.id = UUID.randomUUID();
         setCourseName(courseName);
@@ -27,9 +26,8 @@ public class Course {
         setGradeToPass(gradetoPass);
     }
 
-    public Course(UUID id, String courseName, int creditHours, ArrayList<Season> semesterOffer, 
-                    String department, String courseCode, ArrayList<Course> prerequisites, 
-                    String description, String gradetoPass) 
+    public Course(UUID id, String coursName, String department, String courseCode,  int creditHours, ArrayList<Season> semesterOffer, 
+                    ArrayList<Course> prerequisites, String description, String gradetoPass) 
     {
         setID(id);
         setCourseName(courseName);
