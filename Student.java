@@ -89,7 +89,8 @@ public class Student extends User {
         this.status = status;
     }
 
-    public void setCurrentSemester(ArrayList<Course> courses) {
+    //Modified by Alex Mesa
+    public void setCurrentSemester(Semester courses) {
         this.currentSemester = courses;
     }
 
@@ -98,6 +99,16 @@ public class Student extends User {
     }
 
     // ----- Accessor -----
+
+    //Alex Mesa Additions
+    public String getStatus() {
+        return this.status;
+    }
+
+    
+
+    //Alex Mesa Additions
+
     public ClassLevel getLevel() {
         return this.classification;
     }
@@ -122,11 +133,13 @@ public class Student extends User {
         return this.programGPA;
     }
 
-    public void getCurrentSemester() {
+    //Changed by Alex Mesa
+    public Semester getCurrentSemester() {
         return this.currentSemester;
     }
 
-    public void getAllSemester() {
+    //Changed by Alex Mesa
+    public ArrayList<Semester> getAllSemester() {
         return this.allSemester;
     }
 
