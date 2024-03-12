@@ -51,12 +51,12 @@ public class UserList {
     }
 
     // ----- Other user mthod -----
-    public Boolean createUser(String type, String firstName, String lastName, String password) {
+    public Boolean createUser(String type, String firstName, String lastName, String password, String email) {
         User user;
         if(type.equalsIgnoreCase("student")) {
-            user = new Student(firstName, lastName, lastName, password);
+            user = new Student(firstName, lastName, email, password);
         } else if(type.equalsIgnoreCase("advisor")) {
-            user = new Advisor(firstName, lastName, lastName, password);
+            user = new Advisor(firstName, lastName, email, password, null);
         } else {
             return false;
         }
