@@ -14,7 +14,7 @@ public class Semester {
         this.courses = new HashMap<>();
         for (Course course : courseList) {
             // Initially, no grades are associated with the courses
-            this.courses.put(course, "-");
+            this.courses.put(course, "N");
         }
     }
 
