@@ -28,9 +28,9 @@
         "year": 2019,
         "creditLimit": 18,
         "courses": [
-          ["022a6993-b557-4233-b0aa-2ac744d4527e", 98],
-          ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100],
-          ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100]
+          "022a6993-b557-4233-b0aa-2ac744d4527e",
+          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 
+          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
         ]
       },
       {
@@ -38,9 +38,9 @@
         "year": 2020,
         "creditLimit": 18,
         "courses": [
-          ["022a6993-b557-4233-b0aa-2ac744d4527e", 98],
-          ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100],
-          ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100]
+          "022a6993-b557-4233-b0aa-2ac744d4527e",
+          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
         ]
       }
     ],
@@ -49,9 +49,9 @@
       "year": 2020,
       "creditLimit": 18,
       "courses": [
-        ["022a6993-b557-4233-b0aa-2ac744d4527e", 98],
-        ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100],
-        ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 100]
+        "022a6993-b557-4233-b0aa-2ac744d4527e",
+        "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+        "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
       ]
     }
 

@@ -14,7 +14,7 @@ public class DegreeWork {
         this.degreeList = DegreeList.getInstance();
     }
 
-    // -------- User Method --------
+    // -------- User method --------
     public boolean login(String email, String password) {
         return (this.currentUser = this.userList.getUser(email, password)) != null;
     }
@@ -34,19 +34,14 @@ public class DegreeWork {
     public boolean createStudent(String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) {
-        // Created basic account
-        this.userList.createUser("student", firstName, lastName, password, email);
+        
+        Student tempStudent = new Student(firstName, lastName, email, password, level, advisor, notes, degree, instituteGPA, programGPA, status);
+        return this.userList.addUser(tempStudent);
+    }
 
-        // set up a new user as student
-        User newUser = this.userList.getUser(firstName, lastName, password);
-
-        // Double check if created user
-        if (this.userList.findUser(newUser.getID())) {
-            return false;
-        }
-
-        // TODO: set up student information
-        return true;
+    public boolean createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+        Advisor tempAdvisor = new Advisor(firstName, firstName, email, password, studentList, isAdmin);
+        return this.userList.addUser(tempAdvisor);
     }
 
     public boolean removeUser(String id) {
@@ -74,13 +69,13 @@ public class DegreeWork {
         return null;
     }
 
-    public boolean displayDegreeProgress() {
+    public String displayDegreeProgress() {
         if (this.currentUser.getUserType() == UserType.STUDENT) {
             return ((Student) this.currentUser).getDegree().toString();
         } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
             return ((Advisor) this.currentUser).getCurrentStudent().getDegree().toString();
         }
-        return false;
+        return null;
     }
 
     public boolean displayMajorMap() {
@@ -89,14 +84,6 @@ public class DegreeWork {
         } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
             return ((Advisor) this.currentUser).getCurrentStudent().getCurrentCourse().majorMapToString();
         }
-    }
-
-    public String compareDegree(String degreeType, String subjectName) {
-        return "";
-    }
-
-    public ArrayList<Course> getCourseRecommend() {
-        return new ArrayList<>();
     }
 
     // -------- Advisor and Admin method --------
