@@ -19,7 +19,19 @@ public class ElectiveCategory {
         return this.courseChoices;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public int getCreditsRequired() {
+        return this.creditsRequired;
+    }
+
     public String toString() {
-        return "";
+        StringBuilder retString = new StringBuilder();
+        for (Course choice : courseChoices) {
+            retString.append(choice);
+        }
+        return retString.toString();
     }
 }
