@@ -41,7 +41,7 @@ public class CourseList {
      */
     public boolean addCourse(Course course) {
         this.courses.add(course);
-        return true;
+        return this.courses.contains(course);
     }
 
     /**
