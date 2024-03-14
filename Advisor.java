@@ -204,6 +204,22 @@ public class Advisor extends User{
         return updateStudentInStudentList();
     }
 
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        if(isAdmin) {
+            result.append("Admin Information:\n");
+            result.append(super.toString());
+            result.append("-- Student: \n");
+            for (Student student: studentList) {
+                result.append("    [" + student.toStringAccount() + "]\n");
+            }
+        } else {
+            result.append("Advisor Information:\n");
+            result.append(super.toString());
+        }
+        return result.toString();
+    }
+
     // Private helper method
 
     /**
