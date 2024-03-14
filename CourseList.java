@@ -49,9 +49,14 @@ public class CourseList {
      * @param course The course to delete.
      * @return True if the course was successfully deleted, otherwise false.
      */
-    public boolean deleteCourse(Course course) {
-        this.courses.remove(course);
-        return true;
+    public boolean deleteCourse(UUID id) {
+        for (Course course : this.courses) {
+            if (course.getID().equals(id)) {
+                this.courses.remove(course);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
