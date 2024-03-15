@@ -5,6 +5,12 @@ public class Prerequisites {
     private String minGrade;
     private ArrayList<Course> courseOptions;
 
+    public Prerequisites() {
+        setChoices(0);
+        setMinGrade("F");
+        setCourseOptions(null);
+    }
+
     public Prerequisites(int choices, String minGrade, ArrayList<Course> courseOptions) {
         setChoices(choices);
         setMinGrade(minGrade);

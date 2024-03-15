@@ -28,13 +28,13 @@ public class Course {
                     ArrayList<Season> semester, ArrayList<Prerequisites> prerequisites)
     {
         this.id = UUID.randomUUID();
-        setCourseName(courseName);
         setDepartment(subject);
         setCode(code);
-        setCreditHours(creditHours);
-        setSemesterOffer(semesterOffer);
-        setPrerequisites(prerequisites);
+        setCourseName(name);
+        setCreditHours(credit);
         setDescription(description);
+        setSemesterOffer(semester);
+        setPrerequisites(prerequisites);
     }
 
     /**
@@ -52,13 +52,13 @@ public class Course {
                     ArrayList<Season> semester, ArrayList<Prerequisites> prerequisites)
     {
         setID(id);
-        setCourseName(courseName);
         setDepartment(subject);
         setCode(code);
-        setCreditHours(creditHours);
-        setSemesterOffer(semesterOffer);
-        setPrerequisites(prerequisites);
+        setCourseName(name);
+        setCreditHours(credit);
         setDescription(description);
+        setSemesterOffer(semester);
+        setPrerequisites(prerequisites);
     }
 
     // ----- Accessor -----

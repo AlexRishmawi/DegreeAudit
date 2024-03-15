@@ -20202,13 +20202,6 @@
                 "course_options": [
                     "cc93b80b-8475-4853-8dac-754c2668da2c"
                 ]
-            },
-            {
-                "choices": 1,
-                "min_grade": "D",
-                "course_options": [
-                    "a4c10c4a-2b5f-4251-86fe-a9373a9b464c"
-                ]
             }
         ],
         "corequisites": []
@@ -70687,15 +70680,7 @@
             "SUMMER",
             "FALL"
         ],
-        "prerequisites": [
-            {
-                "choices": 1,
-                "course_options": [
-                    "3435bc63-d317-49e0-bf6e-4210d4595545"
-                ],
-                "min_grade": "C"
-            }
-        ],
+        "prerequisites": [],
         "corequisites": []
     },
     {

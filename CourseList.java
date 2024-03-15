@@ -10,8 +10,7 @@ public class CourseList {
     
     // Private constructor to prevent direct instantiation
     private CourseList() {
-        this.courses = new ArrayList<>();
-        // Read a database
+        this.courses = DataReader.loadCourse();
     }
 
     /**
