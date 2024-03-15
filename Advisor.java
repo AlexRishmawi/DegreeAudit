@@ -123,7 +123,8 @@ public class Advisor extends User{
      */
     public void addStudent(Student student) 
     {
-        this.studentList.add(student); 
+        this.studentList.add(student);
+        this.currentStudent =  this.studentList.getLast();
     }
 
     /**
@@ -133,13 +134,13 @@ public class Advisor extends User{
      */
     public boolean removeStudent(Student student) 
     {
-        for(int i = 0; i < this.studentList.size(); i++) {
-            if(student.equals(this.studentList.get(i))) {
-                studentList.remove(i);
-                return true;
-            }
+        this.studentList.remove(student);
+        
+        if(currentStudent.equals(student)) {
+            currentStudent = null;
         }
-        return false;
+
+        return this.studentList.contains(student);
     }
     
     /**
@@ -170,7 +171,7 @@ public class Advisor extends User{
     public boolean editStudentFirstName(String fname)
     {
         this.currentStudent.setFirstName(fname);
-        return updateStudentInStudentList();
+        return true;
     }
 
     /**
@@ -181,7 +182,7 @@ public class Advisor extends User{
     public boolean editStudentLastName(String lname)
     {
         this.currentStudent.setLastName(lname);
-        return updateStudentInStudentList();
+        return true;
     }
 
     /**
@@ -191,7 +192,7 @@ public class Advisor extends User{
      */
     public boolean editStudentEmail(String email) {
         this.currentStudent.setEmail(email);
-        return updateStudentInStudentList();
+        return true;
     }
 
     /**
@@ -201,7 +202,8 @@ public class Advisor extends User{
      */
     public boolean editStudentPassword(String newPassword) {
         this.currentStudent.setPassword(newPassword);
-        return updateStudentInStudentList();
+        // return updateStudentInStudentList();
+        return true;
     }
 
     public String toString() {
@@ -209,9 +211,11 @@ public class Advisor extends User{
         if(isAdmin) {
             result.append("Admin Information:\n");
             result.append(super.toString());
-            result.append("-- Student: \n");
-            for (Student student: studentList) {
-                result.append("    [" + student.toStringAccount() + "]\n");
+            result.append("\n-- Student List: \n");
+            for (int i = 0; i < this.studentList.size(); i++) {
+                Student student = this.studentList.get(i);
+                result.append("[ Student " + (i+1) + ": \n" + student.toStringAccount() + "\n]");
+                result.append(i != this.studentList.size() - 1 ? " ,\n" : "\n");
             }
         } else {
             result.append("Advisor Information:\n");
@@ -219,16 +223,4 @@ public class Advisor extends User{
         }
         return result.toString();
     }
-
-    // Private helper method
-
-    /**
-     * Updates the currently selected student in the list of managed students.
-     * @return True if the student was successfully updated, otherwise false.
-     */
-    private boolean updateStudentInStudentList() {
-        this.studentList.set(this.currentStudentIndex, this.currentStudent);
-        return true;
-    }
-
 }

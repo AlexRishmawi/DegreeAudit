@@ -62,9 +62,9 @@ public class DegreeWork {
 
     public ArrayList<Course> getCurrentCourse() {
         if (this.currentUser.getUserType() == UserType.STUDENT) {
-            return ((Student) this.currentUser).getCurrentSemester().getCourse();
+            return ((Student) this.currentUser).getCurrentSemester().getCourses();
         } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
-            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentSemester().getCourse();
+            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentSemester().getCourses();
         }
         return null;
     }
@@ -87,8 +87,9 @@ public class DegreeWork {
     }
 
     // -------- Advisor and Admin method --------
-    public boolean editUserFirstName(String name) {
-        if (this.currentUser.getUserType() == UserType.ADVISOR && this.currentUser.isAdmin()) {
+    public boolean editUserFirstName(UUID id, String name) 
+    {
+        if (this.currentUser.getUserType() == UserType.ADVISOR && ((Advisor) this.currentUser).getIsAdmin()) {
             User tempUser = this.userList.getUser(id);
             tempUser.setFirstName(name);
             return true;
@@ -124,7 +125,8 @@ public class DegreeWork {
     }
 
     public boolean deleteUser(UUID id) {
-        if (this.currentUser.getUserType() == UserType.ADVISOR && this.currentUser.isAdmin()) {
+        if (this.currentUser.getUserType() == UserType.ADVISOR && ((Advisor) this.currentUser).getIsAdmin()) 
+        {
             User tempUser = this.userList.getUser(id);
             String[] name_split = name.split(" ");
             tempUser.setFirstName(name_split[0]);
