@@ -19,10 +19,10 @@ public class Student extends User {
         classification = ClassLevel.FRESHMAN;
         advisor = null;
         this.notes = new ArrayList<>();
-        this.degree = new Degree(password, lastName, 0, null, null);
+        this.degree = null;
         this.instituteGPA = 0;
         this.programGPA = 0;
-        this.status = null;
+        this.status = "Pending";
     }
 
     public Student(String firstName, String lastName, String email, String password,
@@ -148,15 +148,18 @@ public class Student extends User {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Student Information:\n");
         result.append(super.toString());
         result.append("\n-- level: " + this.classification.toString());
-        result.append("\n--Institute GPA: " + this.instituteGPA);
-        result.append("\n--Program GPA: " + this.instituteGPA);
+        result.append("\n-- Institute GPA: " + this.instituteGPA);
+        result.append("\n-- Program GPA: " + this.instituteGPA);
         result.append("\n-- Status: " + this.status);
-        result.append("\n-- Advisor: " + advisor.toString());
-        result.append("\n" + printNotes());
-        result.append("\n" + toStringDegree());
+        if (this.advisor != null) {
+            result.append("\n-- Advisor: " + advisor.toString());
+        }
+        result.append("\n" + printNotes() + "\n");
+        if (this.degree != null) {
+            result.append(toStringDegree());
+        }
         return result.toString();
     }
 
@@ -165,13 +168,7 @@ public class Student extends User {
     }
 
     public String printNotes() {
-        StringBuilder result = new StringBuilder();
-        result.append("-- Notes: \n");
-        for (String note : notes) {
-            result.append("    [" + note + "]\n");
-        }
-
-        return result.toString();
+        return "-- Notes: " + notes.toString();
     }
 
     public String toStringDegree() {

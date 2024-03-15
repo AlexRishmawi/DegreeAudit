@@ -9,7 +9,6 @@ import java.util.UUID;
 public class Advisor extends User{
     private ArrayList<Student> studentList;
     private Student currentStudent;
-    private int currentStudentIndex;
     private Boolean isAdmin;
 
     /**
@@ -208,19 +207,14 @@ public class Advisor extends User{
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        if(isAdmin) {
-            result.append("Admin Information:\n");
-            result.append(super.toString());
-            result.append("\n-- Student List: \n");
-            for (int i = 0; i < this.studentList.size(); i++) {
-                Student student = this.studentList.get(i);
-                result.append("[ Student " + (i+1) + ": \n" + student.toStringAccount() + "\n]");
-                result.append(i != this.studentList.size() - 1 ? " ,\n" : "\n");
-            }
-        } else {
-            result.append("Advisor Information:\n");
-            result.append(super.toString());
-        }
+        result.append("-- Admin: "+ this.isAdmin);
+        result.append("\n" + super.toString());
+        result.append("\n-- Student List: \n" + this.studentList.toString());
+        // for (int i = 0; i < this.studentList.size(); i++) {
+        //     Student student = this.studentList.get(i);
+        //     result.append("[ Student " + (i+1) + ": \n" + student.toStringAccount() + "\n]");
+        //     result.append(i != this.studentList.size() - 1 ? " ,\n" : "\n");
+        // }
         return result.toString();
     }
 }

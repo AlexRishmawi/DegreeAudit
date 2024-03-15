@@ -12,7 +12,7 @@ public class Course {
     private String description;
     private int creditHours;
     private ArrayList<Season> semesterOffer;
-    private ArrayList<Course> prerequisites;
+    private ArrayList<Prerequisites> prerequisites;
 
     /**
      * Constructs a Course object with specified attributes.
@@ -25,7 +25,7 @@ public class Course {
      * @param prerequisites The prerequisite courses for the course.
      */
     public Course(String subject, String code, String name, String description, int credit,
-                    ArrayList<Season> semester, ArrayList<Course> prerequisites)
+                    ArrayList<Season> semester, ArrayList<Prerequisites> prerequisites)
     {
         this.id = UUID.randomUUID();
         setCourseName(courseName);
@@ -49,7 +49,7 @@ public class Course {
      * @param prerequisites The prerequisite courses for the course.
      */
     public Course(UUID id, String subject, String code, String name, String description, int credit,
-                    ArrayList<Season> semester, ArrayList<Course> prerequisites)
+                    ArrayList<Season> semester, ArrayList<Prerequisites> prerequisites)
     {
         setID(id);
         setCourseName(courseName);
@@ -68,7 +68,7 @@ public class Course {
     public void setCode(String code) { this.code = code; }
     public void setCreditHours(int credit) { this.creditHours = credit; }
     public void setSemesterOffer(ArrayList<Season> season) { this.semesterOffer = season;}
-    public void setPrerequisites(ArrayList<Course> courses) { this.prerequisites = courses;}
+    public void setPrerequisites(ArrayList<Prerequisites> prerequisites) { this.prerequisites = prerequisites;}
     public void setDescription(String description) { this.description = description;}
 
     // ----- Mutator -----
@@ -78,7 +78,7 @@ public class Course {
     public String getCode() { return this.code; }
     public int getCreditHours() { return this.creditHours; }
     public ArrayList<Season> getSemesterOffer() { return this.semesterOffer; }
-    public ArrayList<Course> getPrerequisites() { return this.prerequisites; }
+    public ArrayList<Prerequisites> getPrerequisites() { return this.prerequisites; }
     public String getDescription() { return this.description; }
 
     /**
@@ -87,15 +87,14 @@ public class Course {
      */
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append("Course Information: ");
-        string.append("\n-- ID: " + this.id);
+        string.append("-- ID: " + this.id);
         string.append("\n-- Name: " + this.courseName);
         string.append("\n-- Subject: " + this.subject);
         string.append("\n-- Code: " + this.code);
+        string.append("\n-- Description: " + this.description);
         string.append("\n-- Credit hours: " + this.creditHours);
-        string.append("\n--Semester hours: " + this.semesterOffer.toString());
-        string.append("\n--Course prerequisites: " + this.prerequisites.toString());
-        string.append("\n--Description: " + this.description);
+        string.append("\n-- Semester hours: " + this.semesterOffer.toString());
+        string.append("\n-- Course prerequisites:" + this.prerequisites);
         return string.toString();
     }
 

@@ -90,20 +90,6 @@ public class DataReader extends DataConstants{
         return users;
     }
 
-    public ArrayList<Program> loadProgram() {
-        ArrayList<Program> program = new ArrayList<>();
-        try {
-            FileReader reader = new FileReader(PROGRAM_FILE_NAME);
-            JSONArray readerJSON = (JSONArray) new JSONParser().parse(reader);
-            
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("ERROR --- Couldn't load Program file");
-        }
-        return;
-    }
-
     public ArrayList<Course> loadCourse() {
         HashMap<String, Course> courseMap = new HashMap<>();
         HashMap<Course, ArrayList<Object>> preMap = new HashMap<>();
@@ -116,6 +102,7 @@ public class DataReader extends DataConstants{
                 JSONObject courseJSON = (JSONObject) readerJSON.get(i);
                 UUID id = UUID.fromString((String) courseJSON.get(COURSE_ID));
                 String name = (String) courseJSON.get(COURSE_NAME);
+                String description = (String) courseJSON.get(COURSE_DESCRIPTION);
                 String department = (String) courseJSON.get(COURSE_DEPARTMENT);
                 String code = (String) courseJSON.get(COURSE_CODE);
                 Integer credit = (Integer) courseJSON.get(COURSE_CREDIT_HOURS);
@@ -125,14 +112,6 @@ public class DataReader extends DataConstants{
                 for(int j = 0; j < semesterJSON.size(); j++) {
                     semesterOffer.add(Season.valueOf(((String)semesterJSON.get(j)).toUpperCase()));
                 }
-                
-                String description = (String) courseJSON.get(COURSE_DESCRIPTION);
-                String gradeToPass = (String) courseJSON.get(COURSE_GRADE_TO_PASS);
-
-                // ArrayList<Object> new
-                
-
-
             }
             
         } catch (Exception e) {
