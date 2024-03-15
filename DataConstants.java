@@ -16,15 +16,14 @@ public abstract class DataConstants {
 
     // Course Constants
     protected static final String COURSE_FILE_NAME = "./json/course.json";
-    protected static final String COURSE_ID = "id";
-    protected static final String COURSE_NAME = "courseName";
-    protected static final String COURSE_DEPARTMENT = "department";
-    protected static final String COURSE_CODE = "code";
-    protected static final String COURSE_CREDIT_HOURS = "creditHours";
-    protected static final String COURSE_SEMESTER_OFFER = "semesterOffer";
-    protected static final String COURSE_PREREQUISITE = "prerequisite";
+    protected static final String COURSE_ID = "uuid";
+    protected static final String COURSE_NAME = "name";
+    protected static final String COURSE_DEPARTMENT = "subject";
+    protected static final String COURSE_CODE = "number";
+    protected static final String COURSE_CREDIT_HOURS = "credit_hours";
+    protected static final String COURSE_SEMESTER_OFFER = "semesters_offered";
+    protected static final String COURSE_PREREQUISITE = "prerequisites";
     protected static final String COURSE_DESCRIPTION = "description";
-    protected static final String COURSE_GRADE_TO_PASS = "gradeToPass";
 
     // User Constants share among the user
     protected static final String USER_ID = "id";
