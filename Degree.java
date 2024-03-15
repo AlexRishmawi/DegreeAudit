@@ -13,8 +13,7 @@ public class Degree {
 
 
     public Degree(String degreeType, String subjectName, int totalCreditRequired, 
-        ArrayList<Course> majorCourses, 
-        ArrayList<ElectiveCategory> electiveList) 
+        ArrayList<Course> majorCourses, ArrayList<ElectiveCategory> electiveList) 
     {
         this.id = UUID.randomUUID();
         this.subjectName = subjectName;

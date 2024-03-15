@@ -13,12 +13,13 @@ public class Student extends User {
     private Semester currentSemester;
     private ArrayList<Semester> allSemester;
 
-    public Student(String firstName, String lastName, String email, String password) {
+    public Student(String firstName, String lastName, String email, String password) 
+    {
         super(firstName, lastName, email, password);
-        classification = null;
+        classification = ClassLevel.FRESHMAN;
         advisor = null;
         this.notes = new ArrayList<>();
-        this.degree = null;
+        this.degree = new Degree(password, lastName, 0, null, null);
         this.instituteGPA = 0;
         this.programGPA = 0;
         this.status = null;
@@ -26,7 +27,8 @@ public class Student extends User {
 
     public Student(String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status) {
+            double instituteGPA, double programGPA, String status) 
+    {
         super(firstName, lastName, email, password);
         setLevel(level);
         setAdvisor(advisor);
@@ -39,7 +41,8 @@ public class Student extends User {
 
     public Student(UUID id, String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status) {
+            double instituteGPA, double programGPA, String status) 
+    {
         super(id, firstName, lastName, email, password);
         setLevel(level);
         setAdvisor(advisor);
@@ -52,16 +55,14 @@ public class Student extends User {
 
     // ----- Mutator -----
     public void setLevel(String level) {
-        if (level.equalsIgnoreCase("freshman")) {
-            this.classification = ClassLevel.FRESHMAN;
-        } else if (level.equalsIgnoreCase("sophomore")) {
+        if (level.equalsIgnoreCase("sophomore")) {
             this.classification = ClassLevel.SOPHOMORE;
         } else if (level.equalsIgnoreCase("junior")) {
             this.classification = ClassLevel.JUNIOR;
         } else if (level.equalsIgnoreCase("senior")) {
             this.classification = ClassLevel.SENIOR;
         } else {
-            System.err.println("ERROR --- Couldn't define student classification" + level);
+            this.classification = ClassLevel.FRESHMAN;
         }
     }
 
@@ -105,10 +106,7 @@ public class Student extends User {
         return this.status;
     }
 
-    
-
     //Alex Mesa Additions
-
     public ClassLevel getLevel() {
         return this.classification;
     }
