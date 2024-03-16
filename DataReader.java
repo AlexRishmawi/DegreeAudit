@@ -14,8 +14,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+/**
+ * The DataReader class is responsible for loading data from JSON files
+ * and converting them into corresponding Java objects.
+ */
 public class DataReader extends DataConstants {
 
+    /**
+     * Loads user data from JSON files and returns an ArrayList of User objects.
+     * @return An ArrayList containing User objects loaded from JSON files.
+     */
     public static ArrayList<User> loadUser() {
         CourseList courseList = CourseList.getInstance();
         DegreeList degreeList = DegreeList.getInstance();
@@ -126,6 +134,10 @@ public class DataReader extends DataConstants {
         return loadedUsers;
     }
 
+    /**
+     * Loads course data from a JSON file and returns an ArrayList of Course objects.
+     * @return An ArrayList containing Course objects loaded from a JSON file.
+     */
     public static ArrayList<Course> loadCourse() {
         ArrayList<Course> loadedCourse = new ArrayList<>();
         HashMap<UUID, Integer> mappingCourse = new HashMap<>();
@@ -214,6 +226,12 @@ public class DataReader extends DataConstants {
         return loadedCourse;
     }
 
+    /**
+     * Loads degree information from a JSON file and returns an ArrayList of Degree objects.
+     * Each Degree object contains details such as degree ID, subject name, total credit requirement,
+     * major courses, and elective categories.
+     * @return ArrayList of Degree objects loaded from the JSON file.
+     */
     public static ArrayList<Degree> loadDegree() {
 
         CourseList courseList = CourseList.getInstance();
@@ -264,6 +282,11 @@ public class DataReader extends DataConstants {
     }
 
     // ----- Private Data Structure -----
+    /**
+    * A generic Pair class representing a key-value pair.
+    * @param <K> the type of the key
+    * @param <V> the type of the value
+    */
     private static class Pair<K, V> {
         private final K key;
         private final V value;
