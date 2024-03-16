@@ -5,10 +5,9 @@ import java.util.UUID;
  */
 public class DegreeList {
     private static DegreeList degreeList;
-    private ArrayList<Degree> degree;
+    private ArrayList<Degree> degrees;
     private DegreeList() {
-        degree = new ArrayList<Degree>();
-        // Read a database
+        degrees = DataReader.loadDegree();
     }
 
     /**
@@ -25,7 +24,7 @@ public class DegreeList {
      * @return Degree
      */
     public Degree getDegree(UUID id) {
-        for(Degree degree: degree) {
+        for(Degree degree: degrees) {
             if(degree.getID().equals(id)) {
                 return degree;
             }
@@ -34,12 +33,9 @@ public class DegreeList {
     }
     /**
      * Prints DegreeList
-     * @return degree
+     * @return 
      */
-    public Degree printDegree() {
-        for(int i= 0;i < degree.size();i++) {
-            return degree.get(i);
-        }
-        return null;
+    public ArrayList<Degree> getAllDegree() {
+        return this.degrees;
     }
 }

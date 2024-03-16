@@ -9,26 +9,20 @@
         "subjectName": "Computer Science",
         "electiveList": [
             {
-                "0a2e03d7-033b-429c-843d-69cd5f33f748":
-                {
-                    "type": "Minor",
-                    "creditRequired": 20,
-                    "courseChoices": [
-                        "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-                        "0a2e03d7-033b-429c-843d-69cd5f33f748"
-                    ]
-                }
+                "type": "Minor",
+                "creditRequired": 20,
+                "courseChoices": [
+                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
+                ]
             },
             {
-                "0a2e03d7-033b-429c-843d-69cd5f33f748":
-                {
-                    "type": "Concentration",
-                    "creditRequired": 20,
-                    "courseChoices": [
-                        "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-                        "0a2e03d7-033b-429c-843d-69cd5f33f748"
-                    ]
-                }
+                "type": "Concentration",
+                "creditRequired": 20,
+                "courseChoices": [
+                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
+                ]
             }
         ]
     },
@@ -42,26 +36,20 @@
         "subjectName": "Mathematics",
         "electiveList": [
             {
-                "0be4a554-eedd-496e-a3d4-ead9ecd0ba41":
-                {
-                    "type": "Minor",
-                    "creditRequired": 20,
-                    "courseChoices": [
-                        "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-                        "0a2e03d7-033b-429c-843d-69cd5f33f748"
-                    ]
-                }
+                "type": "Minor",
+                "creditRequired": 20,
+                "courseChoices": [
+                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
+                ]
             },
             {
-                "0a2e03d7-033b-429c-843d-69cd5f33f748":
-                {
-                    "type": "Concentration",
-                    "creditRequired": 20,
-                    "courseChoices": [
-                        "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-                        "0a2e03d7-033b-429c-843d-69cd5f33f748"
-                    ]
-                }
+                "type": "Concentration",
+                "creditRequired": 20,
+                "courseChoices": [
+                    "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
+                    "0a2e03d7-033b-429c-843d-69cd5f33f748"
+                ]
             }
         ]
     }

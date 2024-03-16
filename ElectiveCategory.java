@@ -1,20 +1,22 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * 
  * @author Aarsh Patel
  */
 public class ElectiveCategory {
-    public String type;
+    private String type;
     private int creditsRequired;
     private ArrayList<Course> courseChoices;
 
     public ElectiveCategory(String type, int creditsRequired, ArrayList<Course> courseChoices) {
-        this.type = type;
-        this.creditsRequired = creditsRequired;
-        this.courseChoices = courseChoices;
+        setType(type);
+        setCreditRequired(creditsRequired);
+        setCourseChoices(courseChoices);
     }
 
+    // ----- Accessor -----
     public ArrayList<Course> getCourseChoices() {
         return this.courseChoices;
     }
@@ -25,6 +27,19 @@ public class ElectiveCategory {
 
     public int getCreditsRequired() {
         return this.creditsRequired;
+    }
+
+    // ----- Mutator -----
+    public void setCourseChoices(ArrayList<Course> courses) {
+        this.courseChoices = courses;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setCreditRequired(int credit) {
+        this.creditsRequired = credit;
     }
 
     public String toString() {

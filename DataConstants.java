@@ -20,6 +20,11 @@ public abstract class DataConstants {
     protected static final String SEMSESTER_LIMIT = "creditLimit";
     protected static final String SESMESTER_COURSES = "courses";
 
+    // Elective Constants
+    protected static final String ELECTIVE_TYPE = "type";
+    protected static final String ELECTIVE_CREDIT_REQUIRED = "creditRequired";
+    protected static final String ELECTIVE_COURSE_CHOICES = "courseChoices";
+
     // Course Constants
     protected static final String COURSE_FILE_NAME = "./json/course.json";
     protected static final String COURSE_ID = "uuid";

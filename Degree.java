@@ -16,24 +16,70 @@ public class Degree {
         ArrayList<Course> majorCourses, ArrayList<ElectiveCategory> electiveList) 
     {
         this.id = UUID.randomUUID();
-        this.subjectName = subjectName;
-        this.degreeType = degreeType;
-        this.totalCreditRequired = totalCreditRequired;
-        this.majorCourses = majorCourses;
-        this.electiveList = electiveList; 
-    }
-    
-    public ArrayList<Course> getMajorCourses() {
-        return this.majorCourses;
+        setSubject(subjectName);
+        setDegreeType(degreeType);
+        setTotalCreditRequired(totalCreditRequired);
+        setMajorCourses(majorCourses);
+        setElectiveList(electiveList);
     }
 
+    public Degree(UUID id, String degreeType, String subjectName, int totalCreditRequired, 
+    ArrayList<Course> majorCourses, ArrayList<ElectiveCategory> electiveList) 
+    {
+        this.id = id;
+        setSubject(subjectName);
+        setDegreeType(degreeType);
+        setTotalCreditRequired(totalCreditRequired);
+        setMajorCourses(majorCourses);
+        setElectiveList(electiveList);
+    }
+
+    // ----- Accessor -----
+    public UUID getID() {
+        return this.id;
+    }
+
+    public String getSubject() {
+        return this.subjectName;
+    }
+
+    public String getDegreeType() {
+        return this.degreeType;
+    }
+   
     public int getTotalCreditRequired() {
         return this.totalCreditRequired;
     }
 
-    public UUID getID() {
-        return this.id;
+    public ArrayList<Course> getMajorCourses() {
+        return this.majorCourses;
     }
+
+    public ArrayList<ElectiveCategory> getElectiveList() {
+        return this.electiveList;
+    }
+
+    // ----- Mutator -----
+    public void setDegreeType(String type) {
+        this.degreeType = type;
+    }
+
+    public void setSubject(String subject) {
+        this.subjectName = subject;
+    }
+   
+    public void setTotalCreditRequired(int credit) {
+        this.totalCreditRequired = credit;
+    }
+
+    public void setMajorCourses(ArrayList<Course> courses) {
+        this.majorCourses = courses;
+    }
+
+    public void setElectiveList(ArrayList<ElectiveCategory> electiveList) {
+        this.electiveList = electiveList;
+    }
+
 
     public boolean addMajorCourse(Course course) {
         if (course != null) {

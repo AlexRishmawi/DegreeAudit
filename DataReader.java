@@ -214,6 +214,55 @@ public class DataReader extends DataConstants {
         return loadedCourse;
     }
 
+    public static ArrayList<Degree> loadDegree() {
+
+        CourseList courseList = CourseList.getInstance();
+        ArrayList<Degree> loadedDegree = new ArrayList<>();
+
+        try {
+            FileReader reader = new FileReader(DEGREE_FILE_NAME);
+            JSONArray readerJSON = (JSONArray) new JSONParser().parse(reader);
+            for(int i = 0; i < readerJSON.size(); i++) {
+                JSONObject degreeObject = (JSONObject) readerJSON.get(i);
+                UUID degreeID = UUID.fromString((String) degreeObject.get(DEGREE_ID));
+                int creditRequire = (int) ((long) degreeObject.get(DEGREE_TOTAL_CREDIT_REQUIRED));
+                String subject = (String) degreeObject.get(DEGREE_SUBJECT_NAME);
+                
+                ArrayList<Course> majorCourses = new ArrayList<>();
+                JSONArray majorCourseArray = (JSONArray) degreeObject.get(DEGREE_MAJOR_COURSES);
+                for(int j = 0; j < majorCourseArray.size(); j++) {
+                    UUID courseID = UUID.fromString((String) majorCourseArray.get(j));
+                    majorCourses.add(courseList.getCourse(courseID));
+                }
+
+                ArrayList<ElectiveCategory> electiveList = new ArrayList<>();
+                JSONArray electiveArray = (JSONArray) degreeObject.get(DEGREE_ELECTIVE_LIST);
+                for(int j = 0; j < electiveArray.size(); j++) {
+                    JSONObject electivObject = (JSONObject) electiveArray.get(j);
+                    String type = (String) electivObject.get(ELECTIVE_TYPE);
+                    int electivecreditRequired = (int) ((long) electivObject.get(ELECTIVE_CREDIT_REQUIRED));
+
+                    JSONArray courseJsonArray = (JSONArray) electivObject.get(ELECTIVE_COURSE_CHOICES);
+                    ArrayList<Course> coursesChoices = new ArrayList<>();
+                    for(int k = 0; k < courseJsonArray.size(); k++) {
+                        UUID courseID = UUID.fromString((String) courseJsonArray.get(k));
+                        coursesChoices.add(courseList.getCourse(courseID));
+                    }
+
+                    electiveList.add(new ElectiveCategory(type, electivecreditRequired, coursesChoices));
+                }
+
+                Degree degree = new Degree(degreeID, subject, subject, creditRequire, majorCourses, electiveList);
+                loadedDegree.add(degree);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("ERROR --- Couldn't Degree file");
+        }
+
+        return loadedDegree;
+    }
+
     // ----- Private Data Structure -----
     private static class Pair<K, V> {
         private final K key;
