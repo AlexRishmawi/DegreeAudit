@@ -41,7 +41,8 @@ public class Student extends User {
 
     public Student(UUID id, String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status) 
+            double instituteGPA, double programGPA, String status,
+            Semester currentSemester, ArrayList<Semester> allSemester) 
     {
         super(id, firstName, lastName, email, password);
         setLevel(level);
@@ -51,6 +52,8 @@ public class Student extends User {
         setInstituteGPA(programGPA);
         setProgramGPA(programGPA);
         setStatus(status);
+        setCurrentSemester(currentSemester);
+        setAllSemester(allSemester);
     }
 
     // ----- Mutator -----
@@ -154,7 +157,7 @@ public class Student extends User {
         result.append("\n-- Program GPA: " + this.instituteGPA);
         result.append("\n-- Status: " + this.status);
         if (this.advisor != null) {
-            result.append("\n-- Advisor: " + advisor.toString());
+            result.append("\n-- Advisor: " + advisor.toStringAccount());
         }
         result.append("\n" + printNotes() + "\n");
         if (this.degree != null) {

@@ -15,8 +15,7 @@ public class UserList {
 
     // Private constructor to prevent direct instantiation
     private UserList() {
-        this.users = new ArrayList<User>();
-        // Read a database
+        this.users = DataReader.loadUser();
     }
 
     /**

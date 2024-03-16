@@ -217,4 +217,8 @@ public class Advisor extends User{
         // }
         return result.toString();
     }
+
+    public String toStringAccount() {
+        return super.toString();
+    }
 }

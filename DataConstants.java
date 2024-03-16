@@ -6,13 +6,19 @@
 
 public abstract class DataConstants {
 
-    //Degree Constants
+    // Degree Constants
     protected static final String DEGREE_FILE_NAME = "./json/degree.json";
     protected static final String DEGREE_ID = "id";
     protected static final String DEGREE_TOTAL_CREDIT_REQUIRED = "totalCreditRequired";
     protected static final String DEGREE_MAJOR_COURSES = "majorCourses";
     protected static final String DEGREE_SUBJECT_NAME = "subjectName";
     protected static final String DEGREE_ELECTIVE_LIST = "electiveList";
+
+    // SEMESTER Constants
+    protected static final String SEMESTER_SEASON = "season";
+    protected static final String SESMESTER_YEAR = "year";
+    protected static final String SEMSESTER_LIMIT = "creditLimit";
+    protected static final String SESMESTER_COURSES = "courses";
 
     // Course Constants
     protected static final String COURSE_FILE_NAME = "./json/course.json";
@@ -41,6 +47,7 @@ public abstract class DataConstants {
     protected static final String STUDENT_CLASSIFICATION = "classification";
     protected static final String STUDENT_ADVISOR_ID = "advisorID";
     protected static final String STUDENT_NOTES = "notes";
+    protected static final String STUDENT_STATUS = "status";
     protected static final String STUDENT_DEGREE_ID = "degreeID";
     protected static final String STUDENT_INSTITUTE_GPA = "instituteGPA";
     protected static final String STUDENT_PROGRAM_GPA = "programGPA";
