@@ -52,7 +52,7 @@ public class Course {
                     ArrayList<Season> semester, ArrayList<Prerequisites> prerequisites)
     {
         setID(id);
-        setDepartment(subject);
+        setSubject(subject);
         setCode(code);
         setCourseName(name);
         setCreditHours(credit);
@@ -64,7 +64,7 @@ public class Course {
     // ----- Accessor -----
     public void setID(UUID id) { this.id = id; }
     public void setCourseName(String name) { this.courseName = name; }
-    public void setDepartment(String subject) { this.subject = subject; }
+    public void setSubject(String subject) { this.subject = subject; }
     public void setCode(String code) { this.code = code; }
     public void setCreditHours(int credit) { this.creditHours = credit; }
     public void setSemesterOffer(ArrayList<Season> season) { this.semesterOffer = season;}
@@ -74,7 +74,7 @@ public class Course {
     // ----- Mutator -----
     public UUID getID() { return this.id; }
     public String getCourseName() { return this.courseName; }
-    public String getDepartment() { return this.subject; }
+    public String getSubject() { return this.subject; }
     public String getCode() { return this.code; }
     public int getCreditHours() { return this.creditHours; }
     public ArrayList<Season> getSemesterOffer() { return this.semesterOffer; }

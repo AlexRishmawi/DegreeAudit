@@ -128,11 +128,12 @@ public class Advisor extends User{
 
     /**
      * Removes a student from the advisor's list of managed students.
-     * @param student The student to be removed.
+     * @param UUID The student id to be removed.
      * @return True if the student was successfully removed, otherwise false.
      */
-    public boolean removeStudent(Student student) 
+    public boolean removeStudent(UUID id) 
     {
+        Student student = findStudent(id);
         this.studentList.remove(student);
         
         if(currentStudent.equals(student)) {
@@ -155,7 +156,6 @@ public class Advisor extends User{
 
         for(int i = 0; i < this.studentList.size(); i++) {
             if(this.studentList.get(i).getID().equals(id)) {
-                this.currentStudentIndex = i;
                 return this.studentList.get(i);
             }
         }
