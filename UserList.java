@@ -76,6 +76,10 @@ public class UserList {
         return null;
     }
 
+    public boolean writeUser() {
+        return true;
+    }
+
     // ----- Other user mthod -----
     /**
      * Creates a new user of the specified type and adds it to the list.
