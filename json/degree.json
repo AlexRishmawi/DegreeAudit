@@ -3,11 +3,6 @@
         "id": "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
         "totalCreditRequired": 20,
         "majorCourses": [
-            "12224407-e656-4fe7-9078-88f1d9dc8325",
-            "4bd274cb-260e-47a5-9893-203a3943d704",
-            "2e2ebf3f-c4d3-4dae-956b-d8afa7fca627",
-            "3cca9c4e-a195-4759-a761-cfe09adb20b8",
-
         ],
         "subjectName": "Computer Science",
         "electiveList": [
@@ -15,9 +10,42 @@
                 "type": "AIU",
                 "creditRequired": 3,
                 "courseChoices": [
-                    
+                    "277c57bf-d5b8-4a69-941f-0f494c30d99e",
+                    "5844e157-e966-4ca8-a60b-a86f76903c6d",
+                    "c08a8c04-7729-401a-820f-6c737c196344",
+                    "2b41468d-41d9-4517-aa34-11cdedaac889",
+                    "d05b3843-51a5-4708-ac0c-c97964861027",
+                    "e46b49a6-7dfc-476d-ad9e-494c7478d254",
+                    "ef98f620-8290-4cc5-95b8-17eeec9545e0",
+                    "6c869950-13fa-48d7-9274-e97014b03164",
+                    "e0ffb4fd-f232-4106-859d-23fa91d31d52",
+                    "d1584e6d-3a1f-4787-93bb-36dc05e894b2"
                 ]
+            },
+            {
+                "type": "CMW",
+                "creditRequired": 6,
+                "courseChoices": [
+                    "12224407-e656-4fe7-9078-88f1d9dc8325",
+                    "980e1056-4ed2-4459-b0e7-56d78eca5d73"
+                ]
+            },
+            {
+                "type": "ARP",
+                "creditRequired": 6,
+                "courseChoices": [
+                    "0ee3fc1c-ec19-4637-aeb5-614577b6d22f",
+                    "ceb7cd60-abcc-4bc1-a3b1-a30b81a824cd",
+                    "f8e10b3a-146b-4d43-a3d8-647028c98641",
+                    "4bd274cb-260e-47a5-9893-203a3943d704",
+                    "3d7aa3f8-bfb0-4f9e-af57-49818eacf9a6",
+                ]
+            },
+            {
+                "type": "SCI",
+
             }
+
             {
                 "type": "Minor",
                 "creditRequired": 20,
