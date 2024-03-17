@@ -8,12 +8,12 @@ public class Degree {
     private String degreeType;
     private String subjectName;
     private int totalCreditRequired;
-    private ArrayList<Course> majorCourses;
+    private HashMap<Course, Integer> majorCourses;
     private ArrayList<ElectiveCategory> electiveList;
 
 
     public Degree(String degreeType, String subjectName, int totalCreditRequired, 
-        ArrayList<Course> majorCourses, ArrayList<ElectiveCategory> electiveList) 
+        HashMap<Course, Integer> majorCourses, ArrayList<ElectiveCategory> electiveList) 
     {
         this.id = UUID.randomUUID();
         setSubject(subjectName);
@@ -24,7 +24,7 @@ public class Degree {
     }
 
     public Degree(UUID id, String degreeType, String subjectName, int totalCreditRequired, 
-    ArrayList<Course> majorCourses, ArrayList<ElectiveCategory> electiveList) 
+    HashMap<Course, Integer> majorCourses, ArrayList<ElectiveCategory> electiveList) 
     {
         this.id = id;
         setSubject(subjectName);
@@ -51,7 +51,7 @@ public class Degree {
         return this.totalCreditRequired;
     }
 
-    public ArrayList<Course> getMajorCourses() {
+    public HashMap<Course, Integer> getMajorCourses() {
         return this.majorCourses;
     }
 
@@ -72,7 +72,11 @@ public class Degree {
         this.totalCreditRequired = credit;
     }
 
-    public void setMajorCourses(ArrayList<Course> courses) {
+    public void setMajorCourses(HashMap<Course, Integer> courses) {
+        if (courses == null) {
+            this.majorCourses = new HashMap<Course, Integer>();
+            return;
+        }
         this.majorCourses = courses;
     }
 
@@ -81,9 +85,9 @@ public class Degree {
     }
 
 
-    public boolean addMajorCourse(Course course) {
-        if (course != null) {
-            majorCourses.add(course);
+    public boolean addMajorCourse(Course course, int preferredSemester) {
+        if (course != null && preferredSemester > 0 && preferredSemester < 9) {
+            majorCourses.put(course, preferredSemester);
             return true;
         }
         return false;
@@ -106,8 +110,8 @@ public class Degree {
         retString.append("Degree: " + this.degreeType + " in " + this.subjectName + "\n");
         retString.append("Total Credit Required: " + this.totalCreditRequired + "\n");
         retString.append("Courses\n");
-        for(Course course : majorCourses) {
-            retString.append(course.toString() + "\n");
+        for (Map.Entry<Course, Integer> entry : majorCourses.entrySet()) {
+            retString.append(entry.toString()+ "\n");
         }
         for (ElectiveCategory element : electiveList) {
             retString.append("\n" + element.getType() + "\n");
@@ -117,12 +121,11 @@ public class Degree {
         return retString.toString();
     }
     // public static void main(String[] args) {
-    //     UUID id = UUID.randomUUID();
     //     String type = "Bachelors";
     //     String name = "Computer Science";
     //     int totalCredits = 125;
-    //     ArrayList<Course> courses = new ArrayList<>();
-    //     courses.add(new Course("Vector Calculus", "MATH", "241", 3, new ArrayList<Season>(), new ArrayList<Course>(), "None", "C"));
+    //     HashMap<Course, Integer> courses = new HashMap<>();
+    //     courses.put(new Course("Vector Calculus", "MATH", "241", "", 3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), 1);
     //     ArrayList<ElectiveCategory> electives = new ArrayList<>();
     //     electives.add(new ElectiveCategory("Application Area", 16, courses));
     //     Degree testDegree = new Degree(type, name, totalCredits, courses, electives);
