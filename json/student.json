@@ -1,1 +1,162 @@
-[{"lastName":"Smith","currentSemester":{"courses":[["022a6993-b557-4233-b0aa-2ac744d4527e",98],["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100],["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100]],"year":2020,"season":"FALL","creditLimit":18},"advisorID":"a6e0a427-72fd-490d-85df-5933c0ddb081","notes":["Bob is a great student","Bob is a hard worker","Bob should consider taking more classes next semester"],"allSemesters":[{"courses":[["022a6993-b557-4233-b0aa-2ac744d4527e",98],["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100],["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100]],"year":2019,"season":"FALL","creditLimit":18},{"courses":[["022a6993-b557-4233-b0aa-2ac744d4527e",98],["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100],["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100]],"year":2020,"season":"SPRING","creditLimit":18}],"degreeID":"dfa84645-4278-44a3-8b3b-c6b4fc6257c5","programGPA":3.0,"instituteGPA":3.5,"type":"Student","classification":"FRESHMAN","firstName":"Bob","password":"password","completeCourses":[["022a6993-b557-4233-b0aa-2ac744d4527e",98],["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100],["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",100]],"id":"6e30c187-5592-4d8a-91e4-e874f34a41cd","email":"bobsmith@email.sc.edu","status":"active"},{"lastName":"Wonderland","advisorID":"705edeff-ca4f-45be-a96b-b0990a2f36da","notes":["Good progress","Needs improvement in math"],"allSemesters":[{"courses":[{"grade":"-","courseID":"f67cad90-d72f-4a1d-9237-f457c3129a58"},{"grade":"-","courseID":"15f02a32-8d0d-485a-94bd-d70fc6e38cf5"}],"year":2023,"season":"FALL","creditLimit":18}],"degreeID":"b428f5eb-6118-4bb3-980c-fe94d2d4363e","programGPA":3.7,"instituteGPA":3.7,"classification":"JUNIOR","firstName":"Alice","password":"password456","id":"f7dd6141-20c4-4c62-85a8-00036b8b8eea","email":"alice@example.com","status":"Active"}]
+[
+  {
+    "lastName": "Smith",
+    "currentSemester": {
+      "courses": [
+        [
+          "022a6993-b557-4233-b0aa-2ac744d4527e",
+          98
+        ],
+        [
+          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+          100
+        ],
+        [
+          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+          100
+        ]
+      ],
+      "year": 2020,
+      "season": "FALL",
+      "creditLimit": 18
+    },
+    "advisorID": "a6e0a427-72fd-490d-85df-5933c0ddb081",
+    "notes": [
+      "Bob is a great student",
+      "Bob is a hard worker",
+      "Bob should consider taking more classes next semester"
+    ],
+    "allSemesters": [
+      {
+        "courses": [
+          [
+            "022a6993-b557-4233-b0aa-2ac744d4527e",
+            98
+          ],
+          [
+            "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+            100
+          ],
+          [
+            "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+            100
+          ]
+        ],
+        "year": 2019,
+        "season": "FALL",
+        "creditLimit": 18
+      },
+      {
+        "courses": [
+          [
+            "022a6993-b557-4233-b0aa-2ac744d4527e",
+            98
+          ],
+          [
+            "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+            100
+          ],
+          [
+            "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+            100
+          ]
+        ],
+        "year": 2020,
+        "season": "SPRING",
+        "creditLimit": 18
+      }
+    ],
+    "degreeID": "dfa84645-4278-44a3-8b3b-c6b4fc6257c5",
+    "programGPA": 3.0,
+    "instituteGPA": 3.5,
+    "type": "Student",
+    "classification": "FRESHMAN",
+    "firstName": "Bob",
+    "password": "password",
+    "completeCourses": [
+      [
+        "022a6993-b557-4233-b0aa-2ac744d4527e",
+        98
+      ],
+      [
+        "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+        100
+      ],
+      [
+        "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+        100
+      ]
+    ],
+    "id": "6e30c187-5592-4d8a-91e4-e874f34a41cd",
+    "email": "bobsmith@email.sc.edu",
+    "status": "active"
+  },
+  {
+    "lastName": "Wonderland",
+    "advisorID": "705edeff-ca4f-45be-a96b-b0990a2f36da",
+    "notes": [
+      "Good progress",
+      "Needs improvement in math"
+    ],
+    "allSemesters": [
+      {
+        "courses": [
+          {
+            "grade": "-",
+            "courseID": "f67cad90-d72f-4a1d-9237-f457c3129a58"
+          },
+          {
+            "grade": "-",
+            "courseID": "15f02a32-8d0d-485a-94bd-d70fc6e38cf5"
+          }
+        ],
+        "year": 2023,
+        "season": "FALL",
+        "creditLimit": 18
+      }
+    ],
+    "degreeID": "b428f5eb-6118-4bb3-980c-fe94d2d4363e",
+    "programGPA": 3.7,
+    "instituteGPA": 3.7,
+    "classification": "JUNIOR",
+    "firstName": "Alice",
+    "password": "password456",
+    "id": "f7dd6141-20c4-4c62-85a8-00036b8b8eea",
+    "email": "alice@example.com",
+    "status": "Active"
+  },
+  {
+    "lastName": "Wonderland",
+    "advisorID": "8c12db4a-30e2-4c63-a2e9-91e435bdb437",
+    "notes": [
+      "Good progress",
+      "Needs improvement in math"
+    ],
+    "allSemesters": [
+      {
+        "courses": [
+          {
+            "grade": "N",
+            "courseID": "038108be-1aab-4ec9-b8c9-832d82b220c3"
+          },
+          {
+            "grade": "N",
+            "courseID": "f70d14f3-ff5d-47aa-9f6a-1a74394b65b2"
+          }
+        ],
+        "year": 2023,
+        "season": "FALL",
+        "creditLimit": 18
+      }
+    ],
+    "degreeID": "57cd3f96-d15f-4567-9a84-cabf12dbfe87",
+    "programGPA": 3.7,
+    "instituteGPA": 3.7,
+    "classification": "JUNIOR",
+    "firstName": "Alice",
+    "password": "password456",
+    "id": "1089a9a7-edf0-4bae-8020-619288096f9e",
+    "email": "alice@example.com",
+    "status": "Active"
+  }
+]
