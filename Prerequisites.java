@@ -40,12 +40,12 @@ public class Prerequisites {
         StringBuilder result = new StringBuilder();
         result.append("Prerequisites:\n");
         result.append("-- Choices: " + this.choices);
-        result.append("-- Min Grade: " + this.minGrade);
-        result.append("-- Course Options: ");
+        result.append("\n-- Min Grade: " + this.minGrade);
+        result.append("\n-- Course Options: ");
         for(int i = 0; i < this.courseOptions.size(); i++) {
             Course course = this.courseOptions.get(i);
-            result.append("[ Student " + (i+1) + ": \n" + course.toString() + "\n]");
-            result.append(i != this.courseOptions.size() - 1 ? " ,\n" : "\n");
+            result.append("[ Course " + (i+1) + ": " + course.toStringCourseAbbr() + " ]");
+            result.append(i != this.courseOptions.size() - 1 ? " ," : "\n");
         }
         return result.toString();
     }

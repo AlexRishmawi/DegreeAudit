@@ -109,10 +109,11 @@ public class Degree {
         StringBuilder retString = new StringBuilder();
         retString.append("Degree: " + this.degreeType + " in " + this.subjectName + "\n");
         retString.append("Total Credit Required: " + this.totalCreditRequired + "\n");
-        retString.append("Courses\n");
+        retString.append("Major Courses\n");
         for (Map.Entry<Course, Integer> entry : majorCourses.entrySet()) {
             retString.append(entry.toString()+ "\n");
         }
+        
         for (ElectiveCategory element : electiveList) {
             retString.append("\n" + element.getType() + "\n");
             retString.append("Total Credits Required: " + element.getCreditsRequired() + "\n");
