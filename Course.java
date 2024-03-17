@@ -94,8 +94,12 @@ public class Course {
         string.append("\n-- Description: " + this.description);
         string.append("\n-- Credit hours: " + this.creditHours);
         string.append("\n-- Semester hours: " + this.semesterOffer.toString());
-        string.append("\n-- Course prerequisites:" + this.prerequisites);
+        string.append("\n-- Course prerequisites:" + this.prerequisites.toString());
         return string.toString();
+    }
+
+    public String toStringCourseAbbr() {
+        return this.subject + this.code;
     }
 
     /**

@@ -26,8 +26,8 @@ public class CourseList {
      * @return The singleton instance of the CourseList.
      */
     public Course getCourse(UUID id) {
-        for (Course course : courses) {
-            if (course.getID() == id)
+        for (Course course : this.courses) {
+            if (course.getID().equals(id))
                 return course;
         }
         return null;

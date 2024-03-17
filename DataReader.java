@@ -246,11 +246,14 @@ public class DataReader extends DataConstants {
                 int creditRequire = (int) ((long) degreeObject.get(DEGREE_TOTAL_CREDIT_REQUIRED));
                 String subject = (String) degreeObject.get(DEGREE_SUBJECT_NAME);
                 
-                ArrayList<Course> majorCourses = new ArrayList<>();
-                JSONArray majorCourseArray = (JSONArray) degreeObject.get(DEGREE_MAJOR_COURSES);
-                for(int j = 0; j < majorCourseArray.size(); j++) {
-                    UUID courseID = UUID.fromString((String) majorCourseArray.get(j));
-                    majorCourses.add(courseList.getCourse(courseID));
+                HashMap<Course, Integer> majorCourses = new HashMap<>();
+                JSONObject majorCourseObject = (JSONObject) degreeObject.get(DEGREE_MAJOR_COURSES);
+                for(Object courseID: majorCourseObject.keySet()) {
+                    UUID id = UUID.fromString((String) courseID);
+                    Course temp_course = courseList.getCourse(id);
+
+                    int preferredSemester = (int) ((long) majorCourseObject.get(courseID));
+                    majorCourses.put(temp_course, preferredSemester);
                 }
 
                 ArrayList<ElectiveCategory> electiveList = new ArrayList<>();
@@ -260,11 +263,14 @@ public class DataReader extends DataConstants {
                     String type = (String) electivObject.get(ELECTIVE_TYPE);
                     int electivecreditRequired = (int) ((long) electivObject.get(ELECTIVE_CREDIT_REQUIRED));
 
-                    JSONArray courseJsonArray = (JSONArray) electivObject.get(ELECTIVE_COURSE_CHOICES);
-                    ArrayList<Course> coursesChoices = new ArrayList<>();
-                    for(int k = 0; k < courseJsonArray.size(); k++) {
-                        UUID courseID = UUID.fromString((String) courseJsonArray.get(k));
-                        coursesChoices.add(courseList.getCourse(courseID));
+                    JSONObject courseJsonObject = (JSONObject) electivObject.get(ELECTIVE_COURSE_CHOICES);
+                    HashMap<Course, Integer> coursesChoices = new HashMap<>();
+                    for(Object courseID: courseJsonObject.keySet()) {
+                        UUID id = UUID.fromString((String) courseID);
+                        Course temp_course = courseList.getCourse(id);
+
+                        int preferredSemester = (int) ((long) courseJsonObject.get(courseID));
+                        coursesChoices.put(temp_course, preferredSemester);
                     }
 
                     electiveList.add(new ElectiveCategory(type, electivecreditRequired, coursesChoices));
