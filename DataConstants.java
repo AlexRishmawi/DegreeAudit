@@ -50,6 +50,7 @@ public abstract class DataConstants {
     // Student Constants
     protected static final String STUDENT_FILE_NAME = "./json/student.json";
     protected static final String STUDENT_CLASSIFICATION = "classification";
+    protected static final String STUDENT_ID = "studentID";
     protected static final String STUDENT_ADVISOR_ID = "advisorID";
     protected static final String STUDENT_NOTES = "notes";
     protected static final String STUDENT_STATUS = "status";

@@ -138,9 +138,8 @@ public class User {
      * @return
      */
     public String toString() {
-        return "- Name: " + firstName + " " + lastName + 
-            "\n- Email: " + email + 
-            "\n- Password: " + password;
+        return "Name: " + this.firstName + " " + this.lastName + 
+            "\tEmail: " + this.email;
     }
 
     /**

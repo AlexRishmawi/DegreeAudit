@@ -35,9 +35,28 @@ public class UserList {
      */
     public User getUser(String email, String password) {
         for (User user : this.users) {
-            if (user.getEmail().equalsIgnoreCase(email) &&
-                    user.getPassword().equalsIgnoreCase(password)) {
-                return user;
+            if(user instanceof Advisor) {
+                if (user.getEmail().equalsIgnoreCase(email) && user.getPassword().equalsIgnoreCase(password)) {
+                    return user;
+                } else {
+                    for (Student student : ((Advisor) user).getStudentList()) {
+                        if (student.getEmail().equalsIgnoreCase(email) && student.getPassword().equalsIgnoreCase(password)) {
+                            return student;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public User getUser(String studentID) {
+        for (User user : this.users) {
+            if(user instanceof Advisor) {
+                for (Student student : ((Advisor) user).getStudentList()) {
+                    if (student.getStudentID().equalsIgnoreCase(studentID)) {
+                        return student;
+                    }
+                }
             }
         }
         return null;
@@ -68,12 +87,16 @@ public class UserList {
      * @return The user object if found, otherwise null.
      */
     public User getUser(UUID id) {
-        for(User user: this.users) {
+        for(User user : this.users) {
             if(user.getID().equals(id)) {
                 return user;
             }
         }
         return null;
+    }
+
+    public boolean writeUser() {
+        return true;
     }
 
     // ----- Other user mthod -----
@@ -86,10 +109,10 @@ public class UserList {
      * @param email The email address of the user.
      * @return True if the user was successfully created and added, otherwise false.
      */
-    public boolean createUser(String type, String firstName, String lastName, String password, String email) {
+    public boolean createUser(String type, String firstName, String lastName, String password, String email, String studentID) {
         User user;
         if(type.equalsIgnoreCase("student")) {
-            user = new Student(firstName, lastName, email, password);
+            user = new Student(firstName, lastName, email, password, studentID);
         } else if(type.equalsIgnoreCase("advisor")) {
             user = new Advisor(firstName, lastName, email, password, null);
         } else {
@@ -160,5 +183,10 @@ public class UserList {
      */
     public ArrayList<User> getAllUsers() {
         return this.users;
+    }
+
+    public static void main(String[] args) {
+        UserList userList = UserList.getInstance();
+        System.out.println(userList.getUser("bobsmith@email.sc.edu", "password"));
     }
 }

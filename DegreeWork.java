@@ -13,9 +13,32 @@ public class DegreeWork {
         this.degreeList = DegreeList.getInstance();
     }
 
+    public UserList getUserList() {
+        return this.userList;
+    }
+
+    public CourseList getCourseList() {
+        return this.courseList;
+    }
+
+    public DegreeList getDegreeList() {
+        return this.degreeList;
+    }
+
+
+    public User getCurrentUser() {
+        return this.currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
     // -------- User method --------
     public boolean login(String email, String password) {
-        return (this.currentUser = this.userList.getUser(email, password)) != null;
+        this.currentUser = this.userList.getUser(email, password);
+        //System.out.println(this.currentUser);
+        return this.currentUser != null;
     }
 
     public boolean login(String firstName, String lastName, String password) {
@@ -27,25 +50,72 @@ public class DegreeWork {
         // Write Data back to database
     }
 
-    public boolean createUser(String type, String firstName, String lastName, String password, String email) {
-        return this.userList.createUser(type, firstName, lastName, password, email);
+    public boolean createUser(String type, String firstName, String lastName, String password, String studentID, String email) {
+        return this.userList.createUser(type, firstName, lastName, password, studentID, email);
     }
 
-    public boolean createStudent(String firstName, String lastName, String email, String password,
+    public Student createStudent(String firstName, String lastName, String email, String password, String studentID,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) {
         
-        Student tempStudent = new Student(firstName, lastName, email, password, level, advisor, notes, degree, instituteGPA, programGPA, status);
-        return this.userList.addUser(tempStudent);
+        Student tempStudent = new Student(firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status);
+        this.userList.addUser(tempStudent);
+        setCurrentStudent(tempStudent.getID());
+        return tempStudent;
     }
 
-    public boolean createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+    public Advisor createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+        
         Advisor tempAdvisor = new Advisor(firstName, firstName, email, password, studentList, isAdmin);
-        return this.userList.addUser(tempAdvisor);
+        this.userList.addUser(tempAdvisor);
+
+        return tempAdvisor;
     }
 
     public boolean removeUser(String id) {
         return this.userList.removeUser(UUID.fromString(id));
+    }
+
+
+
+    // -------- Student and Advisor Method --------
+
+    public String displayDegreeProgress() {
+        if (this.currentUser instanceof Student) {
+            return this.currentUser.toString();
+        } else if (this.currentUser instanceof Advisor) {
+            return ((Advisor) this.currentUser).getCurrentStudent().toString();
+        }
+        return "No information to display";
+    }
+    /* 
+    public boolean displayMajorMap() {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getDegree().majorMapToString();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentCourse().majorMapToString();
+        }
+    }
+    */
+
+    public boolean addNotes(String note) {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            ((Student) this.currentUser).addNotes(note);
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            ((Advisor) this.currentUser).getCurrentStudent().addNotes(note);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Course> getCurrentCourse() {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getCurrentSemester().getCourses();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentSemester().getCourses();
+        }
+        return null;
     }
 
     // ----- User Account Method -----
@@ -138,9 +208,20 @@ public class DegreeWork {
     public boolean setCurrentStudent(UUID id) {
         if (this.currentUser.getUserType() == UserType.ADVISOR) {
             ((Advisor) this.currentUser).setCurrentStudent(id);
+            return true;
         }
         return false;
     }
+
+    public Student findStudent(String studentID) {
+        if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            Student tempStudent = (Student) this.userList.getUser(studentID);
+            System.out.println(this.setCurrentStudent(((User) tempStudent).getID()));
+            return tempStudent;
+        }
+        return null;
+    }
+    
 
     public Student getCurrentStudent() {
         if (this.currentUser.getUserType() == UserType.ADVISOR) {

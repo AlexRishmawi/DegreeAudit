@@ -31,6 +31,11 @@ public class DegreeList {
         }
         return null;
     }
+
+    public boolean writeDegree() {
+        return true;
+    }
+
     /**
      * Prints DegreeList
      * @return 

@@ -74,6 +74,10 @@ public class CourseList {
         return false;
     }
 
+    public boolean writeCourse() {
+        return true;
+    }
+
     /**
      * Retrieves all courses stored in the list.
      * @return An ArrayList containing all courses stored in the list.
