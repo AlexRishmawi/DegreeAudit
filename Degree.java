@@ -120,16 +120,15 @@ public class Degree {
         }
         return retString.toString();
     }
-    public static void main(String[] args) {
-        UUID id = UUID.randomUUID();
-        String type = "Bachelors";
-        String name = "Computer Science";
-        int totalCredits = 125;
-        HashMap<Course, Integer> courses = new HashMap<>();
-        courses.put(new Course("Vector Calculus", "MATH", "241", "", 3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), 1);
-        ArrayList<ElectiveCategory> electives = new ArrayList<>();
-        electives.add(new ElectiveCategory("Application Area", 16, courses));
-        Degree testDegree = new Degree(type, name, totalCredits, courses, electives);
-        System.out.println(testDegree);
-    }
+    // public static void main(String[] args) {
+    //     String type = "Bachelors";
+    //     String name = "Computer Science";
+    //     int totalCredits = 125;
+    //     HashMap<Course, Integer> courses = new HashMap<>();
+    //     courses.put(new Course("Vector Calculus", "MATH", "241", "", 3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), 1);
+    //     ArrayList<ElectiveCategory> electives = new ArrayList<>();
+    //     electives.add(new ElectiveCategory("Application Area", 16, courses));
+    //     Degree testDegree = new Degree(type, name, totalCredits, courses, electives);
+    //     System.out.println(testDegree);
+    // }
 }
