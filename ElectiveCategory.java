@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -8,16 +10,16 @@ import java.util.UUID;
 public class ElectiveCategory {
     private String type;
     private int creditsRequired;
-    private ArrayList<Course> courseChoices;
+    private HashMap<Course, Integer> courseChoices;
 
-    public ElectiveCategory(String type, int creditsRequired, ArrayList<Course> courseChoices) {
+    public ElectiveCategory(String type, int creditsRequired, HashMap<Course, Integer> courseChoices) {
         setType(type);
         setCreditRequired(creditsRequired);
         setCourseChoices(courseChoices);
     }
 
     // ----- Accessor -----
-    public ArrayList<Course> getCourseChoices() {
+    public HashMap<Course, Integer> getCourseChoices() {
         return this.courseChoices;
     }
 
@@ -30,7 +32,7 @@ public class ElectiveCategory {
     }
 
     // ----- Mutator -----
-    public void setCourseChoices(ArrayList<Course> courses) {
+    public void setCourseChoices(HashMap<Course, Integer> courses) {
         this.courseChoices = courses;
     }
 
@@ -44,7 +46,7 @@ public class ElectiveCategory {
 
     public String toString() {
         StringBuilder retString = new StringBuilder();
-        for (Course choice : courseChoices) {
+        for (Map.Entry<Course, Integer> choice : courseChoices.entrySet()) {
             retString.append(choice);
         }
         return retString.toString();

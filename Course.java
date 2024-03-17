@@ -28,7 +28,7 @@ public class Course {
                     ArrayList<Season> semester, ArrayList<Prerequisites> prerequisites)
     {
         this.id = UUID.randomUUID();
-        setDepartment(subject);
+        setSubject(subject);
         setCode(code);
         setCourseName(name);
         setCreditHours(credit);
