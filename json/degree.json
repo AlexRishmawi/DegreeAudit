@@ -3,11 +3,21 @@
         "id": "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
         "totalCreditRequired": 20,
         "majorCourses": [
-            "0be4a554-eedd-496e-a3d4-ead9ecd0ba41",
-            "0a2e03d7-033b-429c-843d-69cd5f33f748"
+            "12224407-e656-4fe7-9078-88f1d9dc8325",
+            "4bd274cb-260e-47a5-9893-203a3943d704",
+            "2e2ebf3f-c4d3-4dae-956b-d8afa7fca627",
+            "3cca9c4e-a195-4759-a761-cfe09adb20b8",
+
         ],
         "subjectName": "Computer Science",
         "electiveList": [
+            {
+                "type": "AIU",
+                "creditRequired": 3,
+                "courseChoices": [
+                    
+                ]
+            }
             {
                 "type": "Minor",
                 "creditRequired": 20,
