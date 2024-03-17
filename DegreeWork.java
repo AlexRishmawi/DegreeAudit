@@ -13,6 +13,14 @@ public class DegreeWork {
         this.degreeList = DegreeList.getInstance();
     }
 
+    public User getCurrentUser() {
+        return this.currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
     // -------- User method --------
     public boolean login(String email, String password) {
         return (this.currentUser = this.userList.getUser(email, password)) != null;
@@ -31,12 +39,13 @@ public class DegreeWork {
         return this.userList.createUser(type, firstName, lastName, password, email);
     }
 
-    public boolean createStudent(String firstName, String lastName, String email, String password,
+    public Student createStudent(String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) {
         
         Student tempStudent = new Student(firstName, lastName, email, password, level, advisor, notes, degree, instituteGPA, programGPA, status);
-        return this.userList.addUser(tempStudent);
+        this.userList.addUser(tempStudent);
+        return tempStudent;
     }
 
     public boolean createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
@@ -46,6 +55,48 @@ public class DegreeWork {
 
     public boolean removeUser(String id) {
         return this.userList.removeUser(UUID.fromString(id));
+    }
+
+
+
+    // -------- Student and Advisor Method --------
+
+    public String displayDegreeProgress() {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getDegree().toString();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getDegree().toString();
+        }
+        return null;
+    }
+    /* 
+    public boolean displayMajorMap() {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getDegree().majorMapToString();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentCourse().majorMapToString();
+        }
+    }
+    */
+
+    public boolean addNotes(String note) {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            ((Student) this.currentUser).addNotes(note);
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            ((Advisor) this.currentUser).getCurrentStudent().addNotes(note);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Course> getCurrentCourse() {
+        if (this.currentUser.getUserType() == UserType.STUDENT) {
+            return ((Student) this.currentUser).getCurrentSemester().getCourses();
+        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentSemester().getCourses();
+        }
+        return null;
     }
 
     // ----- User Account Method -----
