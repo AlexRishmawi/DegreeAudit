@@ -20,8 +20,8 @@ public class Student extends User {
         advisor = null;
         this.notes = new ArrayList<>();
         this.degree = null;
-        this.instituteGPA = 0;
-        this.programGPA = 0;
+        this.instituteGPA = 4.0;
+        this.programGPA = 4.0;
         this.status = "Pending";
     }
 

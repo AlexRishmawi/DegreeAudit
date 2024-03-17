@@ -94,7 +94,8 @@ public class Course {
         string.append("\n-- Description: " + this.description);
         string.append("\n-- Credit hours: " + this.creditHours);
         string.append("\n-- Semester hours: " + this.semesterOffer.toString());
-        string.append("\n-- Course prerequisites:" + this.prerequisites.toString());
+        string.append("\n-- Course prerequisites: ");
+        string.append(this.prerequisites.size() > 0 ? this.prerequisites.toString() : "None");
         return string.toString();
     }
 

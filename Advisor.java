@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -94,7 +95,7 @@ public class Advisor extends User{
      */
     public void setCurrentStudent(UUID id) 
     {
-        this.currentStudent = findStudent(id);
+        this.currentStudent = this.findStudent(id);
     }
 
     /**
@@ -133,7 +134,7 @@ public class Advisor extends User{
      */
     public boolean removeStudent(UUID id) 
     {
-        Student student = findStudent(id);
+        Student student = this.findStudent(id);
         this.studentList.remove(student);
         
         if(currentStudent.equals(student)) {
@@ -220,5 +221,62 @@ public class Advisor extends User{
 
     public String toStringAccount() {
         return super.toString();
+    }
+
+    public static void main(String[] args) {
+        // Test Advisor Overloader
+        Advisor newAdvisor = new Advisor("Aarsh", "Patel", "aarsh@email.sc.edu", "test1", false);
+
+        //Test Advisor Constructor
+        Advisor newAdvisor2 = new Advisor("Aarsh", "Patel", "johndoe@email.sc.edu", "test2", new ArrayList<Student>(), true);
+
+        //Test getStudentList
+        System.out.println(newAdvisor2.getStudentList());
+        System.out.println(newAdvisor.getStudentList());
+
+        //Test getCurrentStudent
+        System.out.println(newAdvisor2.getCurrentStudent());
+        System.out.println(newAdvisor.getCurrentStudent());
+
+        //Test getIsAdmin
+        System.out.println(newAdvisor2.getIsAdmin());
+        System.out.println(newAdvisor.getIsAdmin());
+
+        //Test setStudentList
+        ArrayList<Student> studentList = new ArrayList<Student>();
+        studentList.add(new Student("John", "Doe", "john@email.sc.edu", "test"));
+        newAdvisor.setStudentList(studentList);
+        System.out.println(newAdvisor.getStudentList());
+        System.out.println(newAdvisor2.getStudentList());
+
+        //Test setCurrentStudent
+        newAdvisor.setCurrentStudent(studentList.get(0).getID());
+        System.out.println(newAdvisor.getCurrentStudent());
+
+        //Test setAdmin
+        newAdvisor.setAdmin(true);
+        System.out.println(newAdvisor.getIsAdmin());
+
+        //Test addStudent
+        String type = "Bachelors";
+        String name = "Computer Science";
+        int totalCredits = 125;
+        HashMap<Course, Integer> courses = new HashMap<>();
+        courses.put(new Course("Vector Calculus", "MATH", "241", "", 3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), 1);
+        ArrayList<ElectiveCategory> electives = new ArrayList<>();
+        newAdvisor.addStudent(new Student("Jane", "Doe", "", "", "SOPHOMORE", newAdvisor, new ArrayList<String>(), new Degree(type, name, totalCredits, courses, electives), 3.5, 3.5, "ACTIVE"));
+        System.out.println(newAdvisor.getStudentList());
+
+        //Test removeStudent
+        newAdvisor.removeStudent(newAdvisor.getStudentList().get(0).getID());
+        System.out.println(newAdvisor.getStudentList());
+
+        //Test findStudent
+        System.out.println(newAdvisor.findStudent(newAdvisor.getStudentList().get(0).getID()).toString());
+
+        //Test editStudentFirstName
+        newAdvisor.setCurrentStudent(newAdvisor.getStudentList().get(0).getID());
+        newAdvisor.editStudentFirstName("John");
+        System.out.println(newAdvisor.getStudentList().get(0).getFirstName());
     }
 }
