@@ -1,25 +1,52 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
  * @author Aarsh Patel
  */
 public class ElectiveCategory {
-    public String type;
+    private String type;
     private int creditsRequired;
-    private ArrayList<Course> courseChoices;
+    private HashMap<Course, Integer> courseChoices;
 
-    public ElectiveCategory(String type, int creditsRequired, ArrayList<Course> courseChoices) {
-        this.type = type;
-        this.creditsRequired = creditsRequired;
-        this.courseChoices = courseChoices;
+    public ElectiveCategory(String type, int creditsRequired, HashMap<Course, Integer> courseChoices) {
+        setType(type);
+        setCreditRequired(creditsRequired);
+        setCourseChoices(courseChoices);
     }
 
-    public ArrayList<Course> getCourseChoices() {
+    // ----- Accessor -----
+    public HashMap<Course, Integer> getCourseChoices() {
         return this.courseChoices;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public int getCreditsRequired() {
+        return this.creditsRequired;
+    }
+
+    // ----- Mutator -----
+    public void setCourseChoices(HashMap<Course, Integer> courses) {
+        this.courseChoices = courses;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setCreditRequired(int credit) {
+        this.creditsRequired = credit;
+    }
+
     public String toString() {
-        return "";
+        StringBuilder retString = new StringBuilder();
+        for (Map.Entry<Course, Integer> choice : courseChoices.entrySet()) {
+            retString.append(choice);
+        }
+        return retString.toString();
     }
 }

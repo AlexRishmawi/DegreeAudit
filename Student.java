@@ -13,20 +13,22 @@ public class Student extends User {
     private Semester currentSemester;
     private ArrayList<Semester> allSemester;
 
-    public Student(String firstName, String lastName, String email, String password) {
+    public Student(String firstName, String lastName, String email, String password) 
+    {
         super(firstName, lastName, email, password);
-        classification = null;
+        classification = ClassLevel.FRESHMAN;
         advisor = null;
         this.notes = new ArrayList<>();
         this.degree = null;
         this.instituteGPA = 0;
         this.programGPA = 0;
-        this.status = null;
+        this.status = "Pending";
     }
 
     public Student(String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status) {
+            double instituteGPA, double programGPA, String status) 
+    {
         super(firstName, lastName, email, password);
         setLevel(level);
         setAdvisor(advisor);
@@ -39,7 +41,9 @@ public class Student extends User {
 
     public Student(UUID id, String firstName, String lastName, String email, String password,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status) {
+            double instituteGPA, double programGPA, String status,
+            Semester currentSemester, ArrayList<Semester> allSemester) 
+    {
         super(id, firstName, lastName, email, password);
         setLevel(level);
         setAdvisor(advisor);
@@ -48,20 +52,20 @@ public class Student extends User {
         setInstituteGPA(programGPA);
         setProgramGPA(programGPA);
         setStatus(status);
+        setCurrentSemester(currentSemester);
+        setAllSemester(allSemester);
     }
 
     // ----- Mutator -----
     public void setLevel(String level) {
-        if (level.equalsIgnoreCase("freshman")) {
-            this.classification = ClassLevel.FRESHMAN;
-        } else if (level.equalsIgnoreCase("sophomore")) {
+        if (level.equalsIgnoreCase("sophomore")) {
             this.classification = ClassLevel.SOPHOMORE;
         } else if (level.equalsIgnoreCase("junior")) {
             this.classification = ClassLevel.JUNIOR;
         } else if (level.equalsIgnoreCase("senior")) {
             this.classification = ClassLevel.SENIOR;
         } else {
-            System.err.println("ERROR --- Couldn't define student classification" + level);
+            this.classification = ClassLevel.FRESHMAN;
         }
     }
 
@@ -105,10 +109,7 @@ public class Student extends User {
         return this.status;
     }
 
-    
-
     //Alex Mesa Additions
-
     public ClassLevel getLevel() {
         return this.classification;
     }
@@ -150,15 +151,18 @@ public class Student extends User {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Student Information:\n");
         result.append(super.toString());
         result.append("\n-- level: " + this.classification.toString());
-        result.append("\n--Institute GPA: " + this.instituteGPA);
-        result.append("\n--Program GPA: " + this.instituteGPA);
+        result.append("\n-- Institute GPA: " + this.instituteGPA);
+        result.append("\n-- Program GPA: " + this.instituteGPA);
         result.append("\n-- Status: " + this.status);
-        result.append("\n-- Advisor: " + advisor.toString());
-        result.append("\n" + printNotes());
-        result.append("\n" + toStringDegree());
+        if (this.advisor != null) {
+            result.append("\n-- Advisor: " + advisor.toStringAccount());
+        }
+        result.append("\n" + printNotes() + "\n");
+        if (this.degree != null) {
+            result.append(toStringDegree());
+        }
         return result.toString();
     }
 
@@ -167,13 +171,7 @@ public class Student extends User {
     }
 
     public String printNotes() {
-        StringBuilder result = new StringBuilder();
-        result.append("-- Notes: \n");
-        for (String note : notes) {
-            result.append("    [" + note + "]\n");
-        }
-
-        return result.toString();
+        return "-- Notes: " + notes.toString();
     }
 
     public String toStringDegree() {

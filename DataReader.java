@@ -5,140 +5,307 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class DataReader extends DataConstants{
+/**
+ * The DataReader class is responsible for loading data from JSON files
+ * and converting them into corresponding Java objects.
+ */
+public class DataReader extends DataConstants {
 
+    /**
+     * Loads user data from JSON files and returns an ArrayList of User objects.
+     * @return An ArrayList containing User objects loaded from JSON files.
+     */
     public static ArrayList<User> loadUser() {
-        HashMap<UUID, Admin> adminMap = new HashMap<>();
-        HashMap<UUID, Advisor> advisorMap = new HashMap<>();
-        HashMap<UUID, Student> studentMap = new HashMap<>();
-    
-        // Read advisor, admin, student in order to get the most performance
-        String[] FILES = {ADVISOR_FILE_NAME, ADMIN_FILE_NAME, STUDENT_FILE_NAME};
+        CourseList courseList = CourseList.getInstance();
+        DegreeList degreeList = DegreeList.getInstance();
 
-        for(String file: FILES) {
+        ArrayList<User> loadedUsers = new ArrayList<>();
+        HashMap<UUID, Integer> mappingAdvisorToStudent = new HashMap<>();
+        // Queue<Pair<Advisor, Object>> queueAdvisor = new LinkedList<>();
+
+        String[] FILES = {ADVISOR_FILE_NAME, STUDENT_FILE_NAME};
+        for(String file: FILES) 
+        {
             try {
                 FileReader reader = new FileReader(file);
                 JSONArray readerJSON = (JSONArray) new JSONParser().parse(reader);
-
-                // Read and crate parent USER
                 for(int i = 0; i < readerJSON.size(); i++) {
+                    // Get default user information
                     JSONObject userJSON = (JSONObject) readerJSON.get(i);
                     UUID id = UUID.fromString((String) userJSON.get(USER_ID));
                     String firstName = (String) userJSON.get(USER_FIRST_NAME);
                     String lastName = (String) userJSON.get(USER_LAST_NAME);
                     String email = (String) userJSON.get(USER_EMAIL);
                     String password = (String) userJSON.get(USER_PASSWORD);
-                    UserType type = UserType.valueOf((String)userJSON.get(USER_TYPE));
+                    String type = (String) userJSON.get(USER_TYPE);
 
-                    User user = new User(id, type, firstName, lastName, email, password);
+                    if(type.equalsIgnoreCase("student")) {
+                        // Student information
+                        String level = (String) userJSON.get(STUDENT_CLASSIFICATION);
+                        UUID advisorID = UUID.fromString((String) userJSON.get(STUDENT_ADVISOR_ID));
+                        int advisorIndex = mappingAdvisorToStudent.get(advisorID);
+                        Advisor advisor = (Advisor) loadedUsers.get(advisorIndex);
 
-                    if(type.equals(UserType.STUDENT)) {
-                        ClassLevel level = ClassLevel.valueOf((String) userJSON.get(STUDENT_CLASSIFICATION))
-                        UUID advisorId = UUID.fromString((String) userJSON.get(STUDENT_ADVISOR_ID));
                         ArrayList<String> notes = new ArrayList<>();
-                        JSONArray noteJSON = (JSONArray) userJSON.get(STUDENT_NOTES)
-                        for(int j = 0; j < noteJSON.size(); j++) {
-                            notes.add((String) noteJSON.get(j));
+                        JSONArray noteJsonArray = (JSONArray) userJSON.get(STUDENT_NOTES);
+                        for(int j = 0; j < noteJsonArray.size(); j++) {
+                            notes.add((String) noteJsonArray.get(j));
                         }
+
+                        double instituteGPA = (double) userJSON.get(STUDENT_INSTITUTE_GPA);
+                        double programGPA = (double) userJSON.get(STUDENT_PROGRAM_GPA);
+
+                        String status = (String) userJSON.get(STUDENT_STATUS);
                         UUID degreeID = UUID.fromString((String) userJSON.get(STUDENT_DEGREE_ID));
-                        Integer instituteGPA = (Integer) userJSON.get(STUDENT_INSTITUTE_GPA);
-                        Integer programGPA = (Integer) userJSON.get(STUDENT_PROGRAM_GPA);
-                        
-                        //TODO: initalize student here and add to studentMap
-                        
-                    } else if(type.equals(UserType.ADVISOR)) {
-                        ArrayList<Student> studentList = new ArrayList<>();
-                        JSONArray studentJSON = (JSONArray) userJSON.get(ADVISOR_STUDENT_LIST);
-                        for(int j = 0; j < studentJSON.size(); j++) {
-                            UUID studentID = UUID.fromString((String) studentJSON.get(j));
-                            studentList.add(studentMap.get(studentID));
+                        Degree degree = degreeList.getDegree(degreeID);
+
+                        HashMap<Course, String> completedCourse = new HashMap<>();
+                        JSONArray completeCourseJSON = (JSONArray) userJSON.get(STUDENT_COMPLETED_COURSES);
+                        for(int j = 0; j < completeCourseJSON.size(); j++) {
+                            JSONArray pair = (JSONArray) completeCourseJSON.get(j);
+                            UUID courseID = UUID.fromString((String) pair.get(0));
+                            Course course = courseList.getCourse(courseID);
+                            String graded = (String) pair.get(1);
+                            completedCourse.put(course, graded);
                         }
 
-                        // Todo: initalize advisor and add to advisorMap
+                        JSONObject currentSemesterObject = (JSONObject) userJSON.get(STUDENT_CURRENT_SEMESTER);
+                        String season = (String) currentSemesterObject.get(SEMESTER_SEASON);
+                        int year = ((Long) currentSemesterObject.get(SESMESTER_YEAR)).intValue();
+                        int limit = ((Long) currentSemesterObject.get(SEMSESTER_LIMIT)).intValue();
+                        ArrayList<Course> courses = new ArrayList<>();
+                        JSONArray coursesJsonArray = (JSONArray) currentSemesterObject.get(SESMESTER_COURSES);
+                        for(int j = 0; j < coursesJsonArray.size(); j++) {
+                            Course course = courseList.getCourse(UUID.fromString((String) coursesJsonArray.get(j)));
+                            courses.add(course);
+                        }
+                        Semester currentSemester = new Semester(season, year, limit, courses);
 
-                    } else if(type.equals(UserType. ADMIN)) {
-                        ArrayList<Advisor> advisorList = new ArrayList<>();
-                        JSONArray advisorJSON = (JSONArray) userJSON.get(ADMIN_ADVISOR_LIST);
-                        for(int j = 0; j < advisorJSON.size(); j++) {
-                            UUID studentID = UUID.fromString((String) advisorJSON.get(j));
-                            advisorList.add(advisorMap.get(studentID));
+                        ArrayList<Semester> allSemesters = new ArrayList<>();
+                        JSONArray allSemesterJsonArray = (JSONArray) userJSON.get(STUDENT_ALL_SEMESTERS);
+                        for(int j = 0; j < allSemesterJsonArray.size(); j++) {
+                            JSONObject allSemJsonObject = (JSONObject) allSemesterJsonArray.get(j);
+                            String temp_season = (String) allSemJsonObject.get(SEMESTER_SEASON);
+                            int temp_year = ((Long) allSemJsonObject.get(SESMESTER_YEAR)).intValue();
+                            int temp_limit = ((Long) allSemJsonObject.get(SEMSESTER_LIMIT)).intValue();
+                            ArrayList<Course> temp_courses = new ArrayList<>();
+                            JSONArray temp_coursesJsonArray = (JSONArray) allSemJsonObject.get(SESMESTER_COURSES);
+                            for(int k = 0; k < temp_coursesJsonArray.size(); k++) {
+                                Course course = courseList.getCourse(UUID.fromString((String) temp_coursesJsonArray.get(j)));
+                                temp_courses.add(course);
+                            }
+                            Semester tempSemester = new Semester(temp_season, temp_year, temp_limit, temp_courses);
+                            allSemesters.add(tempSemester);
                         }
 
-                        //TODO: initialize admin and add to adminMap
-                    } else {
-                        System.err.println("ERROR --- Couldn't match the UserType" + user.getUserType());
+                        Student student = new Student(id, firstName, lastName, email, password, level, advisor, notes, degree, instituteGPA, programGPA, status, currentSemester, allSemesters);
+                        advisor.addStudent(student);
+
+                    } else if (type.equalsIgnoreCase("advisor")) {
+                        // Advisor information
+                        String isAdminStr = (String) userJSON.get(ADVISOR_IS_ADMIN);
+                        boolean isAdmin = Boolean.parseBoolean(isAdminStr);
+
+                        ArrayList<Student> studentList = new ArrayList<Student>();
+                        // JSONArray studentListJSON = (JSONArray) userJSON.get(ADVISOR_STUDENT_LIST);
+
+                        Advisor advisor = new Advisor(id, firstName, lastName, email, password, studentList, isAdmin);
+
+                        loadedUsers.add(advisor);
+                        mappingAdvisorToStudent.put(advisor.getID(), loadedUsers.indexOf(advisor));
+                        // queueAdvisor.add(new Pair<Advisor, Object>(advisor, studentListJSON));
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println("ERROR --- reading file:" + file);
+                System.err.println("ERROR --- Couldn't load User file");
             }
         }
         
-        // get all 3 types of User
-        ArrayList<User> users = new ArrayList<>();
-        users.addAll(adminMap.values());
-        users.addAll(advisorMap.values());
-        users.addAll(studentMap.values());
-        return users;
+        return loadedUsers;
     }
 
-    public ArrayList<Program> loadProgram() {
-        ArrayList<Program> program = new ArrayList<>();
-        try {
-            FileReader reader = new FileReader(PROGRAM_FILE_NAME);
-            JSONArray readerJSON = (JSONArray) new JSONParser().parse(reader);
-            
+    /**
+     * Loads course data from a JSON file and returns an ArrayList of Course objects.
+     * @return An ArrayList containing Course objects loaded from a JSON file.
+     */
+    public static ArrayList<Course> loadCourse() {
+        ArrayList<Course> loadedCourse = new ArrayList<>();
+        HashMap<UUID, Integer> mappingCourse = new HashMap<>();
+        Queue<Pair<Course, Object>> queueCourse = new LinkedList<>();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("ERROR --- Couldn't load Program file");
-        }
-        return;
-    }
-
-    public ArrayList<Course> loadCourse() {
-        HashMap<String, Course> courseMap = new HashMap<>();
-        HashMap<Course, ArrayList<Object>> preMap = new HashMap<>();
-
-        ArrayList<Course> courses = new ArrayList<>();
+        // Read a file and load the course with no prerequisite first
         try {
             FileReader reader = new FileReader(COURSE_FILE_NAME);
             JSONArray readerJSON = (JSONArray) new JSONParser().parse(reader);
-            for(int i = 0; i < readerJSON.size(); i++) {
+            for (int i = 0; i < readerJSON.size(); i++) {
                 JSONObject courseJSON = (JSONObject) readerJSON.get(i);
+
                 UUID id = UUID.fromString((String) courseJSON.get(COURSE_ID));
-                String name = (String) courseJSON.get(COURSE_NAME);
-                String department = (String) courseJSON.get(COURSE_DEPARTMENT);
+                String subject = (String) courseJSON.get(COURSE_SUBJECT);
                 String code = (String) courseJSON.get(COURSE_CODE);
-                Integer credit = (Integer) courseJSON.get(COURSE_CREDIT_HOURS);
+
+                String name = (String) courseJSON.get(COURSE_NAME);
+                String description = (String) courseJSON.get(COURSE_DESCRIPTION);
+
+                int credit = ((Long) courseJSON.get(COURSE_CREDIT_HOURS)).intValue();
 
                 ArrayList<Season> semesterOffer = new ArrayList<>();
                 JSONArray semesterJSON = (JSONArray) courseJSON.get(COURSE_SEMESTER_OFFER);
-                for(int j = 0; j < semesterJSON.size(); j++) {
-                    semesterOffer.add(Season.valueOf(((String)semesterJSON.get(j)).toUpperCase()));
+                for (int j = 0; j < semesterJSON.size(); j++) {
+                    semesterOffer.add(Season.valueOf(((String) semesterJSON.get(j)).toUpperCase()));
                 }
-                
-                String description = (String) courseJSON.get(COURSE_DESCRIPTION);
-                String gradeToPass = (String) courseJSON.get(COURSE_GRADE_TO_PASS);
 
-                // ArrayList<Object> new
-                
+                ArrayList<Prerequisites> prerequisites = new ArrayList<Prerequisites>();
+                JSONArray prerequisiteJsonObject = (JSONArray) courseJSON.get(COURSE_PREREQUISITE);
 
-
+                Course course = new Course(id, subject, code, name, description, credit, semesterOffer, prerequisites);
+                if (prerequisiteJsonObject.size() == 0) {
+                    loadedCourse.add(course);
+                    int index = loadedCourse.indexOf(course);
+                    mappingCourse.put(course.getID(), index);
+                } else {
+                    queueCourse.add(new Pair<Course, Object>(course, prerequisiteJsonObject));
+                }
             }
-            
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("ERROR --- Couldn't load Course file");
         }
-        return new ArrayList<>();
+
+        while (!queueCourse.isEmpty()) {
+            Pair<Course, Object> item = queueCourse.poll();
+            Course course = item.getKey();
+            JSONArray prereJson = (JSONArray) item.getValue();
+
+            ArrayList<Prerequisites> allPrerequisites = new ArrayList<>();
+            boolean isGoodToLoad = true;
+
+            for (int i = 0; i < prereJson.size(); i++) {
+                JSONObject prereJSON = (JSONObject) prereJson.get(i);
+                int choices = ((Long) prereJSON.get(COURSE_PREREQUISITE_CHOICES)).intValue();
+                String minGrade = (String) prereJSON.get(COURSE_PREREQUISITE_MIN_GRADE);
+
+                ArrayList<Course> courseOptions = new ArrayList<>();
+                JSONArray courseOptionJSON = (JSONArray) prereJSON.get(COURSE_PREREQUISITE_COURSE_OPTION);
+                for (int j = 0; j < courseOptionJSON.size(); j++) {
+                    UUID courseID = UUID.fromString((String) courseOptionJSON.get(j));
+                    if (mappingCourse.containsKey(courseID)) {
+                        courseOptions.add(loadedCourse.get(mappingCourse.get(courseID)));
+                    }
+                }
+
+                // check wherether if all options is loaded
+                if (courseOptions.size() == courseOptionJSON.size()) {
+                    allPrerequisites.add(new Prerequisites(choices, minGrade, courseOptions));
+                } else {
+                    isGoodToLoad = false;
+                    break;
+                }
+            }
+
+            // if it good condition then load, otherwise load back to queue
+            if (isGoodToLoad) {
+                course.setPrerequisites(allPrerequisites);
+                loadedCourse.add(course);
+                mappingCourse.put(course.getID(), loadedCourse.indexOf(course));
+            } else {
+                queueCourse.add(item);
+            }
+        }
+
+        return loadedCourse;
+    }
+
+    /**
+     * Loads degree information from a JSON file and returns an ArrayList of Degree objects.
+     * Each Degree object contains details such as degree ID, subject name, total credit requirement,
+     * major courses, and elective categories.
+     * @return ArrayList of Degree objects loaded from the JSON file.
+     */
+    public static ArrayList<Degree> loadDegree() {
+
+        CourseList courseList = CourseList.getInstance();
+        ArrayList<Degree> loadedDegree = new ArrayList<>();
+
+        try {
+            FileReader reader = new FileReader(DEGREE_FILE_NAME);
+            JSONArray readerJSON = (JSONArray) new JSONParser().parse(reader);
+            for(int i = 0; i < readerJSON.size(); i++) {
+                JSONObject degreeObject = (JSONObject) readerJSON.get(i);
+                UUID degreeID = UUID.fromString((String) degreeObject.get(DEGREE_ID));
+                int creditRequire = (int) ((long) degreeObject.get(DEGREE_TOTAL_CREDIT_REQUIRED));
+                String subject = (String) degreeObject.get(DEGREE_SUBJECT_NAME);
+                
+                ArrayList<Course> majorCourses = new ArrayList<>();
+                JSONArray majorCourseArray = (JSONArray) degreeObject.get(DEGREE_MAJOR_COURSES);
+                for(int j = 0; j < majorCourseArray.size(); j++) {
+                    UUID courseID = UUID.fromString((String) majorCourseArray.get(j));
+                    majorCourses.add(courseList.getCourse(courseID));
+                }
+
+                ArrayList<ElectiveCategory> electiveList = new ArrayList<>();
+                JSONArray electiveArray = (JSONArray) degreeObject.get(DEGREE_ELECTIVE_LIST);
+                for(int j = 0; j < electiveArray.size(); j++) {
+                    JSONObject electivObject = (JSONObject) electiveArray.get(j);
+                    String type = (String) electivObject.get(ELECTIVE_TYPE);
+                    int electivecreditRequired = (int) ((long) electivObject.get(ELECTIVE_CREDIT_REQUIRED));
+
+                    JSONArray courseJsonArray = (JSONArray) electivObject.get(ELECTIVE_COURSE_CHOICES);
+                    ArrayList<Course> coursesChoices = new ArrayList<>();
+                    for(int k = 0; k < courseJsonArray.size(); k++) {
+                        UUID courseID = UUID.fromString((String) courseJsonArray.get(k));
+                        coursesChoices.add(courseList.getCourse(courseID));
+                    }
+
+                    electiveList.add(new ElectiveCategory(type, electivecreditRequired, coursesChoices));
+                }
+
+                Degree degree = new Degree(degreeID, subject, subject, creditRequire, majorCourses, electiveList);
+                loadedDegree.add(degree);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("ERROR --- Couldn't Degree file");
+        }
+
+        return loadedDegree;
+    }
+
+    // ----- Private Data Structure -----
+    /**
+    * A generic Pair class representing a key-value pair.
+    * @param <K> the type of the key
+    * @param <V> the type of the value
+    */
+    private static class Pair<K, V> {
+        private final K key;
+        private final V value;
+
+        public Pair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+
+        public String toString() {
+            return "(" + key + ", " + value + ")";
+        }
     }
 }
-

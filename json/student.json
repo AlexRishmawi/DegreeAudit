@@ -1,5 +1,6 @@
 [
   {
+<<<<<<< HEAD
     "lastName": "Smith",
     "currentSemester": {
       "courses": [
@@ -20,12 +21,22 @@
       "season": "FALL",
       "creditLimit": 18
     },
+=======
+    "id": "6e30c187-5592-4d8a-91e4-e874f34a41cd",
+    "type": "Student",
+    "firstName": "Bob",
+    "lastName": "Smith",
+    "email": "bobsmith@email.sc.edu",
+    "password": "password",
+    "classification": "FRESHMAN",
+>>>>>>> refs/remotes/origin/main
     "advisorID": "a6e0a427-72fd-490d-85df-5933c0ddb081",
     "notes": [
       "Bob is a great student",
       "Bob is a hard worker",
       "Bob should consider taking more classes next semester"
     ],
+<<<<<<< HEAD
     "allSemesters": [
       {
         "courses": [
@@ -158,5 +169,49 @@
     "id": "1089a9a7-edf0-4bae-8020-619288096f9e",
     "email": "alice@example.com",
     "status": "Active"
+=======
+    "degreeID": "dfa84645-4278-44a3-8b3b-c6b4fc6257c5",
+    "instituteGPA": 3.5,
+    "programGPA": 3.0,
+    "status": "active",
+    "completeCourses": [
+      ["022a6993-b557-4233-b0aa-2ac744d4527e", "A"],
+      ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", "B"],
+      ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", "B"]
+    ],
+    "allSemesters": [
+      {
+        "season": "FALL",
+        "year": 2019,
+        "creditLimit": 18,
+        "courses": [
+          "022a6993-b557-4233-b0aa-2ac744d4527e",
+          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", 
+          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+        ]
+      },
+      {
+        "season": "SPRING",
+        "year": 2020,
+        "creditLimit": 18,
+        "courses": [
+          "022a6993-b557-4233-b0aa-2ac744d4527e",
+          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+        ]
+      }
+    ],
+    "currentSemester": {
+      "season": "FALL",
+      "year": 2020,
+      "creditLimit": 18,
+      "courses": [
+        "022a6993-b557-4233-b0aa-2ac744d4527e",
+        "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+        "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+      ]
+    }
+
+>>>>>>> refs/remotes/origin/main
   }
 ]
