@@ -7,14 +7,13 @@
     "email": "jdoe@email.sc.edu",
     "password": "hbuwerfkj",
     "studentList": [
-        "4785470c-0127-4944-b7f2-96bb6d2ffab9",
         "6e30c187-5592-4d8a-91e4-e874f34a41cd"
     ],
     "isAdmin": "false"
   },
   {
     "id": "4785470c-0127-4944-b7f2-96bb6d2ffab9",
-    "type": "Student",
+    "type": "Advisor",
     "firstName": "Jane",
     "lastName": "Doe",
     "email": "jane@email.sc.edu",

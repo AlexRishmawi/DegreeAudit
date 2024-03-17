@@ -1,75 +1,156 @@
-
 import java.util.ArrayList;
 import java.util.UUID;
+
+/**
+ * Advisor class represents a user with advisor privileges.
+ * It extends the User class and contains methods to manage students and perform advisor-specific actions.
+ */
 
 public class Advisor extends User{
     private ArrayList<Student> studentList;
     private Student currentStudent;
     private Boolean isAdmin;
 
-    public Advisor(String firstName, String lastName, String email, String password, Boolean isAdmin) {
+    /**
+     * Constructor for creating an Advisor instance.
+     * @param firstName First name of the advisor.
+     * @param lastName Last name of the advisor.
+     * @param email Email address of the advisor.
+     * @param password Password of the advisor.
+     * @param isAdmin Specifies whether the advisor is an administrator.
+     */
+    public Advisor(String firstName, String lastName, String email, String password, Boolean isAdmin) 
+    {
         super(firstName, lastName, email, password);
+        this.studentList = new ArrayList<Student>();
         setAdmin(isAdmin);
     }
 
-    public Advisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin){
+    /**
+     * Constructor for creating an Advisor instance with an existing list of students.
+     * @param firstName First name of the advisor.
+     * @param lastName Last name of the advisor.
+     * @param email Email address of the advisor.
+     * @param password Password of the advisor.
+     * @param studentList List of students managed by the advisor.
+     * @param isAdmin Specifies whether the advisor is an administrator.
+     */
+    public Advisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin)
+    {
         super(firstName, lastName, email, password);
         setStudentList(studentList);
         setAdmin(isAdmin);
     }
 
-    public Advisor(UUID id, String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+    /**
+     * Constructor for creating an Advisor instance with a specific ID and an existing list of students.
+     * @param id Unique identifier of the advisor.
+     * @param firstName First name of the advisor.
+     * @param lastName Last name of the advisor.
+     * @param email Email address of the advisor.
+     * @param password Password of the advisor.
+     * @param studentList List of students managed by the advisor.
+     * @param isAdmin Specifies whether the advisor is an administrator.
+     */
+    public Advisor(UUID id, String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) 
+    {
         super(id, firstName, lastName, email, password);
         setStudentList(studentList);
         setAdmin(isAdmin);
     }
     
     // ----- Accessor -----
-    public ArrayList<Student> getStudentList() {
+    /**
+     * Retrieves the list of students managed by the advisor.
+     * @return ArrayList containing the students managed by the advisor.
+     */
+    public ArrayList<Student> getStudentList() 
+    {
         return this.studentList;
     }
 
-    public Student getCurrentStudent() {
+    /**
+     * Retrieves the currently selected student.
+     * @return The currently selected student.
+     */
+    public Student getCurrentStudent() 
+    {
         return this.currentStudent;
     }
 
-    public Boolean getIsAdmin() {
+    /**
+     * Checks if the advisor is an administrator.
+     * @return True if the advisor is an administrator, otherwise false.
+     */
+    public Boolean getIsAdmin() 
+    {
         return this.isAdmin;
     }
 
     // ----- Mutator -----
-    public void setCurrentStudent(UUID id) {
-        this.currentStudent = findUser(id);
+    /**
+     * Sets the currently selected student based on their unique ID.
+     * @param id The unique ID of the student.
+     */
+    public void setCurrentStudent(UUID id) 
+    {
+        this.currentStudent = findStudent(id);
     }
 
-    public void setStudentList(ArrayList<Student> studentList) {
+    /**
+     * Sets the list of students managed by the advisor.
+     * @param studentList ArrayList containing the students to be managed by the advisor.
+     */
+    public void setStudentList(ArrayList<Student> studentList) 
+    {
         this.studentList = studentList;
     }
 
-    public void setAdmin(Boolean isAdmin) {
+    /**
+     * Sets whether the advisor is an administrator.
+     * @param isAdmin True if the advisor is an administrator, otherwise false.
+     */
+    public void setAdmin(Boolean isAdmin) 
+    {
         this.isAdmin = isAdmin;
     }
 
-
     // ----- Advisor method -----
-    public void addStudent(Student student) { 
-        this.studentList.add(student); 
+    /**
+     * Adds a new student to the advisor's list of managed students.
+     * @param student The student to be added.
+     */
+    public void addStudent(Student student) 
+    {
+        this.studentList.add(student);
+        this.currentStudent =  this.studentList.getLast();
     }
 
-    public boolean removeStudent(Student student) {
-        for(int i = 0; i < this.studentList.size(); i++) {
-            if(student.equals(this.studentList.get(i))) {
-                studentList.remove(i);
-                return true;
-            }
+    /**
+     * Removes a student from the advisor's list of managed students.
+     * @param UUID The student id to be removed.
+     * @return True if the student was successfully removed, otherwise false.
+     */
+    public boolean removeStudent(UUID id) 
+    {
+        Student student = findStudent(id);
+        this.studentList.remove(student);
+        
+        if(currentStudent.equals(student)) {
+            currentStudent = null;
         }
-        return false;
+
+        return this.studentList.contains(student);
     }
     
-
-    public Student findUser(UUID id) {
+    /**
+     * Finds a student in the advisor's list of managed students based on their unique ID.
+     * @param id The unique ID of the student to be found.
+     * @return The student if found, otherwise null.
+     */
+    public Student findStudent(UUID id) 
+    {
         if(this.studentList.size() == 0) {
-            System.out.println("WARN --- Advisor have empty student list");
             return null;
         }
 
@@ -78,48 +159,66 @@ public class Advisor extends User{
                 return this.studentList.get(i);
             }
         }
-        System.out.println("WARN --- not found student in Advisor's student list");
         return null;
     }
 
-    public boolean editUserFirstName(UUID id, String name) {
-        Student student = findUser(id);
-        if(student == null)
-            return false;
-        student.setFirstName(name);
+    /**
+     * Edits the first name of the currently selected student.
+     * @param fname The new first name.
+     * @return True if the first name was successfully updated, otherwise false.
+     */
+    public boolean editStudentFirstName(String fname)
+    {
+        this.currentStudent.setFirstName(fname);
         return true;
     }
 
-    public boolean editUserLastName(UUID id, String name) {
-        Student student = findUser(id);
-        if(student == null)
-            return false;
-        student.setLastName(name);
-        return true;
-    }
-    public boolean editUserEmail(UUID id, String email) {
-        Student student = findUser(id);
-        if(student == null)
-            return false;
-        student.setEmail(email);
-        return true;
-    }
-    public boolean editUserUSCID(UUID id, UUID newID) {
-        Student student = findUser(id);
-        if(student == null)
-            return false;
-        student.setID(newID);
+    /**
+     * Edits the last name of the currently selected student.
+     * @param lname The new last name.
+     * @return True if the last name was successfully updated, otherwise false.
+     */
+    public boolean editStudentLastName(String lname)
+    {
+        this.currentStudent.setLastName(lname);
         return true;
     }
 
-    public boolean editUserPassword(UUID id, String newPassword) {
-        Student student = findUser(id);
-        if(student == null)
-            return false;
-        student.setPassword(newPassword);
+    /**
+     * Edits the email of the currently selected student.
+     * @param email The new email address.
+     * @return True if the email was successfully updated, otherwise false.
+     */
+    public boolean editStudentEmail(String email) {
+        this.currentStudent.setEmail(email);
         return true;
     }
 
-    // ----- Admin method -----
+    /**
+     * Edits the password of the currently selected student.
+     * @param newPassword The new password.
+     * @return True if the password was successfully updated, otherwise false.
+     */
+    public boolean editStudentPassword(String newPassword) {
+        this.currentStudent.setPassword(newPassword);
+        // return updateStudentInStudentList();
+        return true;
+    }
 
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("-- Admin: "+ this.isAdmin);
+        result.append("\n" + super.toString());
+        result.append("\n-- Student List: \n" + this.studentList.toString());
+        // for (int i = 0; i < this.studentList.size(); i++) {
+        //     Student student = this.studentList.get(i);
+        //     result.append("[ Student " + (i+1) + ": \n" + student.toStringAccount() + "\n]");
+        //     result.append(i != this.studentList.size() - 1 ? " ,\n" : "\n");
+        // }
+        return result.toString();
+    }
+
+    public String toStringAccount() {
+        return super.toString();
+    }
 }

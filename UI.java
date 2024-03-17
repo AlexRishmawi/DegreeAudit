@@ -9,7 +9,10 @@ public class UI {
     }
     
     public void run() {
-        
+        DegreeWork degreeWork = new DegreeWork();
+        degreeWork.login("Brax", "West", "password");
+        degreeWork.displayDegreeProgress();
+
     }
     
     private void display() {
