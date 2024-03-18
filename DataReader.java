@@ -50,6 +50,7 @@ public class DataReader extends DataConstants {
                         UUID advisorID = UUID.fromString((String) userJSON.get(STUDENT_ADVISOR_ID));
                         int advisorIndex = mappingAdvisorToStudent.get(advisorID);
                         Advisor advisor = (Advisor) loadedUsers.get(advisorIndex);
+                        String studentID = (String) userJSON.get(STUDENT_ID);
 
                         ArrayList<String> notes = new ArrayList<>();
                         JSONArray noteJsonArray = (JSONArray) userJSON.get(STUDENT_NOTES);
@@ -103,7 +104,7 @@ public class DataReader extends DataConstants {
                             allSemesters.add(tempSemester);
                         }
 
-                        Student student = new Student(id, firstName, lastName, email, password, level, advisor, notes, degree, instituteGPA, programGPA, status, currentSemester, allSemesters);
+                        Student student = new Student(id, firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, currentSemester, allSemesters);
                         advisor.addStudent(student);
 
                     } else if (type.equalsIgnoreCase("advisor")) {
