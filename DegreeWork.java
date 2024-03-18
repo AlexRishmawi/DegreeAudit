@@ -13,6 +13,19 @@ public class DegreeWork {
         this.degreeList = DegreeList.getInstance();
     }
 
+    public UserList getUserList() {
+        return this.userList;
+    }
+
+    public CourseList getCourseList() {
+        return this.courseList;
+    }
+
+    public DegreeList getDegreeList() {
+        return this.degreeList;
+    }
+
+
     public User getCurrentUser() {
         return this.currentUser;
     }
