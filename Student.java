@@ -195,8 +195,12 @@ public class Student extends User {
         result.append("\n-- Status: " + this.status);
         if (this.advisor != null) {
             result.append("\n-- Advisor: " + advisor.getFirstName() + " " + advisor.getLastName());
+        } else {
+            result.append("\n-- Advisor: None");
         }
         result.append("\n" + printNotes() + "\n");
+        result.append("\n-------------------------------------------------------------------\n");
+        result.append("\n-- Degree: " + this.degree.getDegreeType() + " in " + this.degree.getSubject() + "\n");
         if (this.degree != null) {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {
@@ -246,7 +250,7 @@ public class Student extends User {
         student.setAllSemester(semesters);
         student.initializeCompleteCourses();
         student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
-        System.out.println(student.toString());
+        System.out.println(student.allSemesterPlan());
     }
 
     public void setCompleteCourses(HashMap<Course, String> completeCourses2) {
