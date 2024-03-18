@@ -27,12 +27,12 @@ public class UI {
         
         Advisor osbert = degreeWork.createAdvisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
         Student tawnie = degreeWork.createStudent("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
-
+        
         osbert.setCurrentStudent(tawnie.getID());
         degreeWork.setCurrentUser(osbert);
         degreeWork.displayDegreeProgress();
         
-
+        
     }
     
     private void display() {

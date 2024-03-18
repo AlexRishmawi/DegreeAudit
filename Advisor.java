@@ -124,7 +124,8 @@ public class Advisor extends User{
     public void addStudent(Student student) 
     {
         this.studentList.add(student);
-        this.currentStudent =  this.studentList.getLast();
+        ArrayList<Student> students = this.getStudentList();
+        this.currentStudent = students.get(students.size() - 1);
     }
 
     /**
