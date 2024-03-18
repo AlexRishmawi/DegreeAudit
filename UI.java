@@ -11,9 +11,10 @@ public class UI {
     
     public void run() {
         DegreeWork degreeWork = new DegreeWork();
+        Degree degree = new Degree("Bachelor", "Computer Science", 120, null, null);
         Student student = degreeWork.createStudent("Brax", "West", "Bwest@email.sc.edu", "password", "Junior", null, null, degree, 0, 0, "Good Standing");
         degreeWork.login("Brax", "West", "password");
-        Degree degree = new Degree("Bachelor", "Computer Science", 120, null, null);
+        
         degreeWork.setCurrentUser(student);
         degreeWork.displayDegreeProgress();
 

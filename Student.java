@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Student extends User {
@@ -12,6 +13,7 @@ public class Student extends User {
     private String status;
     private Semester currentSemester;
     private ArrayList<Semester> allSemester;
+    private HashMap<Course, String> completeCourses;
 
     public Student(String firstName, String lastName, String email, String password) 
     {
@@ -23,6 +25,9 @@ public class Student extends User {
         this.instituteGPA = 4.0;
         this.programGPA = 4.0;
         this.status = "Pending";
+        this.currentSemester = null;
+        this.allSemester = new ArrayList<>();
+        this.completeCourses = new HashMap<>();
     }
 
     public Student(String firstName, String lastName, String email, String password,
@@ -34,9 +39,12 @@ public class Student extends User {
         setAdvisor(advisor);
         setNotes(notes);
         setDegree(degree);
-        setInstituteGPA(programGPA);
+        setInstituteGPA(instituteGPA);
         setProgramGPA(programGPA);
         setStatus(status);
+        setAllSemester(new ArrayList<Semester>());
+        setCurrentSemester(allSemester.get(0));
+        initializeCompleteCourses();
     }
 
     public Student(UUID id, String firstName, String lastName, String email, String password,
@@ -54,6 +62,7 @@ public class Student extends User {
         setStatus(status);
         setCurrentSemester(currentSemester);
         setAllSemester(allSemester);
+        initializeCompleteCourses();
     }
 
     // ----- Mutator -----
@@ -102,6 +111,18 @@ public class Student extends User {
         this.allSemester = allSemester;
     }
 
+    public void initializeCompleteCourses() {
+        HashMap<Course, Integer> majorCourses = this.degree.getMajorCourses();
+        for (Course course : majorCourses.keySet()) {
+            this.completeCourses.put(course, "NT");
+        }
+        ArrayList<ElectiveCategory> electiveList = this.degree.getElectiveList();
+        for (ElectiveCategory category : electiveList) {
+            for (Course course : category.getCourseChoices().keySet()) {
+                this.completeCourses.put(course, "NT");
+            }
+        }
+    }
     // ----- Accessor -----
 
     //Alex Mesa Additions
