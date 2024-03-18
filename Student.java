@@ -179,13 +179,13 @@ public class Student extends User {
         StringBuilder result = new StringBuilder();
         result.append(super.toString());
         result.append("\n-- level: " + this.classification.toString());
-        result.append("\n-- Institute GPA: " + this.instituteGPA);
-        result.append("\n-- Program GPA: " + this.instituteGPA);
+        result.append("\n-- Institute GPA: " + this.instituteGPA + "\n-- Program GPA: " + this.programGPA);
         result.append("\n-- Status: " + this.status);
         if (this.advisor != null) {
             result.append("\n-- Advisor: " + advisor.getFirstName() + " " + advisor.getLastName());
         }
         result.append("\n" + printNotes() + "\n");
+        result.append("\n + ----Course List---- " + "\n");
         if (this.degree != null) {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {

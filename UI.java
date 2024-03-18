@@ -17,7 +17,10 @@ public class UI {
         
         degreeWork.setCurrentUser(student);
         degreeWork.displayDegreeProgress();
-
+        //Generate 8 semester plan
+        for(Semester semester : student.getAllSemester()) {
+            semester.toString();
+        }
         
     }
     
