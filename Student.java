@@ -133,6 +133,9 @@ public class Student extends User {
     }
 
     public void setCourseCompleted(Course course, String grade) {
+        if(this.completeCourses != null) {
+            this.completeCourses = new HashMap<>();
+        }
         this.completeCourses.put(course, grade);
     }
     // ----- Accessor -----
@@ -201,6 +204,7 @@ public class Student extends User {
         result.append("\n" + printNotes() + "\n");
         result.append("\n-------------------------------------------------------------------\n");
         result.append("\n-- Degree: " + this.degree.getDegreeType() + " in " + this.degree.getSubject() + "\n");
+        result.append("\n-- Degree: " + this.degree.getDegreeType() + " in " + this.degree.getSubject() + "\n");
         if (this.degree != null) {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {
@@ -227,6 +231,14 @@ public class Student extends User {
         return this.degree.toString();
     }
 
+    public String allSemesterPlan() {
+        StringBuilder result = new StringBuilder();
+        for (Semester semester : this.allSemester) {
+            result.append(semester.toString());
+        }
+        return result.toString();
+    }
+
     @SuppressWarnings("unchecked")
     public JSONArray serializeCompleteCourses() {
     JSONArray completeCoursesArray = new JSONArray();
@@ -250,6 +262,7 @@ public class Student extends User {
         student.setAllSemester(semesters);
         student.initializeCompleteCourses();
         student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
+        System.out.println(student.allSemesterPlan());
         System.out.println(student.allSemesterPlan());
     }
 
