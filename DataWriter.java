@@ -7,14 +7,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-<<<<<<< HEAD
-import java.util.Iterator;
-import java.util.Map;
-=======
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.UUID;
->>>>>>> main
 
 public class DataWriter {
     private JSONParser parser = new JSONParser();
@@ -108,81 +103,14 @@ public class DataWriter {
         jsonArray.add(jsonObject);
         String prettyPrintedJsonString = prettyPrintJsonArray(jsonArray);
 
-<<<<<<< HEAD
-        try (FileWriter file = new FileWriter(fileName)) {
-            file.write(prettyPrintJsonArray(jsonArray, 0));
-=======
         try (FileWriter file = new FileWriter(filePath)) {
             file.write(prettyPrintedJsonString);
->>>>>>> main
             file.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-<<<<<<< HEAD
-    private String repeatString(String str, int times) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < times; i++) {
-            sb.append(str);
-        }
-        return sb.toString();
-    }
-
-@SuppressWarnings("unchecked")
-private String prettyPrintJsonArray(JSONArray jsonArray, int indent) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("[\n");
-    Iterator<Object> it = jsonArray.iterator();
-    while (it.hasNext()) {
-        Object next = it.next();
-        sb.append(repeatString(" ", indent + 2));
-        if (next instanceof JSONObject) {
-            sb.append(prettyPrintJsonObject((JSONObject) next, indent + 2));
-        } else if (next instanceof JSONArray) {
-            sb.append(prettyPrintJsonArray((JSONArray) next, indent + 2));
-        } else {
-            sb.append(JSONValue.toJSONString(next));
-        }
-        if (it.hasNext()) {
-            sb.append(",");
-        }
-        sb.append("\n");
-    }
-    sb.append(repeatString(" ", indent));
-    sb.append("]");
-    return sb.toString();
-}
-
-@SuppressWarnings("unchecked")
-private String prettyPrintJsonObject(JSONObject jsonObject, int indent) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("{\n");
-    Iterator<Map.Entry<String, Object>> it = jsonObject.entrySet().iterator();
-    while (it.hasNext()) {
-        Map.Entry<String, Object> entry = it.next();
-        sb.append(repeatString(" ", indent + 2)).append("\"").append(entry.getKey()).append("\": ");
-        Object value = entry.getValue();
-        if (value instanceof JSONObject) {
-            sb.append(prettyPrintJsonObject((JSONObject) value, indent + 2));
-        } else if (value instanceof JSONArray) {
-            sb.append(prettyPrintJsonArray((JSONArray) value, indent + 2));
-        } else {
-            sb.append(JSONValue.toJSONString(value));
-        }
-        if (it.hasNext()) {
-            sb.append(",");
-        }
-        sb.append("\n");
-    }
-    sb.append(repeatString(" ", indent)).append("}");
-    return sb.toString();
-}
-
-    // Helper method to convert a Course object to JSONObject
-=======
->>>>>>> main
     @SuppressWarnings("unchecked")
     private String prettyPrintJsonArray(JSONArray jsonArray) {
         StringBuilder prettyJsonBuilder = new StringBuilder("[\n");
