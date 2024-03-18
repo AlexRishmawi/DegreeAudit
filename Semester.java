@@ -103,14 +103,14 @@ public class Semester {
     public String toString() 
     {
         StringBuilder result = new StringBuilder();
-        result.append("Semester: ");
-        result.append("Season: ");
-        result.append("Year: ");
-        result.append("Credit Limit: ");
-        result.append("Semester: ");
-        result.append("Courses: ");  
+        result.append("==================================================================\n");
+        result.append("Semester: " + this.season + " " + this.year + "\n");
+        result.append("Credit Limit: " + this.creditLimit + "\n");
+        result.append("------------------------------------------------------------------\n");
         for (Course course : courses) {
-            result.append("    [" + course.toString() + "]\n");
+            result.append("------------------------------------------------------------------\n");
+            result.append(course.toString() + "\n");
+            result.append("------------------------------------------------------------------\n");
         }
         return result.toString();
     }
