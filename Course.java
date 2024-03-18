@@ -87,12 +87,11 @@ public class Course {
      */
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append("-- ID: " + this.id);
         string.append("\n-- Name: " + this.courseName);
-        string.append("\n-- Subject: " + this.subject + " -- Code: " + this.code + " -- Credit Hours: " + this.creditHours);
+        string.append("\n-- Subject: " + this.subject + " " + this.code + "\tCredit Hours: " + this.creditHours);
         string.append("\n-- Description: " + this.description);
-        string.append("\n-- Semester hours: " + this.semesterOffer.toString());
-        string.append("\n-- Course prerequisites: ");
+        string.append("\n-- Semesters Offered: " + this.semesterOffer.toString());
+        string.append("\n-- Course Prerequisites: ");
         string.append(this.prerequisites.size() > 0 ? this.prerequisites.toString() : "None");
         return string.toString();
     }

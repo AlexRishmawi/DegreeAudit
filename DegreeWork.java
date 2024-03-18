@@ -68,9 +68,10 @@ public class DegreeWork {
         if (this.currentUser instanceof Student) {
             return this.currentUser.toString();
         } else if (this.currentUser instanceof Advisor) {
-            return ((Advisor) this.currentUser).getCurrentStudent().toString();
+            //return ((Advisor) this.currentUser).getCurrentStudent().toString();
+            return "No Student Selected";
         }
-        return null;
+        return "No information to display";
     }
     /* 
     public boolean displayMajorMap() {
