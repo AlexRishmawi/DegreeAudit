@@ -48,9 +48,12 @@ public class DegreeWork {
         return tempStudent;
     }
 
-    public boolean createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+    public Advisor createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+        
         Advisor tempAdvisor = new Advisor(firstName, firstName, email, password, studentList, isAdmin);
-        return this.userList.addUser(tempAdvisor);
+        this.userList.addUser(tempAdvisor);
+
+        return tempAdvisor;
     }
 
     public boolean removeUser(String id) {

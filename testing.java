@@ -18,11 +18,11 @@ public class testing {
 
         // System.out.println(degreeList.getAllDegree());
 
-        // UserList userList = UserList.getInstance();
-        // System.out.println(userList.getAllUsers());
+        UserList userList = UserList.getInstance();
+        System.out.println(userList.getAllUsers());
 
-        CourseList courseList = CourseList.getInstance();
-        System.out.println(courseList.getAllCourse());
+        // CourseList courseList = CourseList.getInstance();
+        // System.out.println(courseList.getAllCourse());
         
     }
 
