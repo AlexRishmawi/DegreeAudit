@@ -60,7 +60,7 @@ public class Student extends User {
         setAdvisor(advisor);
         setNotes(notes);
         setDegree(degree);
-        setInstituteGPA(programGPA);
+        setInstituteGPA(instituteGPA);
         setProgramGPA(programGPA);
         setStatus(status);
         setCurrentSemester(currentSemester);
@@ -190,11 +190,11 @@ public class Student extends User {
         StringBuilder result = new StringBuilder();
         result.append("---------------------------------Student---------------------------------\n");
         result.append(super.toString());
-        result.append("\n-- level: " + this.classification.toString());
+        result.append("\n-- Classification: " + this.classification.toString());
         result.append("\n-- Student ID: " + this.studentID);
         result.append("\n-- Institute GPA: " + this.instituteGPA);
-        result.append("\n-- Program GPA: " + this.instituteGPA);
-        result.append("\n-- Status: " + this.status);
+        result.append("\n-- Program GPA: " + this.programGPA);
+        result.append("\n-- Status: " + this.status.toUpperCase());
         if (this.advisor != null) {
             result.append("\n-- Advisor: " + advisor.getFirstName() + " " + advisor.getLastName());
         } else {
@@ -202,7 +202,9 @@ public class Student extends User {
         }
         result.append("\n" + printNotes() + "\n");
         result.append("\n-------------------------------------------------------------------\n");
-        result.append("\n-- Degree: Bachelors in " + this.degree.getSubject() + "\n");
+        result.append("\nDegree: " + this.degree.getDegreeType() + " in " + this.degree.getSubject() + "\n");
+        result.append("Total Credit Required: " + this.degree.getTotalCreditRequired() + "\n");
+        result.append("Courses needed\n");
         if (this.degree != null) {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {
@@ -230,11 +232,11 @@ public class Student extends User {
     }
 
     public String allSemesterPlan() {
-        StringBuilder result = new StringBuilder();
-        for (Semester semester : this.allSemester) {
-            result.append(semester.toString());
+        String result = "";
+        for (int i = 0; i < allSemester.size(); i++) {
+            result += allSemester.get(i).toString();
         }
-        return result.toString();
+        return result;
     }
 
 

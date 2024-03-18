@@ -86,7 +86,7 @@ public class DegreeWork {
         } else if (this.currentUser instanceof Advisor) {
             return ((Advisor) this.currentUser).getCurrentStudent().toString();
         }
-        return null;
+        return "No information to display";
     }
     /* 
     public boolean displayMajorMap() {

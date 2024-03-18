@@ -38,13 +38,12 @@ public class Prerequisites {
     // ----- Method -----
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("\n-- Choices: " + this.choices);
         result.append("\n-- Min Grade: " + this.minGrade);
         result.append("\n-- Course Options: ");
         for(int i = 0; i < this.courseOptions.size(); i++) {
             Course course = this.courseOptions.get(i);
-            result.append("[ Course " + (i+1) + ": " + course.toStringCourseAbbr() + " ]");
-            result.append(i != this.courseOptions.size() - 1 ? " ," : "\n");
+            result.append(course.toStringCourseAbbr());
+            result.append(i != this.courseOptions.size() - 1 ? " or " : "\n");
         }
         return result.toString();
     }
