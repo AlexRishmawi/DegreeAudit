@@ -39,11 +39,11 @@ public class DegreeWork {
         return this.userList.createUser(type, firstName, lastName, password, email);
     }
 
-    public Student createStudent(String firstName, String lastName, String email, String password,
+    public Student createStudent(String firstName, String lastName, String email, String password, String studentID,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) {
         
-        Student tempStudent = new Student(firstName, lastName, email, password, level, advisor, notes, degree, instituteGPA, programGPA, status);
+        Student tempStudent = new Student(firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status);
         this.userList.addUser(tempStudent);
         return tempStudent;
     }
