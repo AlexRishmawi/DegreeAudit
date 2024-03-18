@@ -13,6 +13,19 @@ public class DegreeWork {
         this.degreeList = DegreeList.getInstance();
     }
 
+    public UserList getUserList() {
+        return this.userList;
+    }
+
+    public CourseList getCourseList() {
+        return this.courseList;
+    }
+
+    public DegreeList getDegreeList() {
+        return this.degreeList;
+    }
+
+
     public User getCurrentUser() {
         return this.currentUser;
     }
@@ -35,8 +48,8 @@ public class DegreeWork {
         // Write Data back to database
     }
 
-    public boolean createUser(String type, String firstName, String lastName, String password, String email) {
-        return this.userList.createUser(type, firstName, lastName, password, email);
+    public boolean createUser(String type, String firstName, String lastName, String password, String email, String studentID) {
+        return this.userList.createUser(type, firstName, lastName, password, email, studentID);
     }
 
     public Student createStudent(String firstName, String lastName, String email, String password, String studentID,
@@ -48,9 +61,12 @@ public class DegreeWork {
         return tempStudent;
     }
 
-    public boolean createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+    public Advisor createAdvisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) {
+        
         Advisor tempAdvisor = new Advisor(firstName, firstName, email, password, studentList, isAdmin);
-        return this.userList.addUser(tempAdvisor);
+        this.userList.addUser(tempAdvisor);
+
+        return tempAdvisor;
     }
 
     public boolean removeUser(String id) {

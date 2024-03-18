@@ -38,8 +38,7 @@ public class Prerequisites {
     // ----- Method -----
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Prerequisites:\n");
-        result.append("-- Choices: " + this.choices);
+        result.append("\n-- Choices: " + this.choices);
         result.append("\n-- Min Grade: " + this.minGrade);
         result.append("\n-- Course Options: ");
         for(int i = 0; i < this.courseOptions.size(); i++) {
