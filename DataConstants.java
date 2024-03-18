@@ -60,7 +60,6 @@ public abstract class DataConstants {
     protected static final String STUDENT_COMPLETED_COURSES = "completeCourses";
     protected static final String STUDENT_ALL_SEMESTERS = "allSemesters";
     protected static final String STUDENT_CURRENT_SEMESTER = "currentSemester";
-    protected static final String STUDENT_ID = "studentID";
 
     // Advisor Constants
     protected static final String ADVISOR_FILE_NAME = "./json/advisor.json";

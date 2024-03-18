@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.UUID;
 
 public class DataWriter {
@@ -15,74 +15,55 @@ public class DataWriter {
 
     public void writeUser(User user) {
         JSONObject userJson = userToJson(user);
-        String filePath = user instanceof Student ? "json/students.json" : "json/advisors.json";
+        String filePath = user instanceof Student ? "json/student.json" : "json/advisor.json";
         appendToFile(filePath, userJson);
     }
 
-    @SuppressWarnings("unchecked")
-private JSONObject userToJson(User user) {
-    JSONObject jsonObject = new JSONObject();
+    private JSONObject userToJson(User user) {
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        map.put("id", user.getID().toString());
+        map.put("type", user instanceof Student ? "Student" : "Advisor");
+        map.put("firstName", user.getFirstName());
+        map.put("lastName", user.getLastName());
+        map.put("email", user.getEmail());
+        map.put("password", user.getPassword());
 
-    // Add in the desired order
-    jsonObject.put("id", user.getID().toString());
-    jsonObject.put("type", user instanceof Student ? "Student" : "Advisor");
-    jsonObject.put("firstName", user.getFirstName());
-    jsonObject.put("lastName", user.getLastName());
-    jsonObject.put("email", user.getEmail());
-    jsonObject.put("password", user.getPassword());
-    
-    if (user instanceof Student) {
-        Student student = (Student) user;
-        jsonObject.put("studentID", student.getStudentID());
-        jsonObject.put("classification", student.getLevel().toString());
-        jsonObject.put("advisorID", student.getAdvisor().getID().toString());
-        
-        JSONArray notesJson = new JSONArray();
-        student.getNotes().forEach(notesJson::add);
-        jsonObject.put("notes", notesJson);
-        
-        jsonObject.put("degreeID", student.getDegree().getID().toString());
-        jsonObject.put("instituteGPA", student.getInstituteGPA());
-        jsonObject.put("programGPA", student.getProgramGPA());
-        jsonObject.put("status", student.getStatus());
-        jsonObject.put("completeCourses", student.serializeCompleteCourses());
-        jsonObject.put("allSemesters", serializeAllSemesters(student.getAllSemester()));
-        jsonObject.put("currentSemester", serializeSemester(student.getCurrentSemester()));
-    } else if (user instanceof Advisor) {
-        fillAdvisorDetails(jsonObject, (Advisor) user);
+        if (user instanceof Student) {
+            fillStudentDetails(map, (Student) user);
+        } else if (user instanceof Advisor) {
+            fillAdvisorDetails(map, (Advisor) user);
+        }
+
+        return new JSONObject(map);
     }
 
-    return jsonObject;
-}
-
-    @SuppressWarnings("unchecked")
-    private void fillStudentDetails(JSONObject jsonObject, Student student) {
-        jsonObject.put("type", "Student");
-        jsonObject.put("studentID", student.getStudentID());
-        jsonObject.put("classification", student.getLevel().toString());
-        jsonObject.put("advisorID", student.getAdvisor().getID().toString());
+    private void fillStudentDetails(LinkedHashMap<String, Object> map, Student student) {
+        map.put("type", "Student");
+        map.put("studentID", student.getStudentID());
+        map.put("classification", student.getLevel().toString());
+        map.put("advisorID", student.getAdvisor().getID().toString());
         
         JSONArray notesJson = new JSONArray();
-        student.getNotes().forEach(notesJson::add);
-        jsonObject.put("notes", notesJson);
+        for (String note : student.getNotes()) {
+            notesJson.add(note);
+        }
+        map.put("notes", notesJson);
         
-        jsonObject.put("degreeID", student.getDegree().getID().toString());
-        jsonObject.put("instituteGPA", student.getInstituteGPA());
-        jsonObject.put("programGPA", student.getProgramGPA());
-        jsonObject.put("status", student.getStatus());
-        // Assumes serializeCompleteCourses returns JSONArray
-        jsonObject.put("completeCourses", student.serializeCompleteCourses());
-        jsonObject.put("allSemesters", serializeAllSemesters(student.getAllSemester()));
-        jsonObject.put("currentSemester", serializeSemester(student.getCurrentSemester()));
+        map.put("degreeID", student.getDegree().getID().toString());
+        map.put("instituteGPA", student.getInstituteGPA());
+        map.put("programGPA", student.getProgramGPA());
+        map.put("status", student.getStatus());
+        map.put("completeCourses", student.serializeCompleteCourses());
+        map.put("allSemesters", serializeAllSemesters(student.getAllSemester()));
+        map.put("currentSemester", serializeSemester(student.getCurrentSemester()));
     }
 
     @SuppressWarnings("unchecked")
-    private void fillAdvisorDetails(JSONObject jsonObject, Advisor advisor) {
-        jsonObject.put("type", "Advisor");
-        jsonObject.put("isAdmin", advisor.getIsAdmin().toString());
+    private void fillAdvisorDetails(LinkedHashMap<String, Object> map, Advisor advisor) {
+        map.put("isAdmin", advisor.getIsAdmin().toString());
         JSONArray studentListJson = new JSONArray();
         advisor.getStudentList().forEach(student -> studentListJson.add(student.getID().toString()));
-        jsonObject.put("studentList", studentListJson);
+        map.put("studentList", studentListJson);
     }
 
     @SuppressWarnings("unchecked")
@@ -94,48 +75,37 @@ private JSONObject userToJson(User user) {
 
     @SuppressWarnings("unchecked")
     private JSONObject serializeSemester(Semester semester) {
-        JSONObject semesterJson = new JSONObject();
-        semesterJson.put("season", semester.getSeason().toString());
-        semesterJson.put("year", semester.getYear());
-        semesterJson.put("creditLimit", semester.getCreditLimit());
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        map.put("season", semester.getSeason().toString());
+        map.put("year", semester.getYear());
+        map.put("creditLimit", semester.getCreditLimit());
         JSONArray coursesJson = new JSONArray();
         semester.getCourses().forEach(course -> {
             JSONArray courseInfo = new JSONArray();
             courseInfo.add(course.getID().toString());
-            // Placeholder for actual grade value
             courseInfo.add("grade_placeholder");
             coursesJson.add(courseInfo);
         });
-        semesterJson.put("courses", coursesJson);
-        return semesterJson;
+        map.put("courses", coursesJson);
+        return new JSONObject(map);
     }
 
     @SuppressWarnings("unchecked")
     private void appendToFile(String filePath, JSONObject jsonObject) {
         JSONArray jsonArray;
         try (FileReader reader = new FileReader(filePath)) {
-            Object obj = parser.parse(reader);
-            jsonArray = (JSONArray) obj;
-            System.out.println("Existing data read successfully.");
-        } catch (IOException e) {
-            System.out.println("File not found. Creating a new one.");
-            jsonArray = new JSONArray();
-        } catch (ParseException e) {
-            System.out.println("Failed to parse the existing file. Starting fresh.");
+            jsonArray = (JSONArray) parser.parse(reader);
+        } catch (IOException | ParseException e) {
             jsonArray = new JSONArray();
         }
 
         jsonArray.add(jsonObject);
-        System.out.println("Added new user to the JSON array.");
-
         String prettyPrintedJsonString = prettyPrintJsonArray(jsonArray);
 
-        try (FileWriter file = new FileWriter(filePath, false)) {
+        try (FileWriter file = new FileWriter(filePath)) {
             file.write(prettyPrintedJsonString);
             file.flush();
-            System.out.println("Data successfully written to " + filePath);
         } catch (IOException e) {
-            System.out.println("Failed to write data to " + filePath);
             e.printStackTrace();
         }
     }
@@ -143,10 +113,7 @@ private JSONObject userToJson(User user) {
     @SuppressWarnings("unchecked")
     private String prettyPrintJsonArray(JSONArray jsonArray) {
         StringBuilder prettyJsonBuilder = new StringBuilder("[\n");
-        jsonArray.forEach(item -> {
-            prettyJsonBuilder.append(prettyPrintJsonObject((JSONObject) item, 1)).append(",\n");
-        });
-        // Handle trailing comma
+        jsonArray.forEach(item -> prettyJsonBuilder.append(prettyPrintJsonObject((JSONObject) item, 1)).append(",\n"));
         if (prettyJsonBuilder.length() > 2) {
             prettyJsonBuilder.setLength(prettyJsonBuilder.length() - 2);
         }
@@ -162,14 +129,12 @@ private JSONObject userToJson(User user) {
             if (value instanceof JSONObject) {
                 prettyJson.append(prettyPrintJsonObject((JSONObject) value, indentLevel + 1));
             } else if (value instanceof JSONArray) {
-                // This part is simplified; in a real scenario, you might need to handle nested arrays/objects
                 prettyJson.append(value.toString());
             } else {
                 prettyJson.append(value instanceof String ? "\"" + value + "\"" : value);
             }
             prettyJson.append(",\n");
         });
-        // Handle trailing comma
         if (prettyJson.length() > 2) {
             prettyJson.setLength(prettyJson.length() - 2);
         }
