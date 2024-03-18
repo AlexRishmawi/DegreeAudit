@@ -13,28 +13,30 @@ public class UI {
     public void run() {
 
         DegreeWork degreeWork = new DegreeWork();
+        /*
         HashMap<Course, Integer> majorCourses = new HashMap<Course, Integer>();
         Degree degree = new Degree("Bachelor", "Computer Science", 120, majorCourses, new ArrayList<ElectiveCategory>());
         Student brax = new Student("Brax", "West", "Bwest@email.sc.edu", "password","X23456789", "Junior", new Advisor("John", "Doe", "jDoe@email.sc.edu", "password", false), new ArrayList<>(), degree, 0, 0, "Good Standing");
-        //Student brax = degreeWork.createStudent("Brax", "West", "Bwest@email.sc.edu", "password","X23456789", "Junior", new Advisor("John", "Doe", "jDoe@email.sc.edu", "password", false), new ArrayList<>(), degree, 0, 0, "Good Standing");
-        //degreeWork.login("Brax", "West", "password");
+        */
+        //brax.toString();
+        Student brax = degreeWork.createStudent("Brax", "West", "Bwest@email.sc.edu", "password","X23456789", "Junior", new Advisor("John", "Doe", "jDoe@email.sc.edu", "password", false), new ArrayList<>(), degree, 0, 0, "Good Standing");
+        degreeWork.login("Brax", "West", "password");
         
-        //degreeWork.setCurrentUser(brax);
-        brax.toString();
-        //degreeWork.displayDegreeProgress();
+        degreeWork.setCurrentUser(brax);
+        degreeWork.displayDegreeProgress();
         //Generate 8 semester plan
         for(Semester semester : brax.getAllSemester()) {
             semester.toString();
         }
-        Advisor osbert = new Advisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
-        //Advisor osbert = degreeWork.createAdvisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
-        Student tawnie = new Student("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
-        //Student tawnie = degreeWork.createStudent("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
+        //Advisor osbert = new Advisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
+        Advisor osbert = degreeWork.createAdvisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
+        //Student tawnie = new Student("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
+        Student tawnie = degreeWork.createStudent("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
 
-        //osbert.setCurrentStudent(tawnie.getID());
-        //degreeWork.setCurrentUser(osbert);
-        tawnie.toString();
-        //degreeWork.displayDegreeProgress();
+        osbert.setCurrentStudent(tawnie.getID());
+        degreeWork.setCurrentUser(osbert);
+        //tawnie.toString();
+        degreeWork.displayDegreeProgress();
         //degreeWork.getUserList().add(brax);
 
     }
