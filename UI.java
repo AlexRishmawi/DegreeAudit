@@ -87,6 +87,10 @@ public class UI {
         boolean title = Boolean.parseBoolean(keyboard.nextLine());
         degreeWork.createAdvisor(name, lastName, email, password, new ArrayList<Student>(), title); 
         degreeWork.login(email, password);
+        System.out.println("Enter your students USCID: ");
+        String uscID = keyboard.nextLine();
+        degreeWork.findStudent(uscID);
+        System.out.println(degreeWork.displayDegreeProgress());
     }
 
     public static void main(String[] args) {
