@@ -43,7 +43,7 @@ public class Student extends User {
         setProgramGPA(programGPA);
         setStatus(status);
         setAllSemester(new ArrayList<Semester>());
-        setCurrentSemester(allSemester.get(0));
+        setCurrentSemester(null);
         initializeCompleteCourses();
     }
 
@@ -113,6 +113,7 @@ public class Student extends User {
 
     public void initializeCompleteCourses() {
         HashMap<Course, Integer> majorCourses = this.degree.getMajorCourses();
+        this.completeCourses = new HashMap<>();
         for (Course course : majorCourses.keySet()) {
             this.completeCourses.put(course, "NT");
         }
@@ -122,6 +123,10 @@ public class Student extends User {
                 this.completeCourses.put(course, "NT");
             }
         }
+    }
+
+    public void setCourseCompleted(Course course, String grade) {
+        this.completeCourses.put(course, grade);
     }
     // ----- Accessor -----
 
@@ -209,15 +214,16 @@ public class Student extends User {
 
 
     public static void main(String[] args) {
-        Degree degree = new Degree("Bachelor", "Computer Science", 120, null, null);
+        Degree degree = new Degree("Bachelor", "Computer Science", 120, new HashMap<Course, Integer>(), new ArrayList<ElectiveCategory>());
         Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password",
-        "junior", null, null, degree, 4.0, 4.0, "Good Standing");
+        "junior", new Advisor("null", "null", "null", "null", false), new ArrayList<String>(), degree, 4.0, 4.0, "Good Standing");
         ArrayList<Semester> semesters = new ArrayList<>();
-        Semester semester = new Semester("spring", 2021, 18, null);
+        Semester semester = new Semester("spring", 2021, 18, new ArrayList<Course>());
         semesters.add(semester);
         student.setAllSemester(semesters);
-        student.completeCourses.put(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3,null,null), "T");
-        student.toString();
+        student.initializeCompleteCourses();
+        student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
+        System.out.println(student.toString());
     }
 
 }
