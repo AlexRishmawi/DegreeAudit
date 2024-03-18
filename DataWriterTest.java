@@ -1,41 +1,47 @@
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class DataWriterTest {
     public static void main(String[] args) {
-        // Create Courses
-        Course course1 = new Course(UUID.randomUUID(), "Intro to Programming", "CS", "CS101", 3, new ArrayList<>(Arrays.asList(Season.FALL, Season.SPRING)), new ArrayList<>(), "Introductory programming course.", "B");
-        Course course2 = new Course(UUID.randomUUID(), "Data Structures", "CS", "CS201", 4, new ArrayList<>(Arrays.asList(Season.FALL, Season.SPRING)), new ArrayList<>(Arrays.asList(course1)), "Data structures course.", "C");
-        
-        // Student Degree
-        Degree studentDegree = new Degree("Computer Science", 30, new ArrayList<>(Arrays.asList(course1, course2)), null);
+        // Create prerequisite course(s) without prerequisites for simplicity
+        Course math101 = new Course(UUID.randomUUID(), "Mathematics", "101", "Calculus I", "Differential calculus.", 3,
+                                    new ArrayList<>(Arrays.asList(Season.FALL, Season.SPRING)), new ArrayList<>());
 
-        //Student List for advisor
-        Advisor advisor2 = new Advisor("John", "Doe", "john.doe@example.com", "password123", true);
-        Student exStudent = new Student("Alice", "Wonderland", "alice@example.com", "password456", "Junior", advisor2, new ArrayList<>(Arrays.asList("Good progress", "Needs improvement in math")), studentDegree, 3.5, 3.7, "Active");
-        @SuppressWarnings("unused")
-        ArrayList<Student> advisorStudentList = new ArrayList<>(Arrays.asList(exStudent));
+        // Use the prerequisite course to create a Prerequisites object for a new course
+        Prerequisites calcPrerequisites = new Prerequisites(1, "C", new ArrayList<>(Arrays.asList(math101)));
+        
+        // Now create a course with prerequisites
+        Course cs101 = new Course(UUID.randomUUID(), "CS", "101", "Intro to Programming", "Introduction to programming concepts.", 4,
+                                  new ArrayList<>(Arrays.asList(Season.FALL, Season.SPRING)), new ArrayList<>(Arrays.asList(calcPrerequisites)));
 
-        // Create Semester with courses
-        ArrayList<Course> courseList = new ArrayList<>();
-        courseList.add(course1);
-        courseList.add(course2);
-        Semester semester1 = new Semester("FALL", 2023, 18, courseList);
-        
-        // Create an Advisor
-        Advisor advisor1 = new Advisor("John", "Doe", "john.doe@example.com", "password123", true);
-        
-        // Create a Student and assign the semester and advisor
-        Student student1 = new Student("Alice", "Wonderland", "alice@example.com", "password456", "Junior", advisor1, new ArrayList<>(Arrays.asList("Good progress", "Needs improvement in math")), studentDegree, 3.5, 3.7, "Active");
-        student1.setAllSemester(new ArrayList<>(Arrays.asList(semester1)));
-        
-        // Use DataWriter to write the student and advisor to their respective JSON files
+        // Example Degree, Advisor, and Student setup
+        HashMap<Course, Integer> majorCourses = new HashMap<>();
+        majorCourses.put(cs101, 1); // Assuming the Integer represents the semester the course is recommended
+
+        Degree degree = new Degree(UUID.randomUUID(), "Bachelor of Science", "Computer Science", 120, majorCourses, new ArrayList<>());
+        Advisor advisor = new Advisor(UUID.randomUUID(), "Jane", "Doe", "jane.doe@example.com", "securepassword", new ArrayList<>(), true);
+
+        Student student = new Student(UUID.randomUUID(), "Alice", "Wonderland", "alice@example.com", "password123", "X123456789",
+                                      "Junior", advisor, new ArrayList<>(Arrays.asList("Good progress", "Participates actively in class")),
+                                      degree, 3.5, 3.7, "Active", null, new ArrayList<>());
+
+        // Setting Complete Courses for the Student
+        HashMap<Course, String> completeCourses = new HashMap<>();
+        completeCourses.put(math101, "A"); // Assuming Math 101 was completed with grade A
+        student.setCompleteCourses(completeCourses);
+
+        // Semester setup
+        Semester currentSemester = new Semester("FALL", 2023, 18, new ArrayList<>(Arrays.asList(cs101)));
+        student.setCurrentSemester(currentSemester);
+        student.setAllSemester(new ArrayList<>(Arrays.asList(currentSemester)));
+
+        // Serialize to JSON using DataWriter
         DataWriter dataWriter = new DataWriter();
-        dataWriter.writeUser(student1, 'a'); // Assuming 'a' is for append mode
-        //dataWriter.writeUser(advisor1, 'a');
-        
+        dataWriter.writeUser(student);
+        dataWriter.writeUser(advisor);
+
         System.out.println("Student and Advisor data successfully written to JSON files.");
     }
 }

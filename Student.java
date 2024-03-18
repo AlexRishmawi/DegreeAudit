@@ -227,6 +227,14 @@ public class Student extends User {
         return this.degree.toString();
     }
 
+    public String allSemesterPlan() {
+        StringBuilder result = new StringBuilder();
+        for (Semester semester : this.allSemester) {
+            result.append(semester.toString());
+        }
+        return result.toString();
+    }
+
     @SuppressWarnings("unchecked")
     public JSONArray serializeCompleteCourses() {
     JSONArray completeCoursesArray = new JSONArray();

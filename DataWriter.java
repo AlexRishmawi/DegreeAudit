@@ -130,7 +130,7 @@ private JSONObject userToJson(User user) {
 
         String prettyPrintedJsonString = prettyPrintJsonArray(jsonArray);
 
-        try (FileWriter file = new FileWriter(filePath)) {
+        try (FileWriter file = new FileWriter(filePath, false)) {
             file.write(prettyPrintedJsonString);
             file.flush();
             System.out.println("Data successfully written to " + filePath);
