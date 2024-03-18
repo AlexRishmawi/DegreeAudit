@@ -90,10 +90,10 @@ public class UserList {
      * @param email The email address of the user.
      * @return True if the user was successfully created and added, otherwise false.
      */
-    public boolean createUser(String type, String firstName, String lastName, String password, String email) {
+    public boolean createUser(String type, String firstName, String lastName, String password, String email, String studentID) {
         User user;
         if(type.equalsIgnoreCase("student")) {
-            user = new Student(firstName, lastName, email, password);
+            user = new Student(firstName, lastName, email, password, studentID);
         } else if(type.equalsIgnoreCase("advisor")) {
             user = new Advisor(firstName, lastName, email, password, null);
         } else {
