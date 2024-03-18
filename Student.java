@@ -1,7 +1,10 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import org.json.simple.JSONArray;
 
 public class Student extends User {
     private ClassLevel classification;
@@ -220,6 +223,18 @@ public class Student extends User {
         return this.degree.toString();
     }
 
+    @SuppressWarnings("unchecked")
+    public JSONArray serializeCompleteCourses() {
+    JSONArray completeCoursesArray = new JSONArray();
+    for (Map.Entry<Course, String> entry : this.completeCourses.entrySet()) {
+        JSONArray courseGradePair = new JSONArray();
+        courseGradePair.add(entry.getKey().getID().toString()); 
+        courseGradePair.add(entry.getValue()); // The grade as a String
+        completeCoursesArray.add(courseGradePair);
+    }
+    return completeCoursesArray;
+    }
+
 
     public static void main(String[] args) {
         Degree degree = new Degree("Bachelor", "Computer Science", 120, new HashMap<Course, Integer>(), new ArrayList<ElectiveCategory>());
@@ -232,6 +247,10 @@ public class Student extends User {
         student.initializeCompleteCourses();
         student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
         System.out.println(student.toString());
+    }
+
+    public void setCompleteCourses(HashMap<Course, String> completeCourses2) {
+        this.completeCourses = completeCourses2;
     }
 
 }
