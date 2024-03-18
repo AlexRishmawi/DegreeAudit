@@ -35,8 +35,8 @@ public class DegreeWork {
         // Write Data back to database
     }
 
-    public boolean createUser(String type, String firstName, String lastName, String password, String email) {
-        return this.userList.createUser(type, firstName, lastName, password, email);
+    public boolean createUser(String type, String firstName, String lastName, String password, String email, String studentID) {
+        return this.userList.createUser(type, firstName, lastName, password, email, studentID);
     }
 
     public Student createStudent(String firstName, String lastName, String email, String password, String studentID,
