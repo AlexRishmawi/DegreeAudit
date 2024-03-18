@@ -6,6 +6,7 @@
     "lastName": "Smith",
     "email": "bobsmith@email.sc.edu",
     "password": "password",
+    "studentID": "X23456789",
     "classification": "FRESHMAN",
     "advisorID": "a6e0a427-72fd-490d-85df-5933c0ddb081",
     "notes": [
