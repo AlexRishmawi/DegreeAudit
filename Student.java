@@ -14,8 +14,9 @@ public class Student extends User {
     private Semester currentSemester;
     private ArrayList<Semester> allSemester;
     private HashMap<Course, String> completeCourses;
+    private String studentID;
 
-    public Student(String firstName, String lastName, String email, String password) 
+    public Student(String firstName, String lastName, String email, String password, String studentID) 
     {
         super(firstName, lastName, email, password);
         classification = ClassLevel.FRESHMAN;
@@ -28,9 +29,10 @@ public class Student extends User {
         this.currentSemester = null;
         this.allSemester = new ArrayList<>();
         this.completeCourses = new HashMap<>();
+        this.studentID = studentID;
     }
 
-    public Student(String firstName, String lastName, String email, String password,
+    public Student(String firstName, String lastName, String email, String password, String studentID,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) 
     {
@@ -45,9 +47,10 @@ public class Student extends User {
         setAllSemester(new ArrayList<Semester>());
         setCurrentSemester(null);
         initializeCompleteCourses();
+        this.studentID = studentID;
     }
 
-    public Student(UUID id, String firstName, String lastName, String email, String password,
+    public Student(UUID id, String firstName, String lastName, String email, String password, String studentID,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status,
             Semester currentSemester, ArrayList<Semester> allSemester) 
@@ -63,6 +66,7 @@ public class Student extends User {
         setCurrentSemester(currentSemester);
         setAllSemester(allSemester);
         initializeCompleteCourses();
+        this.studentID = studentID;
     }
 
     // ----- Mutator -----
@@ -170,6 +174,9 @@ public class Student extends User {
         return this.allSemester;
     }
 
+    public String getStudentID() {
+        return this.studentID;
+    }
     // ----- Others method -----
     public void addNotes(String note) {
         this.notes.add(note);
@@ -179,6 +186,7 @@ public class Student extends User {
         StringBuilder result = new StringBuilder();
         result.append(super.toString());
         result.append("\n-- level: " + this.classification.toString());
+        result.append("\n-- Student ID: " + this.studentID);
         result.append("\n-- Institute GPA: " + this.instituteGPA);
         result.append("\n-- Program GPA: " + this.instituteGPA);
         result.append("\n-- Status: " + this.status);
@@ -215,7 +223,7 @@ public class Student extends User {
 
     public static void main(String[] args) {
         Degree degree = new Degree("Bachelor", "Computer Science", 120, new HashMap<Course, Integer>(), new ArrayList<ElectiveCategory>());
-        Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password",
+        Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password", "X63942619",
         "junior", new Advisor("null", "null", "null", "null", false), new ArrayList<String>(), degree, 4.0, 4.0, "Good Standing");
         ArrayList<Semester> semesters = new ArrayList<>();
         Semester semester = new Semester("spring", 2021, 18, new ArrayList<Course>());

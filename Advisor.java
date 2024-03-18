@@ -244,7 +244,7 @@ public class Advisor extends User{
 
         //Test setStudentList
         ArrayList<Student> studentList = new ArrayList<Student>();
-        studentList.add(new Student("John", "Doe", "john@email.sc.edu", "test"));
+        studentList.add(new Student("John", "Doe", "john@email.sc.edu", "test", "X67283832"));
         newAdvisor.setStudentList(studentList);
         System.out.println(newAdvisor.getStudentList());
         System.out.println(newAdvisor2.getStudentList());
@@ -264,7 +264,7 @@ public class Advisor extends User{
         HashMap<Course, Integer> courses = new HashMap<>();
         courses.put(new Course("Vector Calculus", "MATH", "241", "", 3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), 1);
         ArrayList<ElectiveCategory> electives = new ArrayList<>();
-        newAdvisor.addStudent(new Student("Jane", "Doe", "", "", "SOPHOMORE", newAdvisor, new ArrayList<String>(), new Degree(type, name, totalCredits, courses, electives), 3.5, 3.5, "ACTIVE"));
+        newAdvisor.addStudent(new Student("Jane", "Doe", "", "", "X72838291", "SOPHOMORE", newAdvisor, new ArrayList<String>(), new Degree(type, name, totalCredits, courses, electives), 3.5, 3.5, "ACTIVE"));
         System.out.println(newAdvisor.getStudentList());
 
         //Test removeStudent
