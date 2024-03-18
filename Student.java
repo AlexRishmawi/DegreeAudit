@@ -192,8 +192,12 @@ public class Student extends User {
         result.append("\n-- Status: " + this.status);
         if (this.advisor != null) {
             result.append("\n-- Advisor: " + advisor.getFirstName() + " " + advisor.getLastName());
+        } else {
+            result.append("\n-- Advisor: None");
         }
         result.append("\n" + printNotes() + "\n");
+        result.append("\n-------------------------------------------------------------------\n");
+        result.append("\n-- Degree: " + this.degree.getDegreeType());
         if (this.degree != null) {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {

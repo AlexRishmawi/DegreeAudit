@@ -14,9 +14,16 @@ import org.json.simple.parser.JSONParser;
 
 public class testing {
     public static void main(String[] args) {
-        DegreeList degreeList = DegreeList.getInstance();
+        // DegreeList degreeList = DegreeList.getInstance();
 
-        System.out.println(degreeList.getAllDegree());
+        // System.out.println(degreeList.getAllDegree());
+
+        // UserList userList = UserList.getInstance();
+        // System.out.println(userList.getAllUsers());
+
+        CourseList courseList = CourseList.getInstance();
+        System.out.println(courseList.getAllCourse());
+        
     }
 
 }

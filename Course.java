@@ -89,7 +89,7 @@ public class Course {
         StringBuilder string = new StringBuilder();
         string.append("-- ID: " + this.id);
         string.append("\n-- Name: " + this.courseName);
-        string.append("\n-- Subject: " + this.subject + " -- Code: " + this.code + " -- Credit Hours: " + this.creditHours);
+        string.append("\n-- Subject: " + this.subject + " " + this.code + "\n-- Credit Hours: " + this.creditHours);
         string.append("\n-- Description: " + this.description);
         string.append("\n-- Semester hours: " + this.semesterOffer.toString());
         string.append("\n-- Course prerequisites: ");
