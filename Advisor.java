@@ -93,9 +93,10 @@ public class Advisor extends User{
      * Sets the currently selected student based on their unique ID.
      * @param id The unique ID of the student.
      */
-    public void setCurrentStudent(UUID id) 
+    public boolean setCurrentStudent(UUID id) 
     {
         this.currentStudent = this.findStudent(id);
+        return this.currentStudent != null;
     }
 
     /**
@@ -158,6 +159,20 @@ public class Advisor extends User{
 
         for(int i = 0; i < this.studentList.size(); i++) {
             if(this.studentList.get(i).getID().equals(id)) {
+                return this.studentList.get(i);
+            }
+        }
+        return null;
+    }
+    public Student findStudent(String studentID)
+    {
+        if(this.studentList.size() == 0) {
+            System.out.println("Student list is empty");
+            return null;
+        }
+        System.out.println("Running findStudent");
+        for(int i = 0; i < this.studentList.size(); i++) {
+            if(this.studentList.get(i).getStudentID().equals(studentID)) {
                 return this.studentList.get(i);
             }
         }

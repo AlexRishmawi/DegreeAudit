@@ -35,9 +35,28 @@ public class UserList {
      */
     public User getUser(String email, String password) {
         for (User user : this.users) {
-            if (user.getEmail().equalsIgnoreCase(email) &&
-                    user.getPassword().equalsIgnoreCase(password)) {
-                return user;
+            if(user instanceof Advisor) {
+                if (user.getEmail().equalsIgnoreCase(email) && user.getPassword().equalsIgnoreCase(password)) {
+                    return user;
+                } else {
+                    for (Student student : ((Advisor) user).getStudentList()) {
+                        if (student.getEmail().equalsIgnoreCase(email) && student.getPassword().equalsIgnoreCase(password)) {
+                            return student;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public User getUser(String studentID) {
+        for (User user : this.users) {
+            if(user instanceof Advisor) {
+                for (Student student : ((Advisor) user).getStudentList()) {
+                    if (student.getStudentID().equalsIgnoreCase(studentID)) {
+                        return student;
+                    }
+                }
             }
         }
         return null;
@@ -68,7 +87,7 @@ public class UserList {
      * @return The user object if found, otherwise null.
      */
     public User getUser(UUID id) {
-        for(User user: this.users) {
+        for(User user : this.users) {
             if(user.getID().equals(id)) {
                 return user;
             }
@@ -164,5 +183,10 @@ public class UserList {
      */
     public ArrayList<User> getAllUsers() {
         return this.users;
+    }
+
+    public static void main(String[] args) {
+        UserList userList = UserList.getInstance();
+        System.out.println(userList.getUser("bobsmith@email.sc.edu", "password"));
     }
 }

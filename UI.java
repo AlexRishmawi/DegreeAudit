@@ -11,38 +11,18 @@ public class UI {
     }
     
     public void run() {
-
-        DegreeWork degreeWork = new DegreeWork();
-        /*
-        HashMap<Course, Integer> majorCourses = new HashMap<Course, Integer>();
-        Degree degree = new Degree("Bachelor", "Computer Science", 120, majorCourses, new ArrayList<ElectiveCategory>());
-        Student brax = new Student("Brax", "West", "Bwest@email.sc.edu", "password","X23456789", "Junior", new Advisor("John", "Doe", "jDoe@email.sc.edu", "password", false), new ArrayList<>(), degree, 0, 0, "Good Standing");
-        */
-        //brax.toString();
-        Student brax = degreeWork.createStudent("Brax", "West", "Bwest@email.sc.edu", "password","X23456789", "Junior", new Advisor("John", "Doe", "jDoe@email.sc.edu", "password", false), new ArrayList<>(), degree, 0, 0, "Good Standing");
-        degreeWork.login("Brax", "West", "password");
-        
-        degreeWork.setCurrentUser(brax);
-        degreeWork.displayDegreeProgress();
-        //Generate 8 semester plan
-        for(Semester semester : brax.getAllSemester()) {
-            semester.toString();
-        }
-        //Advisor osbert = new Advisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
-        Advisor osbert = degreeWork.createAdvisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
-        //Student tawnie = new Student("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
-        Student tawnie = degreeWork.createStudent("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
-
-        osbert.setCurrentStudent(tawnie.getID());
-        degreeWork.setCurrentUser(osbert);
-        //tawnie.toString();
-        degreeWork.displayDegreeProgress();
-        //degreeWork.getUserList().add(brax);
-
+        scenario_1();
     }
     
-    private void display() {
-        
+    private void scenario_1() {
+        DegreeWork degreeWork = new DegreeWork();
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please enter your email: ");
+        String email = keyboard.nextLine();
+        System.out.println("Please enter your password: ");
+        String password = keyboard.nextLine();
+        System.out.println((degreeWork.login(email, password)) ? "Login successful! Pulling up Current Progress" : "Login failed");
+        System.out.println(degreeWork.displayDegreeProgress());
     }
 
     public static void main(String[] args) {
