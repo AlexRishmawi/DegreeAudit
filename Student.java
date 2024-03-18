@@ -183,7 +183,7 @@ public class Student extends User {
         result.append("\n-- Program GPA: " + this.instituteGPA);
         result.append("\n-- Status: " + this.status);
         if (this.advisor != null) {
-            result.append("\n-- Advisor: " + advisor.toStringAccount());
+            result.append("\n-- Advisor: " + advisor.getFirstName() + " " + advisor.getLastName());
         }
         result.append("\n" + printNotes() + "\n");
         if (this.degree != null) {
