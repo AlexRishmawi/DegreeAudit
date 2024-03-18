@@ -23,7 +23,9 @@ public class DegreeWork {
 
     // -------- User method --------
     public boolean login(String email, String password) {
-        return (this.currentUser = this.userList.getUser(email, password)) != null;
+        this.currentUser = this.userList.getUser(email, password);
+        //System.out.println(this.currentUser);
+        return this.currentUser != null;
     }
 
     public boolean login(String firstName, String lastName, String password) {
@@ -35,8 +37,8 @@ public class DegreeWork {
         // Write Data back to database
     }
 
-    public boolean createUser(String type, String firstName, String lastName, String password, String email) {
-        return this.userList.createUser(type, firstName, lastName, password, email);
+    public boolean createUser(String type, String firstName, String lastName, String password, String studentID, String email) {
+        return this.userList.createUser(type, firstName, lastName, password, studentID, email);
     }
 
     public Student createStudent(String firstName, String lastName, String email, String password, String studentID,
@@ -45,6 +47,7 @@ public class DegreeWork {
         
         Student tempStudent = new Student(firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status);
         this.userList.addUser(tempStudent);
+        setCurrentStudent(tempStudent.getID());
         return tempStudent;
     }
 
@@ -62,9 +65,9 @@ public class DegreeWork {
     // -------- Student and Advisor Method --------
 
     public String displayDegreeProgress() {
-        if (this.currentUser.getUserType() == UserType.STUDENT) {
-            return ((Student) this.currentUser).toString();
-        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+        if (this.currentUser instanceof Student) {
+            return this.currentUser.toString();
+        } else if (this.currentUser instanceof Advisor) {
             return ((Advisor) this.currentUser).getCurrentStudent().toString();
         }
         return null;
@@ -189,9 +192,20 @@ public class DegreeWork {
     public boolean setCurrentStudent(UUID id) {
         if (this.currentUser.getUserType() == UserType.ADVISOR) {
             ((Advisor) this.currentUser).setCurrentStudent(id);
+            return true;
         }
         return false;
     }
+
+    public Student findStudent(String studentID) {
+        if (this.currentUser.getUserType() == UserType.ADVISOR) {
+            Student tempStudent = (Student) this.userList.getUser(studentID);
+            System.out.println(this.setCurrentStudent(((User) tempStudent).getID()));
+            return tempStudent;
+        }
+        return null;
+    }
+    
 
     public Student getCurrentStudent() {
         if (this.currentUser.getUserType() == UserType.ADVISOR) {

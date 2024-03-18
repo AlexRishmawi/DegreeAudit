@@ -185,8 +185,10 @@ public class Student extends User {
         this.notes.add(note);
     }
 
+    @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
+        result.append("---------------------------------Student---------------------------------\n");
         result.append(super.toString());
         result.append("\n-- level: " + this.classification.toString());
         result.append("\n-- Student ID: " + this.studentID);
@@ -200,7 +202,7 @@ public class Student extends User {
         }
         result.append("\n" + printNotes() + "\n");
         result.append("\n-------------------------------------------------------------------\n");
-        result.append("\n-- Degree: " + this.degree.getDegreeType() + " in " + this.degree.getSubject() + "\n");
+        result.append("\n-- Degree: Bachelors in " + this.degree.getSubject() + "\n");
         if (this.degree != null) {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {
