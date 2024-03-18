@@ -65,7 +65,7 @@ public class DegreeWork {
         if (this.currentUser.getUserType() == UserType.STUDENT) {
             return ((Student) this.currentUser).getDegree().toString();
         } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
-            return ((Advisor) this.currentUser).getCurrentStudent().getDegree().toString();
+            return ((Advisor) this.currentUser).getCurrentStudent().toString();
         }
         return null;
     }

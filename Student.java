@@ -182,7 +182,15 @@ public class Student extends User {
         }
         result.append("\n" + printNotes() + "\n");
         if (this.degree != null) {
-            result.append(toStringDegree());
+            //result.append(toStringDegree());
+            for(Course course : completeCourses.keySet()) {
+                if(completeCourses.get(course).equals("NT")) {
+                    result.append(course.toString() + "\n --Status: Not Taken" + "\n");
+                }
+                else {
+                    result.append(course.toString() + "\n --Status: Taken" + "\n");
+                }
+            }
         }
         return result.toString();
     }
@@ -198,4 +206,18 @@ public class Student extends User {
     public String toStringDegree() {
         return this.degree.toString();
     }
+
+
+    public static void main(String[] args) {
+        Degree degree = new Degree("Bachelor", "Computer Science", 120, null, null);
+        Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password",
+        "junior", null, null, degree, 4.0, 4.0, "Good Standing");
+        ArrayList<Semester> semesters = new ArrayList<>();
+        Semester semester = new Semester("spring", 2021, 18, null);
+        semesters.add(semester);
+        student.setAllSemester(semesters);
+        student.completeCourses.put(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3,null,null), "T");
+        student.toString();
+    }
+
 }
