@@ -11,19 +11,28 @@ public class UI {
     }
     
     public void run() {
+
         DegreeWork degreeWork = new DegreeWork();
         HashMap<Course, Integer> majorCourses = new HashMap<Course, Integer>();
         Degree degree = new Degree("Bachelor", "Computer Science", 120, majorCourses, new ArrayList<ElectiveCategory>());
-        Student student = degreeWork.createStudent("Brax", "West", "Bwest@email.sc.edu", "password","X23456789", "Junior", new Advisor("John", "Doe", "jDoe@email.sc.edu", "password", false), new ArrayList<>(), degree, 0, 0, "Good Standing");
+        Student brax = degreeWork.createStudent("Brax", "West", "Bwest@email.sc.edu", "password","X23456789", "Junior", new Advisor("John", "Doe", "jDoe@email.sc.edu", "password", false), new ArrayList<>(), degree, 0, 0, "Good Standing");
         degreeWork.login("Brax", "West", "password");
         
-        degreeWork.setCurrentUser(student);
+        degreeWork.setCurrentUser(brax);
         degreeWork.displayDegreeProgress();
         //Generate 8 semester plan
-        for(Semester semester : student.getAllSemester()) {
+        for(Semester semester : brax.getAllSemester()) {
             semester.toString();
         }
         
+        Advisor osbert = degreeWork.createAdvisor("Osbert", "Odden", "oOdden@email.sc.edu", "password", new ArrayList<Student>(),true);
+        Student tawnie = degreeWork.createStudent("Tawnie", "Hill", "tHill@email.sc.edu", "password", "X33457890", "Sophomore", osbert, new ArrayList<>(), degree, 0, 0, "Good Standing");
+
+        osbert.setCurrentStudent(tawnie.getID());
+        degreeWork.setCurrentUser(osbert);
+        degreeWork.displayDegreeProgress();
+        
+
     }
     
     private void display() {
