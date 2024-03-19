@@ -36,6 +36,7 @@ public class Student extends User {
         this.allSemester = new ArrayList<>();
         this.completeCourses = new HashMap<>();
         this.studentID = studentID;
+        initializeSemesterPlan();
     }
 
     public Student(String firstName, String lastName, String email, String password, String studentID,
@@ -54,6 +55,7 @@ public class Student extends User {
         setCurrentSemester(null);
         setCompleteCourses(completeCourses);
         this.studentID = studentID;
+        initializeSemesterPlan();
     }
 
     public Student(UUID id, String firstName, String lastName, String email, String password, String studentID,
@@ -73,6 +75,7 @@ public class Student extends User {
         setAllSemester(allSemester);
         setCompleteCourses(completeCourses);
         this.studentID = studentID;
+        initializeSemesterPlan();
     }
 
     // ----- Mutator -----
@@ -207,7 +210,6 @@ public class Student extends User {
         int creditLimit = 18;
         for(int level = 1; level <= 8; level++) {
             for(int i = 0; i < queueCourse.size(); i++) {
-                System.out.println(queueCourse.size());
                 Course course = queueCourse.get(i);
                 int semesterPrefer = allCourseNotTaken.get(course.getID());
                 if(semesterPrefer != level) {
@@ -228,16 +230,16 @@ public class Student extends User {
                     semesterCourse.add(course);
                 } else {
                     this.allSemester.add(new Semester(season, currYear, 18, semesterCourse));
+                    semesterCourse.clear();
                     creditLimit = 18;
                     i--;
                 }
             }
         }
 
-
-        for (Semester semester: this.allSemester) {
-            System.out.println(semester);
-        }
+        // for (Semester semester: this.allSemester) {
+        //     System.out.println(semester);
+        // }
     }
 
     @Override
