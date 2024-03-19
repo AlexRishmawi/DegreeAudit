@@ -1,7 +1,10 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -15,8 +18,8 @@ public class Student extends User {
     private double programGPA;
     private String status;
     private Semester currentSemester;
-    private ArrayList<Semester> allSemester;
-    private HashMap<Course, String> completeCourses;
+    private ArrayList<Semester> allSemester; // 8 semester plan
+    private HashMap<Course, String> completeCourses; // only for completed course with graded
     private String studentID;
 
     public Student(String firstName, String lastName, String email, String password, String studentID) 
@@ -49,13 +52,13 @@ public class Student extends User {
         setStatus(status);
         setAllSemester(new ArrayList<Semester>());
         setCurrentSemester(null);
-        initializeCompleteCourses();
+        setCompleteCourses(completeCourses);
         this.studentID = studentID;
     }
 
     public Student(UUID id, String firstName, String lastName, String email, String password, String studentID,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status,
+            double instituteGPA, double programGPA, String status, HashMap<Course, String> completeCourses,
             Semester currentSemester, ArrayList<Semester> allSemester) 
     {
         super(id, firstName, lastName, email, password);
@@ -68,7 +71,7 @@ public class Student extends User {
         setStatus(status);
         setCurrentSemester(currentSemester);
         setAllSemester(allSemester);
-        initializeCompleteCourses();
+        setCompleteCourses(completeCourses);
         this.studentID = studentID;
     }
 
@@ -118,20 +121,6 @@ public class Student extends User {
         this.allSemester = allSemester;
     }
 
-    public void initializeCompleteCourses() {
-        HashMap<Course, Integer> majorCourses = this.degree.getMajorCourses();
-        this.completeCourses = new HashMap<>();
-        for (Course course : majorCourses.keySet()) {
-            this.completeCourses.put(course, "NT");
-        }
-        ArrayList<ElectiveCategory> electiveList = this.degree.getElectiveList();
-        for (ElectiveCategory category : electiveList) {
-            for (Course course : category.getCourseChoices().keySet()) {
-                this.completeCourses.put(course, "NT");
-            }
-        }
-    }
-
     public void setCourseCompleted(Course course, String grade) {
         if(this.completeCourses != null) {
             this.completeCourses = new HashMap<>();
@@ -170,6 +159,10 @@ public class Student extends User {
         return this.programGPA;
     }
 
+    public HashMap<Course, String> getCompletedCourse() {
+        return this.completeCourses;
+    }
+
     //Changed by Alex Mesa
     public Semester getCurrentSemester() {
         return this.currentSemester;
@@ -186,6 +179,65 @@ public class Student extends User {
     // ----- Others method -----
     public void addNotes(String note) {
         this.notes.add(note);
+    }
+
+    public void initializeSemesterPlan() {
+        HashMap<UUID, Integer> allCourseNotTaken = new HashMap<>();
+        ArrayList<Course> queueCourse = new ArrayList<>();
+
+        HashMap<Course, Integer> majorCourses = this.degree.getMajorCourses();
+        for (Course course : majorCourses.keySet()) {
+            if(this.completeCourses.keySet().stream().anyMatch(c -> !c.equals(course))) {
+                allCourseNotTaken.put(course.getID(), majorCourses.get(course));
+                queueCourse.add(course);
+            }
+        }
+        ArrayList<ElectiveCategory> electiveList = this.degree.getElectiveList();
+        for (ElectiveCategory category : electiveList) {
+            for (Course course : category.getCourseChoices().keySet()) {
+                if(this.completeCourses.keySet().stream().anyMatch(c -> !c.equals(course))) {
+                    allCourseNotTaken.put(course.getID(), category.getCourseChoices().get(course));
+                    queueCourse.add(course);
+                }
+            }
+        }
+
+        ArrayList<Course> semesterCourse = new ArrayList<>();
+        int currYear = 2024;
+        int creditLimit = 18;
+        for(int level = 1; level <= 8; level++) {
+            for(int i = 0; i < queueCourse.size(); i++) {
+                System.out.println(queueCourse.size());
+                Course course = queueCourse.get(i);
+                int semesterPrefer = allCourseNotTaken.get(course.getID());
+                if(semesterPrefer != level) {
+                    continue;
+                }
+    
+                String season = new String();
+                if(semesterPrefer % 2 == 0 ) {
+                    currYear += 1;
+                    season = "spring";
+                } else {
+                    season = "fall";
+                }
+    
+                int courseLimit = course.getCreditHours();
+                if(courseLimit <= creditLimit) {
+                    creditLimit -= courseLimit;
+                    semesterCourse.add(course);
+                } else {
+                    this.allSemester.add(new Semester(season, currYear, 18, semesterCourse));
+                    creditLimit = 18;
+                    i--;
+                }
+            }
+        }
+
+
+        for (Semester semester: this.allSemester) {
+            System.out.println(semester);
+        }
     }
 
     @Override
@@ -209,11 +261,12 @@ public class Student extends User {
         if (this.degree != null) {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {
-                if(completeCourses.get(course).equals("NT")) {
-                    result.append(course.toString() + "\n --Status: Not Taken" + "\n");
+                String graded = completeCourses.get(course);
+                if(graded.equals("NT")) {
+                    result.append(course.toStringCourseAbbr() + "\n --Graded: Not Taken" + "\n");
                 }
                 else {
-                    result.append(course.toString() + "\n --Status: Taken" + "\n");
+                    result.append(course.toStringCourseAbbr() + "\n --Graded: " + graded + "\n");
                 }
             }
         }
