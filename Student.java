@@ -125,11 +125,16 @@ public class Student extends User {
     }
 
     public void setCourseCompleted(Course course, String grade) {
-        if(this.completeCourses != null) {
+        if(this.completeCourses == null) {
             this.completeCourses = new HashMap<>();
         }
         this.completeCourses.put(course, grade);
     }
+
+    public void setCompleteCourses(HashMap<Course, String> completeCourses) {
+        this.completeCourses = completeCourses;
+    }
+
     // ----- Accessor -----
 
     //Alex Mesa Additions
@@ -188,7 +193,13 @@ public class Student extends User {
         HashMap<UUID, Integer> allCourseNotTaken = new HashMap<>();
         ArrayList<Course> queueCourse = new ArrayList<>();
 
+        // System.out.println(this.completeCourses.size());
+        // for(Course course: this.completeCourses.keySet()) {
+        //     System.out.println(course.toStringCourseAbbr());
+        // }
+
         HashMap<Course, Integer> majorCourses = this.degree.getMajorCourses();
+        System.out.println("");
         for (Course course : majorCourses.keySet()) {
             if(this.completeCourses.keySet().stream().anyMatch(c -> !c.equals(course))) {
                 allCourseNotTaken.put(course.getID(), majorCourses.get(course));
@@ -320,9 +331,4 @@ public class Student extends User {
         student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
         System.out.println(student.allSemesterPlan());
     }
-
-    public void setCompleteCourses(HashMap<Course, String> completeCourses) {
-        this.completeCourses = completeCourses;
-    }
-
 }
