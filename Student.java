@@ -68,7 +68,7 @@ public class Student extends User {
         setAdvisor(advisor);
         setNotes(notes);
         setDegree(degree);
-        setInstituteGPA(programGPA);
+        setInstituteGPA(instituteGPA);
         setProgramGPA(programGPA);
         setStatus(status);
         setCurrentSemester(currentSemester);
@@ -261,7 +261,7 @@ public class Student extends User {
         result.append("\n-- level: " + this.classification.toString());
         result.append("\n-- Student ID: " + this.studentID);
         result.append("\n-- Institute GPA: " + this.instituteGPA);
-        result.append("\n-- Program GPA: " + this.instituteGPA);
+        result.append("\n-- Program GPA: " + this.programGPA);
         result.append("\n-- Status: " + this.status);
         if (this.advisor != null) {
             result.append("\n-- Advisor: " + advisor.getFirstName() + " " + advisor.getLastName());
