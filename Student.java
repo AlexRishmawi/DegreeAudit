@@ -25,6 +25,7 @@ public class Student extends User {
     public Student(String firstName, String lastName, String email, String password, String studentID) 
     {
         super(firstName, lastName, email, password);
+        super.setUserType(UserType.STUDENT);
         classification = ClassLevel.FRESHMAN;
         advisor = null;
         this.notes = new ArrayList<>();
@@ -44,6 +45,7 @@ public class Student extends User {
             double instituteGPA, double programGPA, String status) 
     {
         super(firstName, lastName, email, password);
+        super.setUserType(UserType.STUDENT);
         setLevel(level);
         setAdvisor(advisor);
         setNotes(notes);
@@ -64,6 +66,7 @@ public class Student extends User {
             Semester currentSemester, ArrayList<Semester> allSemester) 
     {
         super(id, firstName, lastName, email, password);
+        super.setUserType(UserType.STUDENT);
         setLevel(level);
         setAdvisor(advisor);
         setNotes(notes);

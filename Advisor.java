@@ -23,6 +23,7 @@ public class Advisor extends User{
     public Advisor(String firstName, String lastName, String email, String password, Boolean isAdmin) 
     {
         super(firstName, lastName, email, password);
+        super.setUserType(UserType.ADVISOR);
         this.studentList = new ArrayList<Student>();
         setAdmin(isAdmin);
     }
@@ -39,6 +40,7 @@ public class Advisor extends User{
     public Advisor(String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin)
     {
         super(firstName, lastName, email, password);
+        super.setUserType(UserType.ADVISOR);
         setStudentList(studentList);
         setAdmin(isAdmin);
     }
@@ -56,6 +58,7 @@ public class Advisor extends User{
     public Advisor(UUID id, String firstName, String lastName, String email, String password, ArrayList<Student> studentList, Boolean isAdmin) 
     {
         super(id, firstName, lastName, email, password);
+        super.setUserType(UserType.ADVISOR);
         setStudentList(studentList);
         setAdmin(isAdmin);
     }

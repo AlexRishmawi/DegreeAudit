@@ -67,12 +67,11 @@ public class DataReader extends DataConstants {
                         Degree degree = degreeList.getDegree(degreeID);
 
                         HashMap<Course, String> completedCourse = new HashMap<>();
-                        JSONArray completeCourseJSON = (JSONArray) userJSON.get(STUDENT_COMPLETED_COURSES);
-                        for(int j = 0; j < completeCourseJSON.size(); j++) {
-                            JSONArray pair = (JSONArray) completeCourseJSON.get(j);
-                            UUID courseID = UUID.fromString((String) pair.get(0));
+                        JSONObject completedCourseObject = (JSONObject) userJSON.get(STUDENT_COMPLETED_COURSES);
+                        for(Object keyID: completedCourseObject.keySet()) {
+                            UUID courseID = UUID.fromString((String) keyID);
                             Course course = courseList.getCourse(courseID);
-                            String graded = (String) pair.get(1);
+                            String graded = (String) completedCourse.get(keyID);
                             completedCourse.put(course, graded);
                         }
 
