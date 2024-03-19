@@ -324,7 +324,10 @@ public class Student extends User {
         Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password", "X63942619",
         "junior", new Advisor("null", "null", "null", "null", false), new ArrayList<String>(), degree, 4.0, 4.0, "Good Standing");
         ArrayList<Semester> semesters = new ArrayList<>();
-        Semester semester = new Semester("spring", 2021, 18, new ArrayList<Course>());
+        Course newCourse = new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>());
+        ArrayList<Course> courses = new ArrayList<>();
+        courses.add(newCourse);
+        Semester semester = new Semester("spring", 2021, 18, courses);
         semesters.add(semester);
         student.setAllSemester(semesters);
         student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
