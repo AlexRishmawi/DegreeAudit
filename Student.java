@@ -78,112 +78,7 @@ public class Student extends User {
         initializeSemesterPlan();
     }
 
-    // ----- Mutator -----
-    public void setLevel(String level) {
-        if (level.equalsIgnoreCase("sophomore")) {
-            this.classification = ClassLevel.SOPHOMORE;
-        } else if (level.equalsIgnoreCase("junior")) {
-            this.classification = ClassLevel.JUNIOR;
-        } else if (level.equalsIgnoreCase("senior")) {
-            this.classification = ClassLevel.SENIOR;
-        } else {
-            this.classification = ClassLevel.FRESHMAN;
-        }
-    }
-
-    public void setAdvisor(Advisor advisor) {
-        this.advisor = advisor;
-    }
-
-    public void setNotes(ArrayList<String> notes) {
-        this.notes = notes;
-    }
-
-    public void setDegree(Degree degree) {
-        this.degree = degree;
-    }
-
-    public void setInstituteGPA(double gpa) {
-        this.instituteGPA = gpa;
-    }
-
-    public void setProgramGPA(double gpa) {
-        this.programGPA = gpa;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    //Modified by Alex Mesa
-    public void setCurrentSemester(Semester courses) {
-        this.currentSemester = courses;
-    }
-
-    public void setAllSemester(ArrayList<Semester> allSemester) {
-        this.allSemester = allSemester;
-    }
-
-    public void setCourseCompleted(Course course, String grade) {
-        if(this.completeCourses == null) {
-            this.completeCourses = new HashMap<>();
-        }
-        this.completeCourses.put(course, grade);
-    }
-
-    public void setCompleteCourses(HashMap<Course, String> completeCourses) {
-        this.completeCourses = completeCourses;
-    }
-
-    // ----- Accessor -----
-
-    //Alex Mesa Additions
-    public String getStatus() {
-        return this.status;
-    }
-
-    //Alex Mesa Additions
-    public ClassLevel getLevel() {
-        return this.classification;
-    }
-
-    public Advisor getAdvisor() {
-        return this.advisor;
-    }
-
-    public ArrayList<String> getNotes() {
-        return this.notes;
-    }
-
-    public Degree getDegree() {
-        return this.degree;
-    }
-
-    public Double getInstituteGPA() {
-        return this.instituteGPA;
-    }
-
-    public Double getProgramGPA() {
-        return this.programGPA;
-    }
-
-    public HashMap<Course, String> getCompletedCourse() {
-        return this.completeCourses;
-    }
-
-    //Changed by Alex Mesa
-    public Semester getCurrentSemester() {
-        return this.currentSemester;
-    }
-
-    //Changed by Alex Mesa
-    public ArrayList<Semester> getAllSemester() {
-        return this.allSemester;
-    }
-
-    public String getStudentID() {
-        return this.studentID;
-    }
+    
     // ----- Others method -----
     public void addNotes(String note) {
         this.notes.add(note);
@@ -258,7 +153,7 @@ public class Student extends User {
         StringBuilder result = new StringBuilder();
         result.append("---------------------------------Student---------------------------------\n");
         result.append(super.toString());
-        result.append("\n-- level: " + this.classification.toString());
+        result.append("\n-- Classification: " + this.classification.toString());
         result.append("\n-- Student ID: " + this.studentID);
         result.append("\n-- Institute GPA: " + this.instituteGPA);
         result.append("\n-- Program GPA: " + this.programGPA);
@@ -299,7 +194,7 @@ public class Student extends User {
     }
 
     public String allSemesterPlan() {
-        //initializeSemesterPlan();
+        initializeSemesterPlan();
         StringBuilder result = new StringBuilder();
         for (Semester semester : this.allSemester) {
             result.append(semester.toString());
@@ -333,5 +228,111 @@ public class Student extends User {
         student.setAllSemester(semesters);
         student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
         System.out.println(student.allSemesterPlan());
+    }
+
+    // ----- Mutator -----
+    public void setLevel(String level) {
+        if (level.equalsIgnoreCase("sophomore")) {
+            this.classification = ClassLevel.SOPHOMORE;
+        } else if (level.equalsIgnoreCase("junior")) {
+            this.classification = ClassLevel.JUNIOR;
+        } else if (level.equalsIgnoreCase("senior")) {
+            this.classification = ClassLevel.SENIOR;
+        } else {
+            this.classification = ClassLevel.FRESHMAN;
+        }
+    }
+
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
+    }
+
+    public void setNotes(ArrayList<String> notes) {
+        this.notes = notes;
+    }
+
+    public void setDegree(Degree degree) {
+        this.degree = degree;
+    }
+
+    public void setInstituteGPA(double gpa) {
+        this.instituteGPA = gpa;
+    }
+
+    public void setProgramGPA(double gpa) {
+        this.programGPA = gpa;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setCurrentSemester(Semester courses) {
+        this.currentSemester = courses;
+    }
+
+    public void setAllSemester(ArrayList<Semester> allSemester) {
+        this.allSemester = allSemester;
+    }
+
+    public void setCourseCompleted(Course course, String grade) {
+        if(this.completeCourses == null) {
+            this.completeCourses = new HashMap<>();
+        }
+        this.completeCourses.put(course, grade);
+    }
+
+    public void setCompleteCourses(HashMap<Course, String> completeCourses) {
+        this.completeCourses = completeCourses;
+    }
+
+    // ----- Accessor -----
+
+    //Alex Mesa Additions
+    public String getStatus() {
+        return this.status;
+    }
+
+    //Alex Mesa Additions
+    public ClassLevel getLevel() {
+        return this.classification;
+    }
+
+    public Advisor getAdvisor() {
+        return this.advisor;
+    }
+
+    public ArrayList<String> getNotes() {
+        return this.notes;
+    }
+
+    public Degree getDegree() {
+        return this.degree;
+    }
+
+    public Double getInstituteGPA() {
+        return this.instituteGPA;
+    }
+
+    public Double getProgramGPA() {
+        return this.programGPA;
+    }
+
+    public HashMap<Course, String> getCompletedCourse() {
+        return this.completeCourses;
+    }
+
+    //Changed by Alex Mesa
+    public Semester getCurrentSemester() {
+        return this.currentSemester;
+    }
+
+    //Changed by Alex Mesa
+    public ArrayList<Semester> getAllSemester() {
+        return this.allSemester;
+    }
+
+    public String getStudentID() {
+        return this.studentID;
     }
 }
