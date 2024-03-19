@@ -71,7 +71,7 @@ public class DataReader extends DataConstants {
                         for(Object keyID: completedCourseObject.keySet()) {
                             UUID courseID = UUID.fromString((String) keyID);
                             Course course = courseList.getCourse(courseID);
-                            String graded = (String) completedCourse.get(keyID);
+                            String graded = (String) completedCourseObject.get(keyID);
                             completedCourse.put(course, graded);
                         }
 
@@ -103,7 +103,10 @@ public class DataReader extends DataConstants {
                             Semester tempSemester = new Semester(temp_season, temp_year, temp_limit, temp_courses);
                             allSemesters.add(tempSemester);
                         }
-
+                        
+                        for(Course course: completedCourse.keySet()) {
+                            System.out.println(completedCourse.get(course));
+                        }
                         Student student = new Student(id, firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, completedCourse, currentSemester, allSemesters);
                         loadedUsers.add(student);
                         advisor.addStudent(student);
