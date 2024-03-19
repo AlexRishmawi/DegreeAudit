@@ -40,9 +40,10 @@ public class Student extends User {
     }
 
     public Student(String firstName, String lastName, String email, String password, String studentID,
-            String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status) 
-        {
+        String level, Advisor advisor, ArrayList<String> notes, Degree degree,
+        double instituteGPA, double programGPA, String status, HashMap<Course, String> completeCourses,
+        Semester currentSemester, ArrayList<Semester> allSemester) 
+    {
         super(firstName, lastName, email, password);
         super.setUserType(UserType.STUDENT);
         setLevel(level);
@@ -52,8 +53,8 @@ public class Student extends User {
         setInstituteGPA(instituteGPA);
         setProgramGPA(programGPA);
         setStatus(status);
-        setAllSemester(new ArrayList<Semester>());
-        setCurrentSemester(null);
+        setCurrentSemester(currentSemester);
+        setAllSemester(allSemester);
         setCompleteCourses(completeCourses);
         this.studentID = studentID;
         initializeSemesterPlan();
@@ -241,7 +242,7 @@ public class Student extends User {
                     queueCourse.remove(course);
                 } else {
                     Semester semester = new Semester(currSeason, currYear, 18 - creditLimitLeft, semesterCourse);
-                    System.out.println(semester.toString());
+                    // System.out.println(semester.toString());
                     if (currSeason.equalsIgnoreCase("fall")) {
                         currSeason = "spring";
                         currYear += 1;
@@ -283,7 +284,7 @@ public class Student extends User {
             // result.append(toStringDegree());
             for (Course course : completeCourses.keySet()) {
                 String graded = completeCourses.get(course);
-                if (graded.equals("NT")) {
+                if (graded == null) {
                     result.append(course.toStringCourseAbbr() + "\n --Graded: Not Taken" + "\n");
                 } else {
                     result.append(course.toStringCourseAbbr() + "\n --Graded: " + graded + "\n");

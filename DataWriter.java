@@ -7,37 +7,55 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class DataWriter extends DataConstants {
     private JSONParser parser = new JSONParser();
 
-    public void writeUser(User user) {
-        JSONObject userJson = userToJson(user);
-        String filePath = user instanceof Student ? STUDENT_FILE_NAME : ADVISOR_FILE_NAME;
-        appendToFile(filePath, userJson);
-    }
+    @SuppressWarnings("unchecked")
+    public static void writeUser() {
+        UserList userList = UserList.getInstance();
+        ArrayList<User> allUsers = userList.getAllUsers();
+        JSONArray allStudentObject = new JSONArray();
+        JSONArray allAdvisorObject = new JSONArray();
 
-    private JSONObject userToJson(User user) {
-        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        map.put(USER_ID, user.getID().toString());
-        map.put(USER_TYPE, user instanceof Student ? "Student" : "Advisor");
-        map.put(USER_FIRST_NAME, user.getFirstName());
-        map.put(USER_LAST_NAME, user.getLastName());
-        map.put(USER_EMAIL, user.getEmail());
-        map.put(USER_PASSWORD, user.getPassword());
+        for(User user: allUsers) {
+            HashMap<String, Object> userObject = new HashMap<>();
+            userObject.put(USER_ID, user.getID().toString());
+            userObject.put(USER_TYPE, user.getUserType().toString());
+            userObject.put(USER_FIRST_NAME, user.getFirstName());
+            userObject.put(USER_LAST_NAME, user.getLastName());
+            userObject.put(USER_EMAIL, user.getEmail());
+            userObject.put(USER_PASSWORD, user.getPassword());
 
-        if (user instanceof Student) {
-            fillStudentDetails(map, (Student) user);
-        } else if (user instanceof Advisor) {
-            fillAdvisorDetails(map, (Advisor) user);
+            if (user instanceof Student) {
+                fillStudentDetails(userObject, (Student) user);
+                allStudentObject.add(new JSONObject(userObject));
+            } else if (user instanceof Advisor) {
+                fillAdvisorDetails(userObject, (Advisor) user);
+                allAdvisorObject.add(new JSONObject(userObject));
+            }
         }
 
-        return new JSONObject(map);
+        writeToFile("./json/student_testing.json", allStudentObject);
+        writeToFile("./json/advisor_testing.json", allAdvisorObject);
+        // writeToFile(STUDENT_FILE_NAME, allStudentObject);
+        // writeToFile(ADVISOR_FILE_NAME, allAdvisorObject);
+    }
+    
+    @SuppressWarnings("unchecked")
+    private static void fillAdvisorDetails(HashMap<String, Object> map, Advisor advisor) {
+        map.put(ADVISOR_IS_ADMIN, advisor.getIsAdmin().toString());
+        JSONArray studentListJson = new JSONArray();
+        advisor.getStudentList().forEach(student -> studentListJson.add(student.getID().toString()));
+        map.put(ADVISOR_STUDENT_LIST, studentListJson);
     }
 
-    private void fillStudentDetails(LinkedHashMap<String, Object> map, Student student) {
+    @SuppressWarnings("unchecked")
+    private static void fillStudentDetails(HashMap<String, Object> map, Student student) {
         map.put("type", "Student");
         map.put(STUDENT_ID, student.getStudentID());
         map.put(STUDENT_CLASSIFICATION, student.getLevel().toString());
@@ -53,53 +71,42 @@ public class DataWriter extends DataConstants {
         map.put(STUDENT_INSTITUTE_GPA, student.getInstituteGPA());
         map.put(STUDENT_PROGRAM_GPA, student.getProgramGPA());
         map.put(STUDENT_STATUS, student.getStatus());
-        map.put(STUDENT_COMPLETED_COURSES, student.serializeCompleteCourses());
+        map.put(STUDENT_COMPLETED_COURSES, serializeCompleteCourses(student.getCompletedCourse()));
         map.put(STUDENT_ALL_SEMESTERS, serializeAllSemesters(student.getAllSemester()));
         map.put(STUDENT_CURRENT_SEMESTER, serializeSemester(student.getCurrentSemester()));
     }
 
-    @SuppressWarnings("unchecked")
-    private void fillAdvisorDetails(LinkedHashMap<String, Object> map, Advisor advisor) {
-        map.put(ADVISOR_IS_ADMIN, advisor.getIsAdmin().toString());
-        JSONArray studentListJson = new JSONArray();
-        advisor.getStudentList().forEach(student -> studentListJson.add(student.getID().toString()));
-        map.put(ADVISOR_STUDENT_LIST, studentListJson);
+    private static JSONObject serializeCompleteCourses(HashMap<Course, String> completedCourse) {
+        HashMap<String, String> completedCourseByID = new HashMap<>();
+        for (Map.Entry<Course, String> entry : completedCourse.entrySet()) {
+            String courseID = entry.getKey().getID().toString();
+            String graded = entry.getValue();
+            completedCourseByID.put(courseID, graded);
+        }
+
+        return new JSONObject(completedCourseByID);
     }
 
     @SuppressWarnings("unchecked")
-    private JSONArray serializeAllSemesters(ArrayList<Semester> semesters) {
+    private static JSONArray serializeAllSemesters(ArrayList<Semester> semesters) {
         JSONArray semestersJson = new JSONArray();
         semesters.forEach(semester -> semestersJson.add(serializeSemester(semester)));
         return semestersJson;
     }
 
     @SuppressWarnings("unchecked")
-    private JSONObject serializeSemester(Semester semester) {
+    private static JSONObject serializeSemester(Semester semester) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         map.put(SEMESTER_SEASON, semester.getSeason().toString());
         map.put(SESMESTER_YEAR, semester.getYear());
         map.put(SEMSESTER_LIMIT, semester.getCreditLimit());
         JSONArray coursesJson = new JSONArray();
-        semester.getCourses().forEach(course -> {
-            JSONArray courseInfo = new JSONArray();
-            courseInfo.add(course.getID().toString());
-            courseInfo.add("grade_placeholder");
-            coursesJson.add(courseInfo);
-        });
+        semester.getCourses().forEach(course -> coursesJson.add(course.getID().toString()));
         map.put(SESMESTER_COURSES, coursesJson);
         return new JSONObject(map);
     }
 
-    @SuppressWarnings("unchecked")
-    private void appendToFile(String filePath, JSONObject jsonObject) {
-        JSONArray jsonArray;
-        try (FileReader reader = new FileReader(filePath)) {
-            jsonArray = (JSONArray) parser.parse(reader);
-        } catch (IOException | ParseException e) {
-            jsonArray = new JSONArray();
-        }
-
-        jsonArray.add(jsonObject);
+    private static void writeToFile(String filePath, JSONArray jsonArray) {
         String prettyPrintedJsonString = prettyPrintJsonArray(jsonArray);
 
         try (FileWriter file = new FileWriter(filePath)) {
@@ -111,7 +118,7 @@ public class DataWriter extends DataConstants {
     }
 
     @SuppressWarnings("unchecked")
-    private String prettyPrintJsonArray(JSONArray jsonArray) {
+    private static String prettyPrintJsonArray(JSONArray jsonArray) {
         StringBuilder prettyJsonBuilder = new StringBuilder("[\n");
         jsonArray.forEach(item -> prettyJsonBuilder.append(prettyPrintJsonObject((JSONObject) item, 1)).append(",\n"));
         if (prettyJsonBuilder.length() > 2) {
@@ -122,7 +129,7 @@ public class DataWriter extends DataConstants {
     }
 
     @SuppressWarnings("unchecked")
-    private String prettyPrintJsonObject(JSONObject jsonObject, int indentLevel) {
+    private static String prettyPrintJsonObject(JSONObject jsonObject, int indentLevel) {
         StringBuilder prettyJson = new StringBuilder("{\n");
         jsonObject.forEach((key, value) -> {
             prettyJson.append(getIndent(indentLevel)).append("\"").append(key).append("\": ");
@@ -142,11 +149,17 @@ public class DataWriter extends DataConstants {
         return prettyJson.toString();
     }
 
-    private String getIndent(int level) {
+    private static String getIndent(int level) {
         StringBuilder indent = new StringBuilder();
         for (int i = 0; i < level; i++) {
             indent.append("\t");
         }
         return indent.toString();
+    }
+
+    public static void main(String[] args) {
+        UserList userList = UserList.getInstance();
+        // System.out.println(userList.getAllUsers().toString());
+        DataWriter.writeUser();
     }
 }
