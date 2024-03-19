@@ -26,7 +26,7 @@
     "allSemesters": [
       {
         "season": "FALL",
-        "year": 2019,
+        "year": 2024,
         "creditLimit": 18,
         "courses": [
           "0ee3fc1c-ec19-4637-aeb5-614577b6d22f",
@@ -36,8 +36,8 @@
       }
     ],
     "currentSemester": {
-      "season": "FALL",
-      "year": 2020,
+      "season": "SPRING",
+      "year": 2025,
       "creditLimit": 18,
       "courses": [
         "732e0849-4531-43d5-ae8e-363b59958631",
@@ -73,7 +73,7 @@
     "allSemesters": [
       {
         "season": "FALL",
-        "year": 2019,
+        "year": 2024,
         "creditLimit": 18,
         "courses": [
           "0ee3fc1c-ec19-4637-aeb5-614577b6d22f",
@@ -83,8 +83,8 @@
       }
     ],
     "currentSemester": {
-      "season": "FALL",
-      "year": 2020,
+      "season": "SPRING",
+      "year": 2025,
       "creditLimit": 18,
       "courses": [
         "732e0849-4531-43d5-ae8e-363b59958631",
