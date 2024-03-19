@@ -10,23 +10,23 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.UUID;
 
-public class DataWriter {
+public class DataWriter extends DataConstants {
     private JSONParser parser = new JSONParser();
 
     public void writeUser(User user) {
         JSONObject userJson = userToJson(user);
-        String filePath = user instanceof Student ? "json/student.json" : "json/advisor.json";
+        String filePath = user instanceof Student ? STUDENT_FILE_NAME : ADVISOR_FILE_NAME;
         appendToFile(filePath, userJson);
     }
 
     private JSONObject userToJson(User user) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        map.put("id", user.getID().toString());
-        map.put("type", user instanceof Student ? "Student" : "Advisor");
-        map.put("firstName", user.getFirstName());
-        map.put("lastName", user.getLastName());
-        map.put("email", user.getEmail());
-        map.put("password", user.getPassword());
+        map.put(USER_ID, user.getID().toString());
+        map.put(USER_TYPE, user instanceof Student ? "Student" : "Advisor");
+        map.put(USER_FIRST_NAME, user.getFirstName());
+        map.put(USER_LAST_NAME, user.getLastName());
+        map.put(USER_EMAIL, user.getEmail());
+        map.put(USER_PASSWORD, user.getPassword());
 
         if (user instanceof Student) {
             fillStudentDetails(map, (Student) user);
@@ -39,31 +39,31 @@ public class DataWriter {
 
     private void fillStudentDetails(LinkedHashMap<String, Object> map, Student student) {
         map.put("type", "Student");
-        map.put("studentID", student.getStudentID());
-        map.put("classification", student.getLevel().toString());
-        map.put("advisorID", student.getAdvisor().getID().toString());
+        map.put(STUDENT_ID, student.getStudentID());
+        map.put(STUDENT_CLASSIFICATION, student.getLevel().toString());
+        map.put(STUDENT_ADVISOR_ID, student.getAdvisor().getID().toString());
         
         JSONArray notesJson = new JSONArray();
         for (String note : student.getNotes()) {
             notesJson.add(note);
         }
-        map.put("notes", notesJson);
+        map.put(STUDENT_NOTES, notesJson);
         
-        map.put("degreeID", student.getDegree().getID().toString());
-        map.put("instituteGPA", student.getInstituteGPA());
-        map.put("programGPA", student.getProgramGPA());
-        map.put("status", student.getStatus());
-        map.put("completeCourses", student.serializeCompleteCourses());
-        map.put("allSemesters", serializeAllSemesters(student.getAllSemester()));
-        map.put("currentSemester", serializeSemester(student.getCurrentSemester()));
+        map.put(STUDENT_DEGREE_ID, student.getDegree().getID().toString());
+        map.put(STUDENT_INSTITUTE_GPA, student.getInstituteGPA());
+        map.put(STUDENT_PROGRAM_GPA, student.getProgramGPA());
+        map.put(STUDENT_STATUS, student.getStatus());
+        map.put(STUDENT_COMPLETED_COURSES, student.serializeCompleteCourses());
+        map.put(STUDENT_ALL_SEMESTERS, serializeAllSemesters(student.getAllSemester()));
+        map.put(STUDENT_CURRENT_SEMESTER, serializeSemester(student.getCurrentSemester()));
     }
 
     @SuppressWarnings("unchecked")
     private void fillAdvisorDetails(LinkedHashMap<String, Object> map, Advisor advisor) {
-        map.put("isAdmin", advisor.getIsAdmin().toString());
+        map.put(ADVISOR_IS_ADMIN, advisor.getIsAdmin().toString());
         JSONArray studentListJson = new JSONArray();
         advisor.getStudentList().forEach(student -> studentListJson.add(student.getID().toString()));
-        map.put("studentList", studentListJson);
+        map.put(ADVISOR_STUDENT_LIST, studentListJson);
     }
 
     @SuppressWarnings("unchecked")
@@ -76,9 +76,9 @@ public class DataWriter {
     @SuppressWarnings("unchecked")
     private JSONObject serializeSemester(Semester semester) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        map.put("season", semester.getSeason().toString());
-        map.put("year", semester.getYear());
-        map.put("creditLimit", semester.getCreditLimit());
+        map.put(SEMESTER_SEASON, semester.getSeason().toString());
+        map.put(SESMESTER_YEAR, semester.getYear());
+        map.put(SEMSESTER_LIMIT, semester.getCreditLimit());
         JSONArray coursesJson = new JSONArray();
         semester.getCourses().forEach(course -> {
             JSONArray courseInfo = new JSONArray();
@@ -86,7 +86,7 @@ public class DataWriter {
             courseInfo.add("grade_placeholder");
             coursesJson.add(courseInfo);
         });
-        map.put("courses", coursesJson);
+        map.put(SESMESTER_COURSES, coursesJson);
         return new JSONObject(map);
     }
 
