@@ -55,6 +55,13 @@ public class UI {
             degreeWork.findStudent(uscID);
             System.out.println(degreeWork.displayDegreeProgress());   
         }
+
+        System.out.println();
+        System.out.println("Would you like to print your 8 Semester Plan? (yes or no)");
+        String choice = keyboard.nextLine();
+        if (choice.equalsIgnoreCase("yes")) {
+            System.out.println(degreeWork.displayEightSemesterPlan());
+        }
     }
     private void signupScenario(Scanner keyboard, DegreeWork degreeWork) {
         System.out.println("Create a new account:");

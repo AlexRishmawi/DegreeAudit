@@ -88,6 +88,15 @@ public class DegreeWork {
         }
         return "No information to display";
     }
+
+    public String displayEightSemesterPlan() {
+        if (this.currentUser instanceof Student) {
+            return ((Student) this.currentUser).allSemesterPlan();
+        } else if (this.currentUser instanceof Advisor) {
+            return ((Advisor) this.currentUser).getCurrentStudent().allSemesterPlan();
+        }
+        return "No information to display";
+    }
     
     // public boolean displayMajorMap() {
     //     if (this.currentUser.getUserType() == UserType.STUDENT) {

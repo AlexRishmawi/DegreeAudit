@@ -107,7 +107,7 @@ public class Semester {
         result.append("Semester: " + this.season + " " + this.year + "\t");
         result.append("Credit Limit: " + this.creditLimit + "\n");
         result.append("===================================================\n");
-        result.append("Courses: ");  
+        result.append("Courses: \n");  
         for (Course course : courses) {
             result.append("--------------------------------------------------\n");
             result.append("\t" + course.toString() + "\n");
