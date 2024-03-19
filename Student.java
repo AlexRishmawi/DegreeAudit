@@ -210,10 +210,10 @@ public class Student extends User {
             //result.append(toStringDegree());
             for(Course course : completeCourses.keySet()) {
                 if(completeCourses.get(course).equals("NT")) {
-                    result.append(course.toString() + "\n --Status: Not Taken" + "\n");
+                    result.append(course.toString() + "\n --Status: Not Taken" + "\n" + "\n");
                 }
                 else {
-                    result.append(course.toString() + "\n --Status: Taken" + "\n");
+                    result.append(course.toString() + "\n --Status: Taken" + "\n" + "\n");
                 }
             }
         }

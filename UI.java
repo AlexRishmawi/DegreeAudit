@@ -42,10 +42,15 @@ public class UI {
                 System.out.println("Invalid email. Please enter a valid email.");
             }
         }
-        System.out.println("Please enter your password: ");
+        System.out.print("Please enter your password: ");
         String password = keyboard.nextLine();
-        System.out.println((degreeWork.login(email, password)) ? "Login successful!" : "Login failed");
-        
+        boolean loginSuccessful = degreeWork.login(email, password);
+        if (loginSuccessful) {
+            System.out.println("Login successful!");
+        } else {
+            System.out.println("Login failed. Please try again.");
+            loginScenario(keyboard, degreeWork);
+        }
         if(degreeWork.isStudent()) {
             System.out.println(degreeWork.displayDegreeProgress());
         }

@@ -44,9 +44,16 @@ public class ElectiveCategory {
 
     public String toString() {
         StringBuilder retString = new StringBuilder();
-        for (Map.Entry<Course, Integer> choice : courseChoices.entrySet()) {
-            retString.append(choice.getKey() + ", ");
+        retString.append("Category: ").append(this.type)
+                 .append("\nCredits Required: ").append(this.creditsRequired)
+                 .append("\nCourses:\n");
+    
+        for (Map.Entry<Course, Integer> entry : courseChoices.entrySet()) {
+            Course course = entry.getKey();
+            retString.append(course.toString());
+            retString.append("\n");
         }
+    
         return retString.toString();
     }
 }
