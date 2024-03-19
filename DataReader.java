@@ -105,7 +105,7 @@ public class DataReader extends DataConstants {
                             allSemesters.add(tempSemester);
                         }
 
-                        Student student = new Student(id, firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, currentSemester, allSemesters);
+                        Student student = new Student(id, firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, completedCourse, currentSemester, allSemesters);
                         loadedUsers.add(student);
                         advisor.addStudent(student);
 

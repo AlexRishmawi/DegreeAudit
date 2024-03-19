@@ -19,9 +19,9 @@
     "programGPA": 3.0,
     "status": "active",
     "completeCourses": [
-      ["022a6993-b557-4233-b0aa-2ac744d4527e", "C"],
-      ["0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", "A"],
-      ["1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e", "F"]
+      ["0ee3fc1c-ec19-4637-aeb5-614577b6d22f", "C"],
+      ["ceb7cd60-abcc-4bc1-a3b1-a30b81a824cd", "A"],
+      ["3cca9c4e-a195-4759-a761-cfe09adb20b8", "F"]
     ],
     "allSemesters": [
       {
@@ -29,19 +29,9 @@
         "year": 2019,
         "creditLimit": 18,
         "courses": [
-          "022a6993-b557-4233-b0aa-2ac744d4527e",
-          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
-          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
-        ]
-      },
-      {
-        "season": "SPRING",
-        "year": 2020,
-        "creditLimit": 18,
-        "courses": [
-          "022a6993-b557-4233-b0aa-2ac744d4527e",
-          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
-          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+          "0ee3fc1c-ec19-4637-aeb5-614577b6d22f",
+          "ceb7cd60-abcc-4bc1-a3b1-a30b81a824cd",
+          "3cca9c4e-a195-4759-a761-cfe09adb20b8"
         ]
       }
     ],
@@ -50,9 +40,9 @@
       "year": 2020,
       "creditLimit": 18,
       "courses": [
-        "022a6993-b557-4233-b0aa-2ac744d4527e",
-        "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
-        "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+        "732e0849-4531-43d5-ae8e-363b59958631",
+        "66089424-f471-402b-93de-660c04a87675",
+        "fd91716d-1525-4d0a-a7ef-1a17b505d76a"
       ]
     }
 
@@ -87,9 +77,9 @@
         "year": 2019,
         "creditLimit": 18,
         "courses": [
-          "022a6993-b557-4233-b0aa-2ac744d4527e",
-          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
-          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+          "0ee3fc1c-ec19-4637-aeb5-614577b6d22f",
+          "ceb7cd60-abcc-4bc1-a3b1-a30b81a824cd",
+          "3cca9c4e-a195-4759-a761-cfe09adb20b8"
         ]
       },
       {
@@ -97,9 +87,9 @@
         "year": 2020,
         "creditLimit": 18,
         "courses": [
-          "022a6993-b557-4233-b0aa-2ac744d4527e",
-          "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
-          "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+          "0ee3fc1c-ec19-4637-aeb5-614577b6d22f",
+          "ceb7cd60-abcc-4bc1-a3b1-a30b81a824cd",
+          "3cca9c4e-a195-4759-a761-cfe09adb20b8"
         ]
       }
     ],
@@ -108,9 +98,9 @@
       "year": 2020,
       "creditLimit": 18,
       "courses": [
-        "022a6993-b557-4233-b0aa-2ac744d4527e",
-        "0e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
-        "1e3e3e3e-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+          "0ee3fc1c-ec19-4637-aeb5-614577b6d22f",
+          "ceb7cd60-abcc-4bc1-a3b1-a30b81a824cd",
+          "3cca9c4e-a195-4759-a761-cfe09adb20b8"
       ]
     }
 
