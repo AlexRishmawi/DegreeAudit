@@ -299,6 +299,7 @@ public class Student extends User {
     }
 
     public String allSemesterPlan() {
+        //initializeSemesterPlan();
         StringBuilder result = new StringBuilder();
         for (Semester semester : this.allSemester) {
             result.append(semester.toString());
