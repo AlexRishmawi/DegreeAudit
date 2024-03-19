@@ -327,7 +327,6 @@ public class Student extends User {
         Semester semester = new Semester("spring", 2021, 18, new ArrayList<Course>());
         semesters.add(semester);
         student.setAllSemester(semesters);
-        student.initializeCompleteCourses();
         student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
         System.out.println(student.allSemesterPlan());
     }
