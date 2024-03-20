@@ -316,17 +316,17 @@ public class Student extends User {
 
     public static void main(String[] args) {
             Degree degree = new Degree("Bachelor", "Computer Science", 120, new HashMap<Course, Integer>(), new ArrayList<ElectiveCategory>());
-            Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password", "X63942619",
-            "junior", new Advisor("null", "null", "null", "null", false), new ArrayList<String>(), degree, 4.0, 4.0, "Good Standing");
+            //Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password", "X63942619",
+            //"junior", new Advisor("null", "null", "null", "null", false), new ArrayList<String>(), degree, 4.0, 4.0, "Good Standing");
             Course newCourse = new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>());
             ArrayList<Course> courses = new ArrayList<>();
             courses.add(newCourse);
             Semester semester = new Semester("spring", 2021, 18, courses);
             ArrayList<Semester> allSemesters = new ArrayList<>();
             allSemesters.add(semester);
-            student.setAllSemester(allSemesters);
-            student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
-            student.initializeSemesterPlan();
-            System.out.println(student.allSemesterPlan());
+            // student.setAllSemester(allSemesters);
+            // student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
+            // student.initializeSemesterPlan();
+            // System.out.println(student.allSemesterPlan());
         }
 }

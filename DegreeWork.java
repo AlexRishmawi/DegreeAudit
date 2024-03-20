@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class DegreeWork {
@@ -58,7 +59,7 @@ public class DegreeWork {
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) {
         
-        Student tempStudent = new Student(firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status);
+        Student tempStudent = new Student(firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, new HashMap<Course, String>(), null, new ArrayList<>());
         this.userList.addUser(tempStudent);
         setCurrentStudent(tempStudent.getID());
         return tempStudent;
