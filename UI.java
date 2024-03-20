@@ -43,7 +43,7 @@ public class UI {
                 System.out.println("Invalid email. Please enter a valid email.");
             }
         }
-        System.out.println("Please enter your password: ");
+        System.out.print("Password: ");
         String password = keyboard.nextLine();
         boolean login = degreeWork.login(email, password);
         if (login) {
