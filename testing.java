@@ -14,14 +14,15 @@ import org.json.simple.parser.JSONParser;
 
 public class testing {
     public static void main(String[] args) {
-        UserList studentList = UserList.getInstance();
-        System.out.println(studentList.getAllUsers().size());
-
-        DegreeList degreeList = DegreeList.getInstance();
-        System.out.println(degreeList.getAllDegree().size());
-
-        CourseList courseList = CourseList.getInstance();
-        System.out.println(courseList.getAllCourse().size());
+        UserList userList = UserList.getInstance();
+        Student student = (Student) userList.getUser(UUID.fromString("6e30c187-5592-4d8a-91e4-e874f34a41cd"));
+        // ArrayList<Semester> allSemester = student.getAllSemester();
+        // for(Semester s: allSemester) {
+        //     System.out.println(s.toString());
+        // }
+        // for(Course course: complete.keySet()) {
+        //     System.out.println(complete.get(course));
+        // }
     }
 
 }

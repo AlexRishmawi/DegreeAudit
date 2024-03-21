@@ -1,7 +1,10 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -15,13 +18,14 @@ public class Student extends User {
     private double programGPA;
     private String status;
     private Semester currentSemester;
-    private ArrayList<Semester> allSemester;
-    private HashMap<Course, String> completeCourses;
+    private ArrayList<Semester> allSemester; // 8 semester plan
+    private HashMap<Course, String> completeCourses; // only for completed course with graded
     private String studentID;
 
     public Student(String firstName, String lastName, String email, String password, String studentID) 
     {
         super(firstName, lastName, email, password);
+        super.setUserType(UserType.STUDENT);
         classification = ClassLevel.FRESHMAN;
         advisor = null;
         this.notes = new ArrayList<>();
@@ -36,10 +40,12 @@ public class Student extends User {
     }
 
     public Student(String firstName, String lastName, String email, String password, String studentID,
-            String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status) 
+        String level, Advisor advisor, ArrayList<String> notes, Degree degree,
+        double instituteGPA, double programGPA, String status, HashMap<Course, String> completeCourses,
+        Semester currentSemester, ArrayList<Semester> allSemester) 
     {
         super(firstName, lastName, email, password);
+        super.setUserType(UserType.STUDENT);
         setLevel(level);
         setAdvisor(advisor);
         setNotes(notes);
@@ -47,29 +53,32 @@ public class Student extends User {
         setInstituteGPA(instituteGPA);
         setProgramGPA(programGPA);
         setStatus(status);
-        setAllSemester(new ArrayList<Semester>());
-        setCurrentSemester(null);
-        initializeCompleteCourses();
+        setCurrentSemester(currentSemester);
+        setAllSemester(allSemester);
+        setCompleteCourses(completeCourses);
         this.studentID = studentID;
+        initializeSemesterPlan();
     }
 
     public Student(UUID id, String firstName, String lastName, String email, String password, String studentID,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
-            double instituteGPA, double programGPA, String status,
+            double instituteGPA, double programGPA, String status, HashMap<Course, String> completeCourses,
             Semester currentSemester, ArrayList<Semester> allSemester) 
     {
         super(id, firstName, lastName, email, password);
+        super.setUserType(UserType.STUDENT);
         setLevel(level);
         setAdvisor(advisor);
         setNotes(notes);
         setDegree(degree);
-        setInstituteGPA(programGPA);
+        setInstituteGPA(instituteGPA);
         setProgramGPA(programGPA);
         setStatus(status);
         setCurrentSemester(currentSemester);
         setAllSemester(allSemester);
-        initializeCompleteCourses();
+        setCompleteCourses(completeCourses);
         this.studentID = studentID;
+        initializeSemesterPlan();
     }
 
     // ----- Mutator -----
@@ -109,43 +118,34 @@ public class Student extends User {
         this.status = status;
     }
 
-    //Modified by Alex Mesa
-    public void setCurrentSemester(Semester courses) {
-        this.currentSemester = courses;
+    public void setCurrentSemester(Semester semester) {
+        this.currentSemester = semester;
+        // this.allSemester.add(semester);
     }
 
     public void setAllSemester(ArrayList<Semester> allSemester) {
         this.allSemester = allSemester;
     }
 
-    public void initializeCompleteCourses() {
-        HashMap<Course, Integer> majorCourses = this.degree.getMajorCourses();
-        this.completeCourses = new HashMap<>();
-        for (Course course : majorCourses.keySet()) {
-            this.completeCourses.put(course, "NT");
-        }
-        ArrayList<ElectiveCategory> electiveList = this.degree.getElectiveList();
-        for (ElectiveCategory category : electiveList) {
-            for (Course course : category.getCourseChoices().keySet()) {
-                this.completeCourses.put(course, "NT");
-            }
-        }
-    }
-
     public void setCourseCompleted(Course course, String grade) {
-        if(this.completeCourses != null) {
+        if (this.completeCourses == null) {
             this.completeCourses = new HashMap<>();
         }
         this.completeCourses.put(course, grade);
     }
+
+    public void setCompleteCourses(HashMap<Course, String> completeCourses) {
+        this.completeCourses = completeCourses;
+    }
+
     // ----- Accessor -----
 
-    //Alex Mesa Additions
+    // Alex Mesa Additions
     public String getStatus() {
         return this.status;
     }
 
-    //Alex Mesa Additions
+    // Alex Mesa Additions
     public ClassLevel getLevel() {
         return this.classification;
     }
@@ -170,12 +170,16 @@ public class Student extends User {
         return this.programGPA;
     }
 
-    //Changed by Alex Mesa
+    public HashMap<Course, String> getCompletedCourse() {
+        return this.completeCourses;
+    }
+
+    // Changed by Alex Mesa
     public Semester getCurrentSemester() {
         return this.currentSemester;
     }
 
-    //Changed by Alex Mesa
+    // Changed by Alex Mesa
     public ArrayList<Semester> getAllSemester() {
         return this.allSemester;
     }
@@ -183,9 +187,79 @@ public class Student extends User {
     public String getStudentID() {
         return this.studentID;
     }
+
     // ----- Others method -----
+    public void addSemester(Semester semester) {
+        this.allSemester.add(semester);
+    }
+
     public void addNotes(String note) {
         this.notes.add(note);
+    }
+
+    public void initializeSemesterPlan() {
+        HashMap<UUID, Integer> allCourseNotTaken = new HashMap<>();
+        ArrayList<Course> queueCourse = new ArrayList<>();
+
+        // Get all the course need to take
+        HashMap<Course, Integer> majorCourses = this.degree.getMajorCourses();
+        for (Course course : majorCourses.keySet()) {
+            if (this.completeCourses.keySet().stream().anyMatch(c -> !c.equals(course))) {
+                allCourseNotTaken.put(course.getID(), majorCourses.get(course));
+                queueCourse.add(course);
+            }
+        }
+        ArrayList<ElectiveCategory> electiveList = this.degree.getElectiveList();
+        for (ElectiveCategory category : electiveList) {
+            for (Course course : category.getCourseChoices().keySet()) {
+                if (this.completeCourses.keySet().stream().anyMatch(c -> !c.equals(course))) {
+                    allCourseNotTaken.put(course.getID(), category.getCourseChoices().get(course));
+                    queueCourse.add(course);
+                }
+            }
+        }
+
+        // Generate the course need to take
+        // String currSeason = this.currentSemester.getSeason().toString();
+        // int currYear = this.currentSemester.getYear();
+        ArrayList<Course> semesterCourse = new ArrayList<>();
+        String currSeason = "Fall";
+        int currYear = 2024;
+
+        int creditLimitLeft = 18;
+        for (int level = 1; level <= 8; level++) {
+            for (int i = queueCourse.size() - 1; i >= 0; i--) {
+                Course course = queueCourse.get(i);
+                int semesterPrefer = allCourseNotTaken.get(course.getID());
+                if (semesterPrefer != level) {
+                    continue;
+                }
+
+                int courseLimit = course.getCreditHours();
+                if (courseLimit <= creditLimitLeft) {
+                    creditLimitLeft -= courseLimit;
+                    semesterCourse.add(course);
+                    queueCourse.remove(course);
+                } else {
+                    Semester semester = new Semester(currSeason, currYear, 18 - creditLimitLeft, semesterCourse);
+                    // System.out.println(semester.toString());
+                    if (currSeason.equalsIgnoreCase("fall")) {
+                        currSeason = "spring";
+                        currYear += 1;
+                    } else {
+                        currSeason = "fall";
+                    }
+                    this.allSemester.add(semester);
+                    semesterCourse.clear();
+                    creditLimitLeft = 18;
+                    i++;
+                }
+            }
+        }
+
+        // for (Semester semester: this.allSemester) {
+        // System.out.println(semester);
+        // }
     }
 
     @Override
@@ -193,10 +267,10 @@ public class Student extends User {
         StringBuilder result = new StringBuilder();
         result.append("---------------------------------Student---------------------------------\n");
         result.append(super.toString());
-        result.append("\n-- level: " + this.classification.toString());
+        result.append("\n-- Classification: " + this.classification.toString());
         result.append("\n-- Student ID: " + this.studentID);
         result.append("\n-- Institute GPA: " + this.instituteGPA);
-        result.append("\n-- Program GPA: " + this.instituteGPA);
+        result.append("\n-- Program GPA: " + this.programGPA);
         result.append("\n-- Status: " + this.status);
         if (this.advisor != null) {
             result.append("\n-- Advisor: " + advisor.getFirstName() + " " + advisor.getLastName());
@@ -207,13 +281,13 @@ public class Student extends User {
         result.append("\n-------------------------------------------------------------------\n");
         result.append("\n-- Degree: Bachelors in " + this.degree.getSubject() + "\n");
         if (this.degree != null) {
-            //result.append(toStringDegree());
-            for(Course course : completeCourses.keySet()) {
-                if(completeCourses.get(course).equals("NT")) {
-                    result.append(course.toString() + "\n --Status: Not Taken" + "\n");
-                }
-                else {
-                    result.append(course.toString() + "\n --Status: Taken" + "\n");
+            // result.append(toStringDegree());
+            for (Course course : completeCourses.keySet()) {
+                String graded = completeCourses.get(course);
+                if (graded == null) {
+                    result.append(course.toStringCourseAbbr() + "\n --Graded: Not Taken" + "\n");
+                } else {
+                    result.append(course.toStringCourseAbbr() + "\n --Graded: " + graded + "\n");
                 }
             }
         }
@@ -240,34 +314,19 @@ public class Student extends User {
         return result.toString();
     }
 
-    @SuppressWarnings("unchecked")
-    public JSONArray serializeCompleteCourses() {
-        JSONArray completeCoursesArray = new JSONArray();
-        for (Map.Entry<Course, String> entry : this.completeCourses.entrySet()) {
-            JSONArray courseGradePair = new JSONArray();
-            courseGradePair.add(entry.getKey().getID().toString()); 
-            courseGradePair.add(entry.getValue()); // The grade as a String
-            completeCoursesArray.add(courseGradePair);
-        }
-        return completeCoursesArray;
-    }
-
-
     public static void main(String[] args) {
-        Degree degree = new Degree("Bachelor", "Computer Science", 120, new HashMap<Course, Integer>(), new ArrayList<ElectiveCategory>());
-        Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password", "X63942619",
-        "junior", new Advisor("null", "null", "null", "null", false), new ArrayList<String>(), degree, 4.0, 4.0, "Good Standing");
-        ArrayList<Semester> semesters = new ArrayList<>();
-        Semester semester = new Semester("spring", 2021, 18, new ArrayList<Course>());
-        semesters.add(semester);
-        student.setAllSemester(semesters);
-        student.initializeCompleteCourses();
-        student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
-        System.out.println(student.allSemesterPlan());
-    }
-
-    public void setCompleteCourses(HashMap<Course, String> completeCourses) {
-        this.completeCourses = completeCourses;
-    }
-
+            Degree degree = new Degree("Bachelor", "Computer Science", 120, new HashMap<Course, Integer>(), new ArrayList<ElectiveCategory>());
+            Student student = new Student("Brax", "West", "Bwest@email.sc.edu", "password", "X63942619",
+            "junior", new Advisor("null", "null", "null", "null", false), new ArrayList<String>(), degree, 4.0, 4.0, "Good Standing");
+            Course newCourse = new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>());
+            ArrayList<Course> courses = new ArrayList<>();
+            courses.add(newCourse);
+            Semester semester = new Semester("spring", 2021, 18, courses);
+            ArrayList<Semester> allSemesters = new ArrayList<>();
+            allSemesters.add(semester);
+            student.setAllSemester(allSemesters);
+            student.setCourseCompleted(new Course("CSCE", "101", "Introduction to Computer Science", "An introduction to the field of computer science.",3, new ArrayList<Season>(), new ArrayList<Prerequisites>()), "T");
+            student.initializeSemesterPlan();
+            System.out.println(student.allSemesterPlan());
+        }
 }

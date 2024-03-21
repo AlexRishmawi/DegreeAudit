@@ -20,28 +20,60 @@ public class UI {
         int choice = Integer.parseInt(keyboard.nextLine());
         switch (choice) {
             case 1:
-                scenario_1(keyboard, degreeWork);
+                loginScenario(keyboard, degreeWork);
                 break;
             case 2:
-                scenario_2(keyboard, degreeWork);
+                signupScenario(keyboard, degreeWork);
                 break;
             default:
-                System.out.println("Invalid Input");
+                System.out.println("Invalid Input! Try Again.");
+                run();
         }
     }
     
-    private void scenario_1(Scanner keyboard, DegreeWork degreeWork) {
-        System.out.println("Please enter your email: ");
-        String email = keyboard.nextLine();
-        System.out.println("Please enter your password: ");
+    private void loginScenario(Scanner keyboard, DegreeWork degreeWork) {
+        String email;
+        while (true) {
+            System.out.print("Email: ");
+            email = keyboard.nextLine();
+            if (email.endsWith("@email.sc.edu")){
+                break;
+            }
+            else {
+                System.out.println("Invalid email. Please enter a valid email.");
+            }
+        }
+        System.out.print("Password: ");
         String password = keyboard.nextLine();
-        System.out.println((degreeWork.login(email, password)) ? "Login successful! Pulling up Current Progress" : "Login failed");
-        System.out.println(degreeWork.displayDegreeProgress());
+        boolean login = degreeWork.login(email, password);
+        if (login) {
+            System.out.println("Login successful!");
+        } else {
+            System.out.println("Login failed");
+            loginScenario(keyboard, degreeWork);
+        }
+        if(degreeWork.isStudent()) {
+            System.out.println(degreeWork.displayDegreeProgress());
+        }
+        else {
+            System.out.print("Enter your students USCID: ");
+            String uscID = keyboard.nextLine();
+            degreeWork.findStudent(uscID);
+            System.out.println(degreeWork.displayDegreeProgress());   
+        }
+
+        System.out.println();
+        System.out.println("Would you like to print your 8 Semester Plan? (yes or no)");
+        String choice = keyboard.nextLine();
+        if (choice.equalsIgnoreCase("yes")) {
+            System.out.println(degreeWork.displayEightSemesterPlan());
+        }
     }
-    private void scenario_2(Scanner keyboard, DegreeWork degreeWork) {
+    private void signupScenario(Scanner keyboard, DegreeWork degreeWork) {
         System.out.println("Create a new account:");
         System.out.println("1. Student");
         System.out.println("2. Advisor or Admin");
+        System.out.println("3. Have an account? Log in.");
         int choice = Integer.parseInt(keyboard.nextLine());
 
         switch (choice) {
@@ -51,8 +83,12 @@ public class UI {
             case 2:
                 advisorRegistration(keyboard, degreeWork);
                 break;
-            default:
+            case 3:
+                loginScenario(keyboard, degreeWork);
                 break;
+            default:
+                System.out.println("Invalid Input! Try Again.");
+                signupScenario(keyboard, degreeWork);
         }
     }
 
@@ -62,10 +98,28 @@ public class UI {
         String name = keyboard.nextLine();
         System.out.print("Last Name: ");
         String lastName = keyboard.nextLine();
-        System.out.print("Email: ");
-        String email = keyboard.nextLine();
-        System.out.print("Password: ");
-        String password = keyboard.nextLine();
+        String email;
+        while (true) {
+            System.out.print("Email: ");
+            email = keyboard.nextLine();
+            if (email.endsWith("@email.sc.edu")){
+                break;
+            }
+            else {
+                System.out.println("Invalid email. Please enter a valid email.");
+            }
+        }
+        String password;
+        String confirmPassword;
+        do {
+            System.out.print("Password: ");
+            password = keyboard.nextLine();
+            System.out.print("Confirm Password: ");
+            confirmPassword = keyboard.nextLine();
+            if (!password.equals(confirmPassword)) {
+                System.out.println("Passwords do not match. Please try again.");
+            }
+        } while (!password.equals(confirmPassword));
         System.out.print("USCID: ");
         String uscID = keyboard.nextLine();
         degreeWork.createUser("Student", name, lastName, password, uscID, email);
@@ -79,10 +133,28 @@ public class UI {
         String name = keyboard.nextLine();
         System.out.print("Last Name: ");
         String lastName = keyboard.nextLine();
-        System.out.print("Email: ");
-        String email = keyboard.nextLine();
-        System.out.print("Password: ");
-        String password = keyboard.nextLine();
+        String email;
+        while (true) {
+            System.out.print("Email: ");
+            email = keyboard.nextLine();
+            if (email.endsWith("@email.sc.edu")){
+                break;
+            }
+            else {
+                System.out.println("Invalid email. Please enter a valid email.");
+            }
+        }
+        String password;
+        String confirmPassword;
+        do {
+            System.out.print("Password: ");
+            password = keyboard.nextLine();
+            System.out.print("Confirm Password: ");
+            confirmPassword = keyboard.nextLine();
+            if (!password.equals(confirmPassword)) {
+                System.out.println("Passwords do not match. Please try again.");
+            }
+        } while (!password.equals(confirmPassword));
         System.out.println("Are you an Admin(true or false): ");
         boolean title = Boolean.parseBoolean(keyboard.nextLine());
         degreeWork.createAdvisor(name, lastName, email, password, new ArrayList<Student>(), title); 

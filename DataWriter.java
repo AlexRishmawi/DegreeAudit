@@ -8,146 +8,203 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 
-public class DataWriter {
-    private JSONParser parser = new JSONParser();
+public class DataWriter extends DataConstants {
 
-    public void writeUser(User user) {
-        JSONObject userJson = userToJson(user);
-        String filePath = user instanceof Student ? "json/student.json" : "json/advisor.json";
-        appendToFile(filePath, userJson);
-    }
+    @SuppressWarnings("unchecked")
+    public static void writeDegree() {
+        DegreeList degreeList = DegreeList.getInstance();
+        ArrayList<Degree> allDegrees = degreeList.getAllDegree();
+        JSONArray allDegreeObject = new JSONArray();
+        for (Degree degree : allDegrees) {
+            HashMap<String, Object> degreeObject = new HashMap<>();
+            degreeObject.put(DEGREE_ID, degree.getID().toString());
+            degreeObject.put(DEGREE_TOTAL_CREDIT_REQUIRED, degree.getTotalCreditRequired());
 
-    private JSONObject userToJson(User user) {
-        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        map.put("id", user.getID().toString());
-        map.put("type", user instanceof Student ? "Student" : "Advisor");
-        map.put("firstName", user.getFirstName());
-        map.put("lastName", user.getLastName());
-        map.put("email", user.getEmail());
-        map.put("password", user.getPassword());
+            degreeObject.put(DEGREE_MAJOR_COURSES, serializeCoursePrefer(degree.getMajorCourses()));
+            degreeObject.put(DEGREE_SUBJECT_NAME, degree.getSubject());
 
-        if (user instanceof Student) {
-            fillStudentDetails(map, (Student) user);
-        } else if (user instanceof Advisor) {
-            fillAdvisorDetails(map, (Advisor) user);
+            JSONArray electiveListArrayObject = new JSONArray();
+            degree.getElectiveList().forEach(elective -> electiveListArrayObject.add(serializeElective(elective)));
+            degreeObject.put(DEGREE_ELECTIVE_LIST, electiveListArrayObject);
+
+            allDegreeObject.add(degreeObject);
         }
 
-        return new JSONObject(map);
+        // writeToFile(COURSE_FILE_NAME, allDegreeObject);
+        writeToFile("./json/degree_testing.json", allDegreeObject);
     }
 
-    private void fillStudentDetails(LinkedHashMap<String, Object> map, Student student) {
+    @SuppressWarnings("unchecked")
+    public static void writeCourse() {
+        CourseList courseList = CourseList.getInstance();
+        ArrayList<Course> allCourses = courseList.getAllCourse();
+        JSONArray allCourseObject = new JSONArray();
+        for (Course course : allCourses) {
+            HashMap<String, Object> courseObject = new HashMap<>();
+            courseObject.put(COURSE_ID, course.getID().toString());
+            courseObject.put(COURSE_SUBJECT, course.getSubject());
+            courseObject.put(COURSE_CODE, course.getCode());
+            courseObject.put(COURSE_DESCRIPTION, course.getDescription());
+            courseObject.put(COURSE_CREDIT_HOURS, course.getCreditHours());
+
+            JSONArray semesterOfferArray = new JSONArray();
+            course.getSemesterOffer().forEach(season -> semesterOfferArray.add(season.toString()));
+            courseObject.put(COURSE_SEMESTER_OFFER, semesterOfferArray);
+
+            JSONArray prereJsonArray = new JSONArray();
+            course.getPrerequisites()
+                    .forEach(prerequisites -> prereJsonArray.add(serializePrerequisite(prerequisites)));
+            courseObject.put(COURSE_PREREQUISITE, prereJsonArray);
+
+            allCourseObject.add(new JSONObject(courseObject));
+        }
+
+        writeToFile("./json/course_testing.json", allCourseObject);
+        // writeToFile(COURSE_FILE_NAME, allCourseObject);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void writeUser() {
+        UserList userList = UserList.getInstance();
+        ArrayList<User> allUsers = userList.getAllUsers();
+        JSONArray allStudentObject = new JSONArray();
+        JSONArray allAdvisorObject = new JSONArray();
+
+        for (User user : allUsers) {
+            HashMap<String, Object> userObject = new HashMap<>();
+            userObject.put(USER_ID, user.getID().toString());
+            userObject.put(USER_TYPE, user.getUserType().toString());
+            userObject.put(USER_FIRST_NAME, user.getFirstName());
+            userObject.put(USER_LAST_NAME, user.getLastName());
+            userObject.put(USER_EMAIL, user.getEmail());
+            userObject.put(USER_PASSWORD, user.getPassword());
+            if (user instanceof Student) {
+                fillStudentDetails(userObject, (Student) user);
+                allStudentObject.add(new JSONObject(userObject));
+            } else if (user instanceof Advisor) {
+                fillAdvisorDetails(userObject, (Advisor) user);
+                allAdvisorObject.add(new JSONObject(userObject));
+            }
+        }
+
+        writeToFile("./json/student_testing.json", allStudentObject);
+        writeToFile("./json/advisor_testing.json", allAdvisorObject);
+        // writeToFile(STUDENT_FILE_NAME, allStudentObject);
+        // writeToFile(ADVISOR_FILE_NAME, allAdvisorObject);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void fillAdvisorDetails(HashMap<String, Object> map, Advisor advisor) {
+        map.put(ADVISOR_IS_ADMIN, advisor.getIsAdmin().toString());
+        JSONArray studentListJson = new JSONArray();
+        advisor.getStudentList().forEach(student -> studentListJson.add(student.getID().toString()));
+        map.put(ADVISOR_STUDENT_LIST, studentListJson);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void fillStudentDetails(HashMap<String, Object> map, Student student) {
         map.put("type", "Student");
-        map.put("studentID", student.getStudentID());
-        map.put("classification", student.getLevel().toString());
-        map.put("advisorID", student.getAdvisor().getID().toString());
-        
+        map.put(STUDENT_ID, student.getStudentID());
+        map.put(STUDENT_CLASSIFICATION, student.getLevel().toString());
+        map.put(STUDENT_ADVISOR_ID, student.getAdvisor().getID().toString());
+
         JSONArray notesJson = new JSONArray();
         for (String note : student.getNotes()) {
             notesJson.add(note);
         }
-        map.put("notes", notesJson);
-        
-        map.put("degreeID", student.getDegree().getID().toString());
-        map.put("instituteGPA", student.getInstituteGPA());
-        map.put("programGPA", student.getProgramGPA());
-        map.put("status", student.getStatus());
-        map.put("completeCourses", student.serializeCompleteCourses());
-        map.put("allSemesters", serializeAllSemesters(student.getAllSemester()));
-        map.put("currentSemester", serializeSemester(student.getCurrentSemester()));
+        map.put(STUDENT_NOTES, notesJson);
+
+        map.put(STUDENT_DEGREE_ID, student.getDegree().getID().toString());
+        map.put(STUDENT_INSTITUTE_GPA, student.getInstituteGPA());
+        map.put(STUDENT_PROGRAM_GPA, student.getProgramGPA());
+        map.put(STUDENT_STATUS, student.getStatus());
+        map.put(STUDENT_COMPLETED_COURSES, serializeCompleteCourses(student.getCompletedCourse()));
+        map.put(STUDENT_ALL_SEMESTERS, serializeAllSemesters(student.getAllSemester()));
+        map.put(STUDENT_CURRENT_SEMESTER, serializeSemester(student.getCurrentSemester()));
     }
 
     @SuppressWarnings("unchecked")
-    private void fillAdvisorDetails(LinkedHashMap<String, Object> map, Advisor advisor) {
-        map.put("isAdmin", advisor.getIsAdmin().toString());
-        JSONArray studentListJson = new JSONArray();
-        advisor.getStudentList().forEach(student -> studentListJson.add(student.getID().toString()));
-        map.put("studentList", studentListJson);
+    private static JSONObject serializeCoursePrefer(HashMap<Course, Integer> coursePrefer) {
+        JSONObject coursePreferObject = new JSONObject();
+        coursePrefer.forEach((Course, preferredSemester) -> {
+            coursePreferObject.put(Course.getID().toString(), preferredSemester);
+        });
+        return coursePreferObject;
+    }
+
+    private static JSONObject serializeElective(ElectiveCategory elective) {
+        HashMap<String, Object> electiveObject = new HashMap<>();
+        electiveObject.put(ELECTIVE_TYPE, elective.getType());
+        electiveObject.put(ELECTIVE_CREDIT_REQUIRED, elective.getCreditsRequired());
+        electiveObject.put(ELECTIVE_COURSE_CHOICES, serializeCoursePrefer(elective.getCourseChoices()));
+        return new JSONObject(electiveObject);
     }
 
     @SuppressWarnings("unchecked")
-    private JSONArray serializeAllSemesters(ArrayList<Semester> semesters) {
+    private static JSONObject serializePrerequisite(Prerequisites prerequisites) {
+        HashMap<String, Object> prerequisitesObject = new HashMap<>();
+        prerequisitesObject.put(COURSE_PREREQUISITE_CHOICES, prerequisites.getChoices());
+        prerequisitesObject.put(COURSE_PREREQUISITE_MIN_GRADE, prerequisites.getMinGrade());
+
+        JSONArray courseOptionArray = new JSONArray();
+        prerequisites.getCourseOptions().forEach(course -> courseOptionArray.add(course.getID().toString()));
+        prerequisitesObject.put(COURSE_PREREQUISITE_COURSE_OPTION, courseOptionArray);
+
+        return new JSONObject(prerequisitesObject);
+    }
+
+    private static JSONObject serializeCompleteCourses(HashMap<Course, String> completedCourse) {
+        HashMap<String, String> completedCourseByID = new HashMap<>();
+        for (Map.Entry<Course, String> entry : completedCourse.entrySet()) {
+            String courseID = entry.getKey().getID().toString();
+            String graded = entry.getValue();
+            completedCourseByID.put(courseID, graded);
+        }
+
+        return new JSONObject(completedCourseByID);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static JSONArray serializeAllSemesters(ArrayList<Semester> semesters) {
         JSONArray semestersJson = new JSONArray();
         semesters.forEach(semester -> semestersJson.add(serializeSemester(semester)));
         return semestersJson;
     }
 
     @SuppressWarnings("unchecked")
-    private JSONObject serializeSemester(Semester semester) {
+    private static JSONObject serializeSemester(Semester semester) {
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        map.put("season", semester.getSeason().toString());
-        map.put("year", semester.getYear());
-        map.put("creditLimit", semester.getCreditLimit());
+        map.put(SEMESTER_SEASON, semester.getSeason().toString());
+        map.put(SESMESTER_YEAR, semester.getYear());
+        map.put(SEMSESTER_LIMIT, semester.getCreditLimit());
         JSONArray coursesJson = new JSONArray();
-        semester.getCourses().forEach(course -> {
-            JSONArray courseInfo = new JSONArray();
-            courseInfo.add(course.getID().toString());
-            courseInfo.add("grade_placeholder");
-            coursesJson.add(courseInfo);
-        });
-        map.put("courses", coursesJson);
+        semester.getCourses().forEach(course -> coursesJson.add(course.getID().toString()));
+        map.put(SESMESTER_COURSES, coursesJson);
         return new JSONObject(map);
     }
 
-    @SuppressWarnings("unchecked")
-    private void appendToFile(String filePath, JSONObject jsonObject) {
-        JSONArray jsonArray;
-        try (FileReader reader = new FileReader(filePath)) {
-            jsonArray = (JSONArray) parser.parse(reader);
-        } catch (IOException | ParseException e) {
-            jsonArray = new JSONArray();
-        }
-
-        jsonArray.add(jsonObject);
-        String prettyPrintedJsonString = prettyPrintJsonArray(jsonArray);
-
+    private static void writeToFile(String filePath, JSONArray jsonArray) {
+        // String prettyPrintedJsonString = prettyPrintJsonArray(jsonArray);
         try (FileWriter file = new FileWriter(filePath)) {
-            file.write(prettyPrintedJsonString);
+            file.write(jsonArray.toJSONString());
             file.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private String prettyPrintJsonArray(JSONArray jsonArray) {
-        StringBuilder prettyJsonBuilder = new StringBuilder("[\n");
-        jsonArray.forEach(item -> prettyJsonBuilder.append(prettyPrintJsonObject((JSONObject) item, 1)).append(",\n"));
-        if (prettyJsonBuilder.length() > 2) {
-            prettyJsonBuilder.setLength(prettyJsonBuilder.length() - 2);
-        }
-        prettyJsonBuilder.append("\n]");
-        return prettyJsonBuilder.toString();
-    }
+    public static void main(String[] args) {
+        UserList userList = UserList.getInstance();
+        // System.out.println(userList.getAllUsers().toString());
+        DataWriter.writeUser();
 
-    @SuppressWarnings("unchecked")
-    private String prettyPrintJsonObject(JSONObject jsonObject, int indentLevel) {
-        StringBuilder prettyJson = new StringBuilder("{\n");
-        jsonObject.forEach((key, value) -> {
-            prettyJson.append(getIndent(indentLevel)).append("\"").append(key).append("\": ");
-            if (value instanceof JSONObject) {
-                prettyJson.append(prettyPrintJsonObject((JSONObject) value, indentLevel + 1));
-            } else if (value instanceof JSONArray) {
-                prettyJson.append(value.toString());
-            } else {
-                prettyJson.append(value instanceof String ? "\"" + value + "\"" : value);
-            }
-            prettyJson.append(",\n");
-        });
-        if (prettyJson.length() > 2) {
-            prettyJson.setLength(prettyJson.length() - 2);
-        }
-        prettyJson.append("\n").append(getIndent(indentLevel - 1)).append("}");
-        return prettyJson.toString();
-    }
+        DataWriter.writeCourse();
 
-    private String getIndent(int level) {
-        StringBuilder indent = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            indent.append("\t");
-        }
-        return indent.toString();
+        DataWriter.writeDegree();
     }
 }

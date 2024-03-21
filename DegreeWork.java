@@ -88,15 +88,23 @@ public class DegreeWork {
         }
         return "No information to display";
     }
-    /* 
-    public boolean displayMajorMap() {
-        if (this.currentUser.getUserType() == UserType.STUDENT) {
-            return ((Student) this.currentUser).getDegree().majorMapToString();
-        } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
-            return ((Advisor) this.currentUser).getCurrentStudent().getCurrentCourse().majorMapToString();
+
+    public String displayEightSemesterPlan() {
+        if (this.currentUser instanceof Student) {
+            return ((Student) this.currentUser).allSemesterPlan();
+        } else if (this.currentUser instanceof Advisor) {
+            return ((Advisor) this.currentUser).getCurrentStudent().allSemesterPlan();
         }
+        return "No information to display";
     }
-    */
+    
+    // public boolean displayMajorMap() {
+    //     if (this.currentUser.getUserType() == UserType.STUDENT) {
+    //         return ((Student) this.currentUser).getDegree().majorMapToString();
+    //     } else if (this.currentUser.getUserType() == UserType.ADVISOR) {
+    //         return ((Advisor) this.currentUser).getCurrentStudent().getCurrentCourse().majorMapToString();
+    //     }
+    // }
 
     public boolean addNotes(String note) {
         if (this.currentUser.getUserType() == UserType.STUDENT) {
@@ -206,17 +214,21 @@ public class DegreeWork {
 
     // -------- Advisor --------
     public boolean setCurrentStudent(UUID id) {
-        if (this.currentUser.getUserType() == UserType.ADVISOR) {
+        if (this.currentUser instanceof Advisor) {
             ((Advisor) this.currentUser).setCurrentStudent(id);
             return true;
         }
         return false;
     }
 
+    public boolean isStudent() {
+        return this.currentUser instanceof Student;
+    }
+
     public Student findStudent(String studentID) {
-        if (this.currentUser.getUserType() == UserType.ADVISOR) {
+        if (this.currentUser instanceof Advisor) {
             Student tempStudent = (Student) this.userList.getUser(studentID);
-            System.out.println(this.setCurrentStudent(((User) tempStudent).getID()));
+            this.setCurrentStudent(((User) tempStudent).getID());
             return tempStudent;
         }
         return null;

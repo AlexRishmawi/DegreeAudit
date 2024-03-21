@@ -51,7 +51,7 @@ public class DataReader extends DataConstants {
                         String studentID = (String) userJSON.get(STUDENT_ID);
                         int advisorIndex = mappingAdvisorToStudent.get(advisorID);
                         Advisor advisor = (Advisor) loadedUsers.get(advisorIndex);
-                        String studentID2 = (String) userJSON.get(STUDENT_ID);
+                        // String studentID2 = (String) userJSON.get(STUDENT_ID);
 
                         ArrayList<String> notes = new ArrayList<>();
                         JSONArray noteJsonArray = (JSONArray) userJSON.get(STUDENT_NOTES);
@@ -67,12 +67,11 @@ public class DataReader extends DataConstants {
                         Degree degree = degreeList.getDegree(degreeID);
 
                         HashMap<Course, String> completedCourse = new HashMap<>();
-                        JSONArray completeCourseJSON = (JSONArray) userJSON.get(STUDENT_COMPLETED_COURSES);
-                        for(int j = 0; j < completeCourseJSON.size(); j++) {
-                            JSONArray pair = (JSONArray) completeCourseJSON.get(j);
-                            UUID courseID = UUID.fromString((String) pair.get(0));
+                        JSONObject completedCourseObject = (JSONObject) userJSON.get(STUDENT_COMPLETED_COURSES);
+                        for(Object keyID: completedCourseObject.keySet()) {
+                            UUID courseID = UUID.fromString((String) keyID);
                             Course course = courseList.getCourse(courseID);
-                            String graded = (String) pair.get(1);
+                            String graded = (String) completedCourseObject.get(keyID);
                             completedCourse.put(course, graded);
                         }
 
@@ -104,8 +103,9 @@ public class DataReader extends DataConstants {
                             Semester tempSemester = new Semester(temp_season, temp_year, temp_limit, temp_courses);
                             allSemesters.add(tempSemester);
                         }
-
-                        Student student = new Student(id, firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, currentSemester, allSemesters);
+                        
+                        Student student = new Student(id, firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, completedCourse, currentSemester, allSemesters);
+                        loadedUsers.add(student);
                         advisor.addStudent(student);
 
                     } else if (type.equalsIgnoreCase("advisor")) {

@@ -25,7 +25,7 @@ public class DataWriterTest {
 
         Student student = new Student(UUID.randomUUID(), "Alice", "Wonderland", "alice@example.com", "password123", "X123456789",
                                       "Junior", advisor, new ArrayList<>(Arrays.asList("Good progress", "Participates actively in class")),
-                                      degree, 3.5, 3.7, "Active", null, new ArrayList<>());
+                                      degree, 3.5, 3.7, "Active", new HashMap<Course, String>, null, new ArrayList<>());
 
         // Setting Complete Courses for the Student
         HashMap<Course, String> completeCourses = new HashMap<>();
