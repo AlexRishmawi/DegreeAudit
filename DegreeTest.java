@@ -1,6 +1,9 @@
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.junit.*;
 
 /**
@@ -132,22 +135,30 @@ public class DegreeTest {
 
     // Test the toString method
     @Test
-    public void testToString() {
+    public void testToStringAllInfoAndEmptyMajorCoursesAndElectiveList() {
+        Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, new HashMap<Course,Integer>(), new ArrayList<ElectiveCategory>());
+        String expected = "Degree: Bachelor of Science in Computer Science\nTotal Credit Required: 120\nMajor Courses\n";
+        assertTrue(degree.toString().contains(expected));
+    }
+
+    @Test
+    public void testToStringAllInfoAndNullMajorCoursesAndElectiveList() {
         Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, null, null);
         String expected = "Degree: Bachelor of Science in Computer Science\nTotal Credit Required: 120\nMajor Courses\n";
         assertTrue(degree.toString().contains(expected));
     }
 
     @Test
-    public void testToStringMajorCourses() {
-        Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, null, null);
+    public void testToStringAllInfoAndMajorCoursesAndElectiveList() {
+        Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, new HashMap<Course,Integer>(), new ArrayList<ElectiveCategory>());
         Course course = new Course("Vector Calculus", "MATH", "241", "", 3, null, null);
         degree.addMajorCourse(course, 3);
-        String expected = "Degree: Bachelor of Science in Computer Science\nTotal Credit Required: 120\nMajor Courses\n";
-        expected += course.toString();
+        ArrayList<ElectiveCategory> electiveList = new ArrayList<ElectiveCategory>();
+        electiveList.add(new ElectiveCategory("Math Elective", 3, new HashMap<Course, Integer>()));
+        degree.setElectiveList(electiveList);
+        String expected = "Degree: Bachelor of Science in Computer Science\nTotal Credit Required: 120\nMajor Courses\n" + course.toString() + "\nElective List\n" + electiveList.get(0).toString() + "\n";
         assertTrue(degree.toString().contains(expected));
     }
-    
 
 
 }
