@@ -23,7 +23,7 @@ public class UserList {
      * @return The singleton instance of the UserList.
      */
     public static UserList getInstance() {
-        return userList != null ? userList : new UserList();
+            return userList != null ? userList : new UserList();
     }
 
     // ----- Accessor -----
