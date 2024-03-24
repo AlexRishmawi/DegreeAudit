@@ -7,6 +7,24 @@ import org.junit.*;
  * @author Aarsh Patel
  */
 public class DegreeTest {
+    // Test the constructor
+    @Test
+    public void testAdminDegreeConstructor() {
+        Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, null, null);
+        assertTrue(degree.getSubject().equals("Computer Science") && 
+            degree.getDegreeType().equals("Bachelor of Science") &&
+            degree.getTotalCreditRequired() == 120 &&
+            degree.getMajorCourses() != null &&
+            degree.getElectiveList() != null &&
+            degree.getID() != null);
+    }
+
+    @Test
+    public void testJSONReadDegreeConstructor() {
+        Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, null, null);
+        Degree degree2 = new Degree(degree.getID(), "Bachelor of Science", "Computer Science", 120, null, null);
+        assertTrue(degree.equals(degree2));
+    }
 
     // Test the addMajorCourse method
     @Test
