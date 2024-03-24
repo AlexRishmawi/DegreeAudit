@@ -10,6 +10,7 @@ public class UserListTest {
     private User user2;
     private UUID id1;
     private UUID id2;
+    private UUID id3;
     private UserList userList;
 
     @Test
@@ -33,10 +34,38 @@ public class UserListTest {
     }
 
     @Test
-    public void getUser_Test() {
+    public void getUserEmailAndPassword_Test() {
         User userActual = userList.getUser("BWest@email.sc.edu", "password");
         assertEquals(user1, userActual);
     }
+
+    @Test
+    public void getUserStudentID_Test() {
+        User userActual = userList.getUser("X12345678");
+        assertEquals(user1, userActual);
+    }
+
+    @Test
+    public void getUserNameAndPassword_Test() {
+        User userActual = userList.getUser("Brax", "West", "password");
+        assertEquals(user1, userActual);
+    }
+
+    @Test
+    public void getUserID_Test() {
+        User userActual = userList.getUser(id1);
+        assertEquals(user1, userActual);
+    }
+
+    @Test
+    public void createUser_Test() {
+        userList.createUser("Advisor", "John", "Smith", "password", "Jsmith@email.sc.edu", null);
+        id3 = UUID.randomUUID();
+        User userExpected = new User(id3, "John", "Smith", "Jsmith@email.sc.edu", "password");
+        assertEquals(userExpected, userList.getUser(id3));
+    }
+
+
 
 
 
