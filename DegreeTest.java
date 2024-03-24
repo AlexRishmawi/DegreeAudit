@@ -3,6 +3,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
 
+/**
+ * @author Aarsh Patel
+ */
 public class DegreeTest {
 
     // Test the addMajorCourse method
@@ -117,7 +120,15 @@ public class DegreeTest {
         assertTrue(degree.toString().contains(expected));
     }
 
-    
+    @Test
+    public void testToStringMajorCourses() {
+        Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, null, null);
+        Course course = new Course("Vector Calculus", "MATH", "241", "", 3, null, null);
+        degree.addMajorCourse(course, 3);
+        String expected = "Degree: Bachelor of Science in Computer Science\nTotal Credit Required: 120\nMajor Courses\n";
+        expected += course.toString();
+        assertTrue(degree.toString().contains(expected));
+    }
     
 
 
