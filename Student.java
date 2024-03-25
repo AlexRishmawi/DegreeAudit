@@ -138,6 +138,10 @@ public class Student extends User {
         this.completeCourses = completeCourses;
     }
 
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
     // ----- Accessor -----
 
     // Alex Mesa Additions
