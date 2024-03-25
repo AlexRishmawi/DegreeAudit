@@ -16,7 +16,7 @@ public class CourseListTest {
     @Before
     public void setUp() {
         courseList = null;
-        courseList = CourseList.getInstance();
+        courseList = courseList.getInstance();
         id1 = UUID.randomUUID();
         id2 = UUID.randomUUID();
         course1 = new Course(id1,"CSCE", "145", "Algorithmic Design I", "Introduction to basic coding.", 3, new ArrayList(), new ArrayList());
@@ -26,38 +26,82 @@ public class CourseListTest {
     }
 
     @Test
-    public void getCourses_Test() {
+    public void getInstanceNotNull_Test() {
+        assertNotNull(courseList.getInstance());
+    }
+
+    @Test
+    public void getInstanceNull_Test() {
+        courseList = courseList.getInstance();
+        assertTrue(courseList != null);
+    }
+
+    @Test
+    public void getInstanceEmptyList_Test() {
+        courseList.getInstance().getAllCourse().clear();
+        assertTrue(courseList != null);
+    }
+
+
+
+
+    @Test
+    public void getCourseInList_Test() {
+        assertNotNull(courseList.getCourse(id1));
+    }
+
+    @Test
+    public void getCourseNotInList_Test() {
+        assertNull(courseList.getCourse(UUID.randomUUID()));
+    }
+
+    @Test
+    public void addCourse_Test() {
+        courseList = courseList.getInstance();
+        courseList.getAllCourse().clear();
+        Course course3 = new Course(UUID.randomUUID(),"CSCE", "211", "Digital Logic Design", "Basics of computer logic.", 3, new ArrayList(), new ArrayList());
+        courseList.addCourse(course1);
+        courseList.addCourse(course2);
+        courseList.addCourse(course3);
         ArrayList<Course> coursesActual = courseList.getAllCourse();
         ArrayList<Course> coursesExpected = new ArrayList<Course>();
         coursesExpected.add(course1);
         coursesExpected.add(course2);
-        assertEquals(coursesActual, coursesExpected);
+        coursesExpected.add(course3);
+        assertArrayEquals(coursesActual.toArray(), coursesExpected.toArray());
     }
 
     @Test
     public void deleteCourse_Test() {
+        courseList = courseList.getInstance();
+        courseList.getAllCourse().clear();
+        courseList.addCourse(course1);
         courseList.deleteCourse(id1);
         ArrayList<Course> coursesActual = courseList.getAllCourse();
         ArrayList<Course> coursesExpected = new ArrayList<Course>();
-        coursesExpected.add(course2);
-        assertEquals(coursesActual, coursesExpected);
+        assertArrayEquals(coursesActual.toArray(), coursesExpected.toArray());
     }
 
     @Test
     public void updateCourse_Test() {
+        courseList = courseList.getInstance();
+        courseList.getAllCourse().clear();
+        courseList.addCourse(course1);
         Course course3 = new Course(UUID.randomUUID(),"CSCE", "211", "Digital Logic Design", "Basics of computer logic.", 3, new ArrayList(), new ArrayList());
         courseList.updateCourse(id1, course3);
         ArrayList<Course> coursesActual = courseList.getAllCourse();
         ArrayList<Course> coursesExpected = new ArrayList<Course>();
-        coursesExpected.add(course3);
-        coursesExpected.add(course2);
-        assertEquals(coursesActual, coursesExpected);
+        Course course4 = new Course(id1,"CSCE", "211", "Digital Logic Design", "Basics of computer logic.", 3, new ArrayList(), new ArrayList());
+        coursesExpected.add(course4);
+        assertArrayEquals(coursesActual.toArray(), coursesExpected.toArray());
     }
 
 
-
+    /* 
     @After
     public void tearDown() {
         CourseList courseList = CourseList.getInstance();
     }
+    */
+
 }
