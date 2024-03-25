@@ -28,16 +28,22 @@ public class UserListTest {
         user2 = new User(id2, "Jane", "Doe", "Jdoe@email.sc.edu", "password");
         user1.setUserType(UserType.STUDENT);
         user2.setUserType(UserType.ADVISOR);
-        ((Student) user1).setStudentID("X12345678");
+        //((Student) user1).setStudentID("X12345678");
         userList.addUser(user1);
         userList.addUser(user2);
     }
 
     @Test
-    public void getUserEmailAndPassword_Test() {
+    public void getUserEmailAndPassword_Test1() {
         User userActual = userList.getUser("BWest@email.sc.edu", "password");
         assertEquals(user1, userActual);
     }
+
+    @Test
+    public void getUserEmailAndPassword_Test2() {
+        User userActual = userList.getUser("Jdoe@email.sc.edu", "password");
+        assertEquals(user2, userActual);
+    } 
 
     @Test
     public void getUserStudentID_Test() {
