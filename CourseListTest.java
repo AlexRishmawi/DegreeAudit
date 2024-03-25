@@ -15,6 +15,7 @@ public class CourseListTest {
 
     @Before
     public void setUp() {
+        courseList = null;
         courseList = CourseList.getInstance();
         id1 = UUID.randomUUID();
         id2 = UUID.randomUUID();
