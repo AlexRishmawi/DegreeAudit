@@ -92,6 +92,8 @@ public class Course {
         string.append("\n-- Description: " + this.description);
         string.append("\n-- Semesters Offered: " + this.semesterOffer.toString());
         string.append("\n-- Course Prerequisites: ");
+
+        // Alex Mesa Changed this
         string.append(this.prerequisites != null ? this.prerequisites.toString() : "None");
         return string.toString();
     }
