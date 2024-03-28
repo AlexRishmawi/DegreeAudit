@@ -72,6 +72,7 @@ public class DataWriter extends DataConstants {
     public static void writeUser() {
         UserList userList = UserList.getInstance();
         ArrayList<User> allUsers = userList.getAllUsers();
+        System.out.println("Number of Users before adding a new one: " + allUsers.size());
         JSONArray allStudentObject = new JSONArray();
         JSONArray allAdvisorObject = new JSONArray();
 
@@ -83,10 +84,10 @@ public class DataWriter extends DataConstants {
             userObject.put(USER_LAST_NAME, user.getLastName());
             userObject.put(USER_EMAIL, user.getEmail());
             userObject.put(USER_PASSWORD, user.getPassword());
-            if (user instanceof Student) {
+            if (user.getUserType().equals(UserType.STUDENT)) {
                 fillStudentDetails(userObject, (Student) user);
                 allStudentObject.add(new JSONObject(userObject));
-            } else if (user instanceof Advisor) {
+            } else if (user.getUserType().equals(UserType.ADVISOR)) {
                 fillAdvisorDetails(userObject, (Advisor) user);
                 allAdvisorObject.add(new JSONObject(userObject));
             }
