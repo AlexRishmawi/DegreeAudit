@@ -61,6 +61,10 @@ public class SemesterTest {
         // Testing setSeason
         semester.setSeason("Fall");
         Assert.assertEquals("The season should now be FALL.", Season.FALL, semester.getSeason());
+        semester.setSeason("SpRing");
+        Assert.assertEquals("The season should now be Spring", Season.SPRING, semester.getSeason());
+        semester.setSeason("Fall");
+        Assert.assertEquals("The season should now be FALL", Season.FALL, semester.getSeason());
 
         // Testing setCourses with new courses
         ArrayList<Course> newCourses = new ArrayList<>();
@@ -91,5 +95,57 @@ public class SemesterTest {
                           "--------------------------------------------------\n";
                           Assert.assertEquals("The toString output should match the expected string.", expected.trim(), semester.toString().trim());
                           // Get a null pointer for the toString part of Semester when there is nothing givin to it (Prereq only)
+        
+        
+        courses = new ArrayList<>();
+        courses.add(new Course("Computer Science", "101", "Introduction to Computer Science", "Basics of CS", 3, offeredSeasons, prerequisites));
+        courses.add(new Course("Math", "201", "Calculus I", "Differential Calculus", 4, offeredSeasons, prerequisites));
+                  
+        prerequisites = new ArrayList<Prerequisites>();
+        prerequisites.add(new Prerequisites(3, "A", courses));
+        courses.add(new Course("Computer Science", "101", "Introduction to Computer Science", "Basics of CS", 3, offeredSeasons, prerequisites));
+        semester = new Semester("Spring", 2021, 18, courses);
+
+        expected = "===================================================\n" +
+                          "Semester: SPRING 2021\tCredit Limit: 18\n" +
+                          "===================================================\n" +
+                          "Courses: \n" +
+                          "--------------------------------------------------\n" +
+                          "\t\n-- Name: Introduction to Computer Science\n" +
+                          "-- Subject: Computer Science 101\tCredit Hours: 3\n" +
+                          "-- Description: Basics of CS\n" +
+                          "-- Semesters Offered: [SPRING, FALL]\n" +
+                          "-- Course Prerequisites: None\n" +
+                          "--------------------------------------------------\n" +
+                          "--------------------------------------------------\n" +
+                          "\t\n-- Name: Calculus I\n" +
+                          "-- Subject: Math 201\tCredit Hours: 4\n" +
+                          "-- Description: Differential Calculus\n" +
+                          "-- Semesters Offered: [SPRING, FALL]\n" +
+                          "-- Course Prerequisites: None\n" +
+                          "--------------------------------------------------\n" +
+                          "--------------------------------------------------\n" +
+                          "\t\n-- Name: Introduction to Computer Science\n" +
+                          "-- Subject: Computer Science 101\tCredit Hours: 3\n" +
+                          "-- Description: Basics of CS\n" +
+                          "-- Semesters Offered: [SPRING, FALL]\n" +
+                          "-- Course Prerequisites: [\n" +
+                          "-- Min Grade: A\n" +
+                          "-- Course Options: Computer Science101 or Math201 or Computer Science101\n" +
+                          "]\n" +
+                          "--------------------------------------------------";
+        Assert.assertEquals("The toString output should match the expected string.", expected.trim(), semester.toString().trim());
+
     }
 }
+/*
+-- Name: Introduction to Computer Science
+-- Subject: Computer Science 101	Credit Hours: 3
+-- Description: Basics of CS
+-- Semesters Offered: [SPRING, FALL]
+-- Course Prerequisites: [
+-- Min Grade: A
+-- Course Options: Computer Science101 or Math201 or Computer Science101
+]
+--------------------------------------------------
+*/
