@@ -35,13 +35,15 @@ public class DataWriterReaderTest {
         Assert.assertEquals("The number of users in the userList before adding the new user should be 4", 4, userList.getAllUsers().size());
         Assert.assertEquals("The number of users in the userList before adding the new user should be 4 but using the DataReader", 4, DataReader.loadUser().size());
 
-        userList.addUser(student_1);
+        userList.getInstance().addUser(student_1);
         DataWriter.writeUser();
 
         // This should print out the number of users and the point is its supposed to be whtever
         // the number was originally + 1
         System.out.println(userList.getAllUsers().size());
         Assert.assertEquals("The Number of users in the userList should now be 5", 5, userList.getAllUsers().size());
+
+        // Testing failed because DataWriter does not work correctly 
         Assert.assertEquals("The Number of users in the userList should now be 5 but using the DataReader", 5, DataReader.loadUser().size());
 
         User foundUser = findUserByEmail("tHill@email.sc.edu");
@@ -89,4 +91,30 @@ public class DataWriterReaderTest {
     //public static void main(String[] args) {
     //    testWriteAndReadNewUser();
     //}
+
+    @Test
+    public void testLoadCourse() {
+        
+        Assert.assertNotNull("Testing to see if the return value for the method LoadCourse does not return null", DataReader.loadCourse());
+        Assert.assertEquals("Testing to see if the DataReader's method loadCourse is loading the correct Course", "225",DataReader.loadCourse().get(0).getCode());
+        Assert.assertEquals("Testing to see if the DataReader's method loadCourse is loading the correct Course", "ACCT",DataReader.loadCourse().get(0).getSubject());        
+        Assert.assertEquals("Testing to see if the DataReader's method loadCourse is loading the correct Course", "User-oriented approach to the study of financial accounting and reporting topics related to business decisions.   FS: 12/02/2015.    CL: 2020.",DataReader.loadCourse().get(0).getDescription());        
+        
+        ArrayList<Season> semestersOff = new ArrayList<>();
+        semestersOff.add(Season.SPRING);
+        semestersOff.add(Season.SUMMER);
+        semestersOff.add(Season.FALL);
+
+        Assert.assertEquals("Testing to see if the DataReader's method loadCourse is loading the correct Course", semestersOff, DataReader.loadCourse().get(0).getSemesterOffer());
+        
+        Assert.assertEquals("Testing to see if the DataReader's method loadCourse is loading the correct Course", "145a02ba-0a74-4eb3-87fb-8c3ecf91f240", DataReader.loadCourse().get(0).getID().toString());
+        Assert.assertEquals("Testing to see if the DataReader's method loadCourse is loading the correct Course", 3, DataReader.loadCourse().get(0).getCreditHours());
+        
+    }
+
+    @Test
+    public void testLoadDegree() {
+        Assert.assertNotNull("Testing to see if the return value of LoadDegree is correct", DataReader.loadDegree());
+        Assert.assertEquals("Testing to see if the degree returned from the DataLoader is correct", );
+    }
 }
