@@ -4,6 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -35,7 +36,7 @@ public class DataWriterReaderTest {
         Assert.assertEquals("The number of users in the userList before adding the new user should be 4", 4, userList.getAllUsers().size());
         Assert.assertEquals("The number of users in the userList before adding the new user should be 4 but using the DataReader", 4, DataReader.loadUser().size());
 
-        userList.getInstance().addUser(student_1);
+        userList.addUser(student_1);
         DataWriter.writeUser();
 
         // This should print out the number of users and the point is its supposed to be whtever
@@ -114,7 +115,34 @@ public class DataWriterReaderTest {
 
     @Test
     public void testLoadDegree() {
+        // Load Degree it working good
         Assert.assertNotNull("Testing to see if the return value of LoadDegree is correct", DataReader.loadDegree());
-        Assert.assertEquals("Testing to see if the degree returned from the DataLoader is correct", );
     }
+
+    @Test
+    public void testWriteDegree() {
+        Season fall = Season.FALL;
+        ArrayList<Season> offeredSeasons = new ArrayList<>();
+        offeredSeasons.add(fall);
+
+        // Assuming Prerequisites constructor or factory methods
+        ArrayList<Prerequisites> prerequisites = new ArrayList<>();
+        prerequisites.add(new Prerequisites(/* parameters if necessary */));
+
+        // Create a mock course
+        Course course1 = new Course("CS", "101", "Intro to Computer Science", "Basics of computer science.", 4, offeredSeasons, prerequisites);
+        
+        // Add mock course to CourseList
+        CourseList courseList = CourseList.getInstance();
+        courseList.addCourse(course1);
+
+        // Create mock degree
+        HashMap<Course, Integer> majorCourses = new HashMap<>();
+        majorCourses.put(course1, 1);
+        ArrayList<ElectiveCategory> electiveList = new ArrayList<>();
+
+        Degree degree1 = new Degree("Bachelor", "Computer Science", 120, majorCourses, electiveList);
+        
+    }
+    
 }
