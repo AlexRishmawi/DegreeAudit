@@ -11,6 +11,13 @@ public class Degree {
     private HashMap<Course, Integer> majorCourses;
     private ArrayList<ElectiveCategory> electiveList;
 
+    public Degree() {
+        this.degreeType = "Bachelor of Undeclared";
+        this.subjectName = "Undeclared";
+        this.totalCreditRequired = 100;
+        this.majorCourses = new HashMap<>();
+        this.electiveList = new ArrayList<>();
+    }
 
     public Degree(String degreeType, String subjectName, int totalCreditRequired, 
         HashMap<Course, Integer> majorCourses, ArrayList<ElectiveCategory> electiveList) 
