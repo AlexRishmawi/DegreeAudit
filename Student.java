@@ -311,7 +311,7 @@ public class Student extends User {
                 result.append(course.toStringCourseAbbr() + "\n --Graded: " + graded + "\n");
         }
 
-        result.append("\n-- 8 Semester Plan:\n" + this.toStringSemesterPlan());
+        result.append("\n-- 8 Semester Plan:\n" + this.toStringSemesterPlanBrief());
         
         return result.toString();
     }
@@ -348,6 +348,14 @@ public class Student extends User {
         StringBuilder result = new StringBuilder();
         for(Semester semester: this.semestersPlan) {
             result.append(semester.toString());
+        }
+        return result.toString();
+    }
+
+    public String toStringSemesterPlanBrief() {
+        StringBuilder result = new StringBuilder();
+        for(Semester semester: this.semestersPlan) {
+            result.append(semester.toStringBrief());
         }
         return result.toString();
     }
