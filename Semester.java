@@ -116,5 +116,18 @@ public class Semester {
         return result.toString();
     }
 
+    public String toStringBrief() {
+        StringBuilder result = new StringBuilder();
+        result.append("===================================================\n");
+        result.append("Semester: " + this.season + " " + this.year + "\t");
+        result.append("Credit Limit: " + this.creditLimit + "\n");
+        result.append("Courses: \n");  
+        for (Course course : courses) {
+            result.append("\t-- " + course.toStringCourseAbbr() + "\n");
+        }
+        result.append("--------------------------------------------------\n");
+        return result.toString();
+    }
+
 
 }
