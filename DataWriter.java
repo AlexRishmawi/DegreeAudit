@@ -16,9 +16,7 @@ import java.util.UUID;
 public class DataWriter extends DataConstants {
 
     @SuppressWarnings("unchecked")
-    public static void writeDegree() {
-        DegreeList degreeList = DegreeList.getInstance();
-        ArrayList<Degree> allDegrees = degreeList.getAllDegree();
+    public static void writeDegree(ArrayList<Degree> allDegrees) {
         JSONArray allDegreeObject = new JSONArray();
         for (Degree degree : allDegrees) {
             HashMap<String, Object> degreeObject = new HashMap<>();
@@ -40,9 +38,7 @@ public class DataWriter extends DataConstants {
     }
 
     @SuppressWarnings("unchecked")
-    public static void writeCourse() {
-        CourseList courseList = CourseList.getInstance();
-        ArrayList<Course> allCourses = courseList.getAllCourse();
+    public static void writeCourse(ArrayList<Course> allCourses) {
         JSONArray allCourseObject = new JSONArray();
         for (Course course : allCourses) {
             HashMap<String, Object> courseObject = new HashMap<>();
@@ -69,10 +65,7 @@ public class DataWriter extends DataConstants {
     }
 
     @SuppressWarnings("unchecked")
-    public static void writeUser() {
-        UserList userList = UserList.getInstance();
-        ArrayList<User> allUsers = userList.getAllUsers();
-        System.out.println("Number of Users before adding a new one: " + allUsers.size());
+    public static void writeUser(ArrayList<User> allUsers) {
         JSONArray allStudentObject = new JSONArray();
         JSONArray allAdvisorObject = new JSONArray();
 
@@ -112,15 +105,22 @@ public class DataWriter extends DataConstants {
         map.put("type", "Student");
         map.put(STUDENT_ID, student.getStudentID());
         map.put(STUDENT_CLASSIFICATION, student.getLevel().toString());
-        map.put(STUDENT_ADVISOR_ID, student.getAdvisor().getID().toString());
 
+        if (student.getAdvisor() != null) {
+            map.put(STUDENT_ADVISOR_ID, student.getAdvisor().getID().toString());
+        } else {
+            map.put(STUDENT_ADVISOR_ID, "");
+        }
         JSONArray notesJson = new JSONArray();
         for (String note : student.getNotes()) {
             notesJson.add(note);
         }
         map.put(STUDENT_NOTES, notesJson);
 
+
         map.put(STUDENT_DEGREE_ID, student.getDegree().getID().toString());
+
+
         map.put(STUDENT_INSTITUTE_GPA, student.getInstituteGPA());
         map.put(STUDENT_PROGRAM_GPA, student.getProgramGPA());
         map.put(STUDENT_STATUS, student.getStatus());
@@ -179,6 +179,8 @@ public class DataWriter extends DataConstants {
 
     @SuppressWarnings("unchecked")
     private static JSONObject serializeSemester(Semester semester) {
+        if (semester == null)
+            return new JSONObject();
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
         map.put(SEMESTER_SEASON, semester.getSeason().toString());
         map.put(SESMESTER_YEAR, semester.getYear());
@@ -197,15 +199,5 @@ public class DataWriter extends DataConstants {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        UserList userList = UserList.getInstance();
-        // System.out.println(userList.getAllUsers().toString());
-        DataWriter.writeUser();
-
-        DataWriter.writeCourse();
-
-        DataWriter.writeDegree();
     }
 }

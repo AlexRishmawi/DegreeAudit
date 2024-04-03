@@ -47,8 +47,10 @@ public class DegreeWork {
     }
 
     public boolean logout() {
-        return (this.currentUser = null) == null;
-        // Write Data back to database
+        return (this.currentUser = null) == null &&
+            this.userList.writeToFile() &&
+            this.degreeList.writeToFile() &&
+            this.courseList.writeToFile();
     }
 
     public boolean createUser(String type, String firstName, String lastName, String password, String studentID, String email) {
@@ -58,10 +60,10 @@ public class DegreeWork {
     public Student createStudent(String firstName, String lastName, String email, String password, String studentID,
             String level, Advisor advisor, ArrayList<String> notes, Degree degree,
             double instituteGPA, double programGPA, String status) {
-        
         Student tempStudent = new Student(firstName, lastName, email, password, studentID, level, advisor, notes, degree, instituteGPA, programGPA, status, new HashMap<Course, String>(), null, new ArrayList<>());
         this.userList.addUser(tempStudent);
-        setCurrentStudent(tempStudent.getID());
+        this.degreeList.addDegree(degree);
+        setCurrentUser(tempStudent);
         return tempStudent;
     }
 

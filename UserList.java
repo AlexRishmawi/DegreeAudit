@@ -95,10 +95,6 @@ public class UserList {
         return null;
     }
 
-    public boolean writeUser() {
-        return true;
-    }
-
     // ----- Other user mthod -----
     /**
      * Creates a new user of the specified type and adds it to the list.
@@ -185,8 +181,8 @@ public class UserList {
         return this.users;
     }
 
-    public static void main(String[] args) {
-        UserList userList = UserList.getInstance();
-        System.out.println(userList.getUser("bobsmith@email.sc.edu", "password"));
+    public boolean writeToFile() {
+        DataWriter.writeUser(this.users);
+        return true;
     }
 }

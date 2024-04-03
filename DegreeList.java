@@ -32,8 +32,14 @@ public class DegreeList {
         return null;
     }
 
-    public boolean writeDegree() {
+    public boolean writeToFile() {
+        DataWriter.writeDegree(this.degrees);
         return true;
+    }
+
+    public boolean addDegree(Degree degree) {
+        this.degrees.add(degree);
+        return this.degrees.contains(degree);
     }
 
     /**

@@ -12,6 +12,7 @@ public class Degree {
     private ArrayList<ElectiveCategory> electiveList;
 
     public Degree() {
+        this.id = UUID.randomUUID();
         this.degreeType = "Bachelor of Undeclared";
         this.subjectName = "Undeclared";
         this.totalCreditRequired = 100;

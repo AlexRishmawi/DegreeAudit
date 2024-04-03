@@ -248,8 +248,19 @@ public class Student extends User {
 
         // Generate the course need to take
         ArrayList<Course> semesterCourse = new ArrayList<>();
-        String currSeason = "Fall";
-        int currYear = 2024;
+
+        // Set the season and year of semester
+        String currSeason;
+        int currYear;
+        if(this.allSemester.size() != 0) {
+            Semester lastSemester = this.allSemester.getLast();
+            currSeason = lastSemester.getSeason().toString();
+            currYear = lastSemester.getYear();
+        } else {
+            currSeason = "Fall";
+            currYear = 2024;
+        }
+
 
         int creditLimitLeft = 18;
         for (int level = 1; level <= 8; level++) {
@@ -268,7 +279,6 @@ public class Student extends User {
                 } else {
                     Semester tempSemester = new Semester(currSeason, currYear, 18 - creditLimitLeft, new ArrayList<>(semesterCourse));
                     this.semestersPlan.add(tempSemester);
-                    System.out.println(tempSemester.toString());
 
                     if (currSeason.equalsIgnoreCase("fall")) {
                         currSeason = "Spring";
