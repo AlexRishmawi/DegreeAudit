@@ -32,6 +32,10 @@ public class Prerequisites {
     }
 
     public void setCourseOptions(ArrayList<Course> courseOptions) {
+        if (courseOptions == null) {
+            this.courseOptions = new ArrayList<Course>();
+            return;
+        }
         this.courseOptions = courseOptions;
     }
 
