@@ -99,7 +99,7 @@ public class Course {
     }
 
     public String toStringCourseAbbr() {
-        return this.subject + this.code;
+        return this.subject + " " + this.code;
     }
 
     /**

@@ -52,6 +52,7 @@ public class DegreeListTest {
     public void testGetDegreeInList() {
         DegreeList degreeList = DegreeList.getInstance();
         Degree degree = new Degree("Bachelor of Science", "Computer Science", 120, null, null);
+        degreeList.addDegree(degree);
         assertTrue(degreeList.getDegree(degree.getID()).equals(degree));
     }
 
@@ -65,14 +66,14 @@ public class DegreeListTest {
     @Test
     public void testWriteDegree() {
         DegreeList degreeList = DegreeList.getInstance();
-        assertTrue(degreeList.writeDegree());
+        assertTrue(degreeList.writeToFile());
     }
 
     @Test  // This test logic not right
     public void testWriteDegreeEmptyList() {
         DegreeList degreeList = DegreeList.getInstance();
         degreeList.getAllDegree().clear();
-        assertTrue(degreeList.writeDegree());
+        assertTrue(degreeList.writeToFile());
     }
 
     

@@ -11,7 +11,8 @@ public class PrerequisitesTest {
         Prerequisites prerequisites = new Prerequisites();
         assertTrue(prerequisites.getChoices() == 0 && 
             prerequisites.getMinGrade().equals("F") &&
-            prerequisites.getCourseOptions() == null);
+            prerequisites.getCourseOptions().size() == 0 &&
+            prerequisites.getCourseOptions() != null);
     }
 
     @Test
@@ -19,7 +20,8 @@ public class PrerequisitesTest {
         Prerequisites prerequisites = new Prerequisites(1, "C", null);
         assertTrue(prerequisites.getChoices() == 1 && 
             prerequisites.getMinGrade().equals("C") &&
-            prerequisites.getCourseOptions() == null);
+            prerequisites.getCourseOptions().size() == 0 &&
+            prerequisites.getCourseOptions() != null);
     }
 
     // toString() test
@@ -44,7 +46,7 @@ public class PrerequisitesTest {
         Prerequisites prerequisites = new Prerequisites(1, "C", null);
         Course course = new Course("CSCE", "101", "Introduction to Computer Science", "Description", 3, new ArrayList<Season>(), new ArrayList<Prerequisites>());
         prerequisites.getCourseOptions().add(course);
-        String expected = "\n-- Min Grade: C\n-- Course Options: CSC 101\n";
+        String expected = "\n-- Min Grade: C\n-- Course Options: CSCE 101\n";
         String actual = prerequisites.toString();
         assertTrue(expected.equals(actual));
     }
