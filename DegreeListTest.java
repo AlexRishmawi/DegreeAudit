@@ -73,7 +73,7 @@ public class DegreeListTest {
     public void testWriteDegreeEmptyList() {
         DegreeList degreeList = DegreeList.getInstance();
         degreeList.getAllDegree().clear();
-        assertTrue(degreeList.writeDegree());
+        assertTrue(degreeList.writeToFile());
     }
 
     
